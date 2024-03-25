@@ -22,7 +22,7 @@ export class CityComponent {
 
     dialogRef.afterClosed().subscribe(data => {
       data.cityId = this.city?.id;
-      //data.countryId = this.city?.country.id;
+      data.countryId = this.city?.country.id;
       this.data.createTodo(data).subscribe({
         next:todo=>{
           this.city?.toDos.push(todo);
