@@ -536,3 +536,4 @@ D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\refint\TravelPla
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp.pdb
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp.genruntimeconfig.cache
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\ref\TravelPlannerApp.dll
+D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp.sourcelink.json
