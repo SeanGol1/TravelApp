@@ -15,25 +15,25 @@ namespace TravelPlannerApp.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly IRepo repo;
+        private readonly IRepo _repo;
 
-        public CountriesController( IRepo _repo)
+        public CountriesController( IRepo repo)
         {
-            repo = _repo;
+            _repo = repo;
         }
 
         // GET: api/Countries
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Country>>> GetCountry()
         {
-            return Ok( await repo.GetCountryAsync());
+            return Ok( await _repo.GetCountryAsync());
         }
 
         // GET: api/Countries/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Country>> GetCountry(int id)
         {
-            var country = await repo.GetCountrybyIdAsync(id);
+            var country = await _repo.GetCountrybyIdAsync(id);
 
             if (country == null)
             {
@@ -83,8 +83,8 @@ namespace TravelPlannerApp.Controllers
             country.Name = dto.Name;
             country.StartDate = dto.StartDate;
             country.EndDate = dto.EndDate;
-            country.Plan = await repo.GetPlanbyIdAsync(dto.PlanId);
-            repo.PostCountryAsync(country);
+            country.Plan = await _repo.GetPlanbyIdAsync(dto.PlanId);
+            _repo.PostCountryAsync(country);
 
             return CreatedAtAction("GetCountry", new { id = country.Id }, country);
         }

@@ -35,22 +35,18 @@ namespace TravelPlannerApp.Controllers
         {
             Plan plan = await _context.Plan.FindAsync(id);
             plan.Countries = await _context.Country.Where(c => c.Plan.Id == id).ToListAsync();
+            foreach (var country in plan.Countries)
+            {
+                country.Cities = await _context.City.Where(c => c.Country.Id == country.Id).ToListAsync();
+                foreach (var cities in country.Cities)
+                {
+                    cities.ToDos = await _context.ToDo.Where(c => c.City.Id == cities.Id).ToListAsync();
+                }
+            }
+
             if (plan == null)
             {
                 return NotFound();
-            }
-
-            return plan;
-        }
-
-        [HttpGet("intPlan/{id}")]
-        public async Task<Plan> GetIntPlan(int id)
-        {
-            var plan = await _context.Plan.FindAsync(id);
-
-            if (plan == null)
-            {
-                //return NotFound();
             }
 
             return plan;

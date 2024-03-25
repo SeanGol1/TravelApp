@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Humanizer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,49 +14,49 @@ namespace TravelPlannerApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CitiesController : ControllerBase
+    public class ToDosController : ControllerBase
     {
         private readonly TravelPlannerAppContext _context;
         private readonly IRepo _repo;
 
-        public CitiesController(TravelPlannerAppContext context, IRepo repo)
+        public ToDosController(TravelPlannerAppContext context, IRepo repo)
         {
             _context = context;
-            this._repo = repo;
+            _repo = repo;
         }
 
-        // GET: api/Cities
+        // GET: api/ToDos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<City>>> GetCity()
+        public async Task<ActionResult<IEnumerable<ToDo>>> GetToDo()
         {
-            return await _context.City.ToListAsync();
+            return await _context.ToDo.ToListAsync();
         }
 
-        // GET: api/Cities/5
+        // GET: api/ToDos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<City>> GetCity(int id)
+        public async Task<ActionResult<ToDo>> GetToDo(int id)
         {
-            var city = await _context.City.FindAsync(id);
+            var toDo = await _context.ToDo.FindAsync(id);
 
-            if (city == null)
+            if (toDo == null)
             {
                 return NotFound();
             }
 
-            return city;
+            return toDo;
         }
 
-        // PUT: api/Cities/5
+        // PUT: api/ToDos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCity(int id, City city)
+        public async Task<IActionResult> PutToDo(int id, ToDo toDo)
         {
-            if (id != city.Id)
+            if (id != toDo.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(city).State = EntityState.Modified;
+            _context.Entry(toDo).State = EntityState.Modified;
 
             try
             {
@@ -63,7 +64,7 @@ namespace TravelPlannerApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CityExists(id))
+                if (!ToDoExists(id))
                 {
                     return NotFound();
                 }
@@ -76,40 +77,39 @@ namespace TravelPlannerApp.Controllers
             return NoContent();
         }
 
-        // POST: api/Cities
+        // POST: api/ToDos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<City>> PostCity(CreateCityDto dto)
+        public async Task<ActionResult<ToDo>> PostToDo(CreateToDoDto dto)
         {
-            City city = new City();
-            city.Name = dto.Name;
-            city.StartDate = dto.StartDate;
-            city.EndDate = dto.EndDate;
-            city.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);
-            _repo.PostCityAsync(city);
+            ToDo todo = new ToDo();
+            todo.Name = dto.Name;
+            todo.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);
+            todo.City = await _repo.GetCitybyIdAsync(dto.CityId);
+            _repo.PostToDoAsync(todo);
 
-            return CreatedAtAction("GetCity", new { id = city.Id }, city);
+            return CreatedAtAction("GetToDo", new { id = todo.Id }, todo);
         }
 
-        // DELETE: api/Cities/5
+        // DELETE: api/ToDos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCity(int id)
+        public async Task<IActionResult> DeleteToDo(int id)
         {
-            var city = await _context.City.FindAsync(id);
-            if (city == null)
+            var toDo = await _context.ToDo.FindAsync(id);
+            if (toDo == null)
             {
                 return NotFound();
             }
 
-            _context.City.Remove(city);
+            _context.ToDo.Remove(toDo);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CityExists(int id)
+        private bool ToDoExists(int id)
         {
-            return _context.City.Any(e => e.Id == id);
+            return _context.ToDo.Any(e => e.Id == id);
         }
     }
 }

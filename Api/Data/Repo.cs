@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Diagnostics.Metrics;
 using TravelPlannerApp.Models;
 
 namespace TravelPlannerApp.Data
@@ -13,9 +14,19 @@ namespace TravelPlannerApp.Data
             this.context = _DbContext;
         }
 
+        public async Task<IEnumerable<City>> GetCityAsync()
+        {
+            return await context.City.ToListAsync();
+        }
+
+        public async Task<City> GetCitybyIdAsync(int id)
+        {
+            return await context.City.FindAsync(id);
+        }
+
         public async Task<IEnumerable<Country>> GetCountryAsync()
         {
-            return await context.Country.ToListAsync();
+            return await context.Country.Include(c=> c.Cities).ToListAsync();
         }
 
         public async Task<Country> GetCountrybyIdAsync(int id)
@@ -34,11 +45,35 @@ namespace TravelPlannerApp.Data
 
         }
 
+        public async Task<IEnumerable<ToDo>> GetToDoAsync()
+        {
+            return await context.ToDo.ToListAsync();
+        }
+
+        public async Task<ToDo> GetToDobyIdAsync(int id)
+        {
+            return await context.ToDo.FindAsync(id);
+        }
+
+        public async Task<City> PostCityAsync(City city)
+        {
+            context.City.Add(city);
+            await context.SaveChangesAsync();
+            return city;
+        }
+
         public async Task<Country> PostCountryAsync(Country country)
         {
             context.Country.Add(country);
             await context.SaveChangesAsync();
             return country;
+        }
+
+        public async Task<ToDo> PostToDoAsync(ToDo todo)
+        {
+            context.ToDo.Add(todo);
+            await context.SaveChangesAsync();
+            return todo;
         }
     }
 }
