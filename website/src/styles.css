@@ -9,18 +9,21 @@
     background-color: #7af496;
     border: 2px solid black;
     border-radius: 5px;
+    margin-left: 2%;
 }
 
 .city-item{
     background-color: #f47ab3;
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 5px;    
+    margin-left: 2%;
 }
 
 .todo-item{
     background-color: #d6f47a;
     border: 2px solid black;
     border-radius: 5px;
+    margin-left: 2%;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

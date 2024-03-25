@@ -14,6 +14,7 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddCountryDialogComponent } from './add-country-dialog/add-country-dialog.component';
+import { DataService } from '../data.service';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -22,17 +23,22 @@ import { AddCountryDialogComponent } from './add-country-dialog/add-country-dial
 export class PlanComponent {
   @Input() plan:Plan | undefined ;
 
-  constructor(public dialog: MatDialog){
+  constructor(public dialog: MatDialog,private data:DataService){
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddCountryDialogComponent, {
-      data: {name: this.plan?.planName},
+      data: {plan: this.plan},
     });
 
-    dialogRef.afterClosed().subscribe(plan => {
+    dialogRef.afterClosed().subscribe(data => {
       console.log('The dialog was closed');
-      this.plan = plan;
+      data.planId = this.plan?.id;
+      this.data.createCountry(data).subscribe({
+        next:country=>{
+          this.plan?.countries.push(country);
+        }
+      });
     });
   }
 

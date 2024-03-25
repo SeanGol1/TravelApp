@@ -1,9 +1,12 @@
-<div class="plan-item row">
-    <div class="col-8">
-        <h1>{{plan?.planName}}</h1>
-    </div>
-    <div class="col-4">
-        <button mat-raised-button (click)="openDialog()">Add Country</button>
+<div class="plan-item">
+    <div class="row">
+        <div class="col-8">
+            <h1>{{plan?.planName}}</h1>
+        </div>
+
+        <div class="col-4">
+            <button mat-raised-button (click)="openDialog()">Add Country</button>
+        </div>
     </div>
     <div *ngFor="let country of plan?.countries">
         <app-country [country]="country"></app-country>

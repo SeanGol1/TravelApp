@@ -8,7 +8,7 @@ import { Plan } from './models/plan';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'website';
+  title = 'TravelPlanner';
   plan:Plan | undefined;
 
   constructor(private data:DataService){

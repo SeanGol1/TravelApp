@@ -9,13 +9,15 @@ import { PlanComponent } from './plan/plan.component';
 import { CountryComponent } from './country/country.component';
 import { CityComponent } from './city/city.component';
 import { TodoComponent } from './todo/todo.component';
-//import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { AddCountryDialogComponent } from './plan/add-country-dialog/add-country-dialog.component';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AddCityDialogComponent } from './country/add-city-dialog/add-city-dialog.component';
+import { AddTodoDialogComponent } from './city/add-todo-dialog/add-todo-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, Ma
     CountryComponent,
     CityComponent,
     TodoComponent,
-    AddCountryDialogComponent
+    AddCountryDialogComponent,
+    AddCityDialogComponent,
+    AddTodoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,8 +48,8 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, Ma
     MatDialogActions,
     MatDialogClose,
   ],
-  providers: [
-   // provideAnimationsAsync()
+  providers: [  
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
