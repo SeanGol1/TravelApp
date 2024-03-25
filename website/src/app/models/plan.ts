@@ -2,6 +2,6 @@ import { Country } from "./country";
 
 export interface Plan {
     id:number;
-    planname : string;
+    planName : string;
     countries: Country[];
 }

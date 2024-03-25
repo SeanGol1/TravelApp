@@ -1,16 +1,7 @@
 <div class="row">
-  <ng-container *ngIf="plan?.planname != ''">
-    <div class="plan-item col-12">
-      <h1>{{plan?.planname}}</h1>
-      <div class="country-item" *ngFor="let country of plan?.countries">
-        <h2>{{country.name}}</h2>
-        <div class="city-item" *ngFor="let city of country?.cities">
-          <h3>{{city.name}}</h3>
-          <div class="todo-item" *ngFor="let todo of city?.toDos">
-            <h4>{{todo.name}}</h4>  
-          </div>
-        </div>
-      </div>
+  <ng-container *ngIf="plan">
+    <div class="col-12">
+      <app-plan [plan]="plan"></app-plan>      
     </div>
   </ng-container>
   <div *ngIf="!plan">

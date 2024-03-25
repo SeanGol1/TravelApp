@@ -1,0 +1,8 @@
+<div class="plan-item row">
+    <div class="col-12">
+        <h1>{{plan?.planName}}</h1>
+    </div>
+    <div *ngFor="let country of plan?.countries">
+        <app-country [country]="country"></app-country>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<div class="city-item">
+    <h3>{{city?.name}}</h3>
+    <div *ngFor="let todo of city?.toDos">
+        <app-todo [todo]="todo"></app-todo>
+    </div>
+</div>

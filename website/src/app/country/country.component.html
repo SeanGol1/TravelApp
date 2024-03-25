@@ -1,0 +1,6 @@
+<div class="country-item">
+    <h2>{{country?.name}}</h2>
+    <div *ngFor="let city of country?.cities">
+        <app-city [city]="city"></app-city>
+    </div>
+</div>
