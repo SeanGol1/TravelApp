@@ -7,8 +7,24 @@
             <button mat-raised-button (click)="openDialog()">Add To-Do</button>
         </div>
     </div>
+    <div
+    cdkDropList
+    [cdkDropListData]="city?.toDos"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    @for (todo of city?.toDos; track todo) {
+      <!-- <div class="example-box" cdkDrag>{{item}}</div> -->
+      <app-todo cdkDrag [todo]="todo"></app-todo>
+    }
+  </div>
 
-    <div *ngFor="let todo of city?.toDos">
-        <app-todo [todo]="todo"></app-todo>
-    </div>
+
+<!-- 
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (todo of city?.toDos; track todo) {
+        <app-todo cdkDrag [todo]="todo"></app-todo>
+
+        }
+      </div> -->
+
 </div>

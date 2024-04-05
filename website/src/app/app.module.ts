@@ -18,6 +18,14 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, Ma
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AddCityDialogComponent } from './country/add-city-dialog/add-city-dialog.component';
 import { AddTodoDialogComponent } from './city/add-todo-dialog/add-todo-dialog.component';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +55,7 @@ import { AddTodoDialogComponent } from './city/add-todo-dialog/add-todo-dialog.c
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    CdkDropList, CdkDrag
   ],
   providers: [  
     provideAnimationsAsync()

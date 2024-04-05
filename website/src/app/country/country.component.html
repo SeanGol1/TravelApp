@@ -7,7 +7,7 @@
             <button mat-raised-button (click)="openDialog()">Add City</button>
         </div>
     </div>
-    <div *ngFor="let city of country?.cities">
+    <div *ngFor="let city of country?.cities" cdkDropListGroup>
         <app-city [city]="city"></app-city>
     </div>
 </div>

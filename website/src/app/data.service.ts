@@ -17,7 +17,7 @@ export class DataService {
 
   constructor(private http: HttpClient ) { }
 
-  getPlanById(id:number){
+  getPlanById(id:number){ 
     return this.http.get<Plan>(this.baseUrl + 'plans/' + id);
   }
 
@@ -31,4 +31,6 @@ export class DataService {
   createTodo(data:TodoDialogData){
     return this.http.post<ToDo>(this.baseUrl + 'todos/',data);
   }
+
+
 }
