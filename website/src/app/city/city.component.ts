@@ -28,19 +28,19 @@ export class CityComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if(this.city)
-      this.dropCityVariableName = '#drop' + this.city?.id;
-    else
-      this.dropCityVariableName =   "#drop" + Math.random().toString(16).slice(2)
+    // if(this.city)
+    //   this.dropCityVariableName = '#drop' + this.city?.id;
+    // else
+    //   this.dropCityVariableName =   "#drop" + Math.random().toString(16).slice(2)
   }
 
-  drop(event: CdkDragDrop<ToDo[]| undefined>) {
+  drop(event: CdkDragDrop<ToDo[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data!, event.previousIndex, event.currentIndex);
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(
-        event.previousContainer.data!,
-        event.container.data!,
+        event.previousContainer.data,
+        event.container.data,
         event.previousIndex,
         event.currentIndex,
       );

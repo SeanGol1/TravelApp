@@ -24,7 +24,10 @@ import {
   transferArrayItem,
   CdkDrag,
   CdkDropList,
+  DragDrop,
+  CdkDropListGroup,
 } from '@angular/cdk/drag-drop';
+import { DragdropTestComponent } from './dragdrop-test/dragdrop-test.component';
 
 
 @NgModule({
@@ -36,7 +39,8 @@ import {
     TodoComponent,
     AddCountryDialogComponent,
     AddCityDialogComponent,
-    AddTodoDialogComponent
+    AddTodoDialogComponent,
+    DragdropTestComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,9 @@ import {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    CdkDropList, CdkDrag
+    CdkDropList, 
+    CdkDrag,
+    CdkDropListGroup
   ],
   providers: [  
     provideAnimationsAsync()

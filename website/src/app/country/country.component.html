@@ -1,13 +1,17 @@
 <div class="country-item">
     <div class="row">
         <div class="col-8">
-            <h2>{{country?.name}}</h2>
+            <p><b>{{country?.name}} </b>
+            <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" /></p>
         </div>
+
         <div class="col-4">
             <button mat-raised-button (click)="openDialog()">Add City</button>
         </div>
     </div>
-    <div *ngFor="let city of country?.cities" cdkDropListGroup>
-        <app-city [city]="city"></app-city>
+    <div >
+        <div *ngFor="let city of country?.cities">
+            <app-city [city]="city"></app-city>
+        </div>
     </div>
 </div>

@@ -32,5 +32,9 @@ export class DataService {
     return this.http.post<ToDo>(this.baseUrl + 'todos/',data);
   }
 
+  getCountry(name:string){
+    return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
+  }
+
 
 }

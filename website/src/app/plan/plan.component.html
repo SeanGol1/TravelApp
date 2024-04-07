@@ -1,4 +1,4 @@
-<div class="plan-item">
+<div class="plan-item" cdkDropListGroup>
     <div class="row">
         <div class="col-8">
             <h1>{{plan?.planName}}</h1>
@@ -8,7 +8,7 @@
             <button mat-raised-button (click)="openDialog()">Add Country</button>
         </div>
     </div>
-    <div *ngFor="let country of plan?.countries">
+    <div  *ngFor="let country of plan?.countries">
         <app-country [country]="country"></app-country>
     </div>
 </div>
