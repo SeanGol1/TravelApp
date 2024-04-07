@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Humanizer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -53,15 +54,15 @@ namespace TravelPlannerApp.Controllers
                 return BadRequest();
             }
 
-            //_context.Entry(country).State = EntityState.Modified;
+            
 
             try
             {
-                //await _context.SaveChangesAsync();
+                await _repo.UpdateCountryAsync(country);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryExists(id))
+                if (!await CountryExists(id))
                 {
                     return NotFound();
                 }
@@ -84,7 +85,25 @@ namespace TravelPlannerApp.Controllers
             country.StartDate = dto.StartDate;
             country.EndDate = dto.EndDate;
             country.Plan = await _repo.GetPlanbyIdAsync(dto.PlanId);
-            _repo.PostCountryAsync(country);
+            await _repo.PostCountryAsync(country);
+
+            return CreatedAtAction("GetCountry", new { id = country.Id }, country);
+        }
+
+
+        [Route("update")]
+        [HttpPost]
+        public async Task<ActionResult<Country>> UpdateCountry(UpdateCountryDto dto)
+        {
+            Country country = await _repo.GetCountrybyIdAsync(dto.Id);
+            country.StartDate = dto.StartDate;
+            country.EndDate = dto.EndDate;
+            country.Name = dto.Name;
+            if(await CountryExists(dto.Id))
+            {
+                await _repo.UpdateCountryAsync(country);
+            }
+            else { return BadRequest(); }
 
             return CreatedAtAction("GetCountry", new { id = country.Id }, country);
         }
@@ -105,9 +124,9 @@ namespace TravelPlannerApp.Controllers
             return NoContent();
         }
 
-        private bool CountryExists(int id)
+        private async Task<bool> CountryExists(int id)
         {
-            return false;//_context.Country.Any(e => e.Id == id);
+            return await _repo.CountryExists(id);
         }
     }
 }

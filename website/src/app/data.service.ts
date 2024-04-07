@@ -7,6 +7,7 @@ import { CityDialogData } from './country/add-city-dialog/add-city-dialog.compon
 import { City } from './models/city';
 import { TodoDialogData } from './city/add-todo-dialog/add-todo-dialog.component';
 import { ToDo } from './models/todo';
+import { UpdateCountryDialogData } from './country/country-info-dialog/country-info-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,8 @@ export class DataService {
     return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
   }
 
+  updateCountry(data:UpdateCountryDialogData){
+    return this.http.post<Country>(this.baseUrl + 'countries/update/',data);
+  }
 
 }

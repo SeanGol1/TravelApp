@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Edit Country</h2>
+<mat-dialog-content>
+
+    <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" />
+    <p>Currency: {{countryinfo?.currencies[0]}}</p>
+    <p>Time Zone: {{countryinfo?.timezones}}</p>
+    <a href="{{countryinfo?.maps.googleMaps}}">Google Maps</a>
+
+    <p>______________________________</p>
+
+
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="data.name" placeholder="{{data.name}}">
+    </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate [(ngModel)]="data.startDate" placeholder="Start date">
+          <input matEndDate [(ngModel)]="data.endDate" placeholder="End date">
+        </mat-date-range-input>
+        <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+
+
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Update</button>
+</mat-dialog-actions>

@@ -1,7 +1,7 @@
 <div class="country-item">
     <div class="row">
         <div class="col-8">
-            <p><b>{{country?.name}} </b>
+            <p (click)="openInfoDialog()"><b>{{country?.name}} </b>
             <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" /></p>
         </div>
 
@@ -9,7 +9,7 @@
             <button mat-raised-button (click)="openDialog()">Add City</button>
         </div>
     </div>
-    <div >
+    <div>
         <div *ngFor="let city of country?.cities">
             <app-city [city]="city"></app-city>
         </div>

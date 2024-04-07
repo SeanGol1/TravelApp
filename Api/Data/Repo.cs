@@ -64,6 +64,7 @@ namespace TravelPlannerApp.Data
 
         public async Task<Country> PostCountryAsync(Country country)
         {
+            
             context.Country.Add(country);
             await context.SaveChangesAsync();
             return country;
@@ -74,6 +75,18 @@ namespace TravelPlannerApp.Data
             context.ToDo.Add(todo);
             await context.SaveChangesAsync();
             return todo;
+        }
+
+        public async Task<Country> UpdateCountryAsync(Country country)
+        {
+            context.Entry(country).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return country;
+        }
+
+        public async Task<bool> CountryExists(int id)
+        {
+            return context.Country.Any(e => e.Id == id);
         }
     }
 }

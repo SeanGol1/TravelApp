@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -28,6 +28,9 @@ import {
   CdkDropListGroup,
 } from '@angular/cdk/drag-drop';
 import { DragdropTestComponent } from './dragdrop-test/dragdrop-test.component';
+import { CountryInfoDialogComponent } from './country/country-info-dialog/country-info-dialog.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -40,7 +43,8 @@ import { DragdropTestComponent } from './dragdrop-test/dragdrop-test.component';
     AddCountryDialogComponent,
     AddCityDialogComponent,
     AddTodoDialogComponent,
-    DragdropTestComponent
+    DragdropTestComponent,
+    CountryInfoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,10 +65,14 @@ import { DragdropTestComponent } from './dragdrop-test/dragdrop-test.component';
     MatDialogClose,
     CdkDropList, 
     CdkDrag,
-    CdkDropListGroup
+    CdkDropListGroup,
+    MatDatepickerModule,
+    MatNativeDateModule 
   ],
   providers: [  
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    MatDatepickerModule,
+    [{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}]
   ],
   bootstrap: [AppComponent]
 })

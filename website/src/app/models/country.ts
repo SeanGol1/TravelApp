@@ -5,5 +5,7 @@ export interface Country {
     id:number;
     name : string;
     plan : Plan;
+    startDate:Date;
+    endDate:Date;
     cities: City[];
 }

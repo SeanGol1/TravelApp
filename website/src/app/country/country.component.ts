@@ -3,6 +3,7 @@ import { Country } from '../models/country';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../data.service';
 import { AddCityDialogComponent } from './add-city-dialog/add-city-dialog.component';
+import { CountryInfoDialogComponent } from './country-info-dialog/country-info-dialog.component';
 
 @Component({
   selector: 'app-country',
@@ -21,6 +22,20 @@ export class CountryComponent implements OnInit{
     })
   }
 
+  openInfoDialog(): void {
+    const dialogRef = this.dialog.open(CountryInfoDialogComponent, {
+      data: this.country,
+    });
+
+    dialogRef.afterClosed().subscribe(c => {
+      //data.countryId = this.country.id;
+      this.data.updateCountry(c).subscribe({
+        next:country=>{
+          //this.country = country
+        }
+      });
+    });
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddCityDialogComponent, {
