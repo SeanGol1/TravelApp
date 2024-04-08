@@ -2,11 +2,29 @@
 <mat-dialog-content>
   <p></p>
   <mat-form-field>
+    <mat-label>Select Country</mat-label>
+    <mat-select [(ngModel)]="todo.countryId" name="country" (selectionChange)="filterCity()">
+      @for (country of data.plan.countries; track country) {
+        <mat-option [value]="country.id">{{country.name}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Select City</mat-label>
+    <mat-select [(ngModel)]="todo.cityId" name="city" >
+      @for (city of cityList; track city) {
+        <mat-option [value]="city.id">{{city.name}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.name">
+    <input matInput [(ngModel)]="todo.name">
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="todo" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>

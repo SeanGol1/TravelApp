@@ -1,11 +1,11 @@
 <div class="city-item" >  
   <div class="row">
-    <div class="col-8">
+    <div class="col-12">
       <p>{{city?.name}}</p>
     </div>
-    <div class="col-4">
+    <!-- <div class="col-4">
       <button mat-raised-button (click)="openDialog()">Add To-Do</button>
-    </div>
+    </div> -->
   </div>
   <div cdkDropList [cdkDropListData]="city?.toDos" (cdkDropListDropped)="drop($event)" class="citydroplist">
     @for (todo of city?.toDos; track todo) {

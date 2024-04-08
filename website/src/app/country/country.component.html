@@ -1,16 +1,16 @@
 <div class="country-item">
     <div class="row">
-        <div class="col-4">
+        <div class="col-6">
             <p (click)="openInfoDialog()"><b>{{country?.name}} </b>
             <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" /></p>           
         </div>
-        <div class="col-5">
+        <div class="col-6">
             <p>{{getDate(country?.startDate)}} => {{getDate(country?.endDate)}}</p>
         </div>
 
-        <div class="col-3">
+        <!-- <div class="col-3">
             <button mat-raised-button (click)="openDialog()">Add City</button>
-        </div>
+        </div> -->
     </div>
     <div>
         <div *ngFor="let city of country?.cities">

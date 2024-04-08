@@ -17,6 +17,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddCountryDialogComponent } from './add-country-dialog/add-country-dialog.component';
 import { DataService } from '../data.service';
 import { AddCityDialogComponent } from '../country/add-city-dialog/add-city-dialog.component';
+import { AddTodoDialogComponent } from '../city/add-todo-dialog/add-todo-dialog.component';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -58,6 +59,27 @@ export class PlanComponent {
           this.plan.countries.forEach(c => {
             if(c.id == data.countryId)
               c.cities.push(city);
+          }); 
+        }
+      });
+    });
+  }
+
+  openToDoDialog(): void {
+    const dialogRef = this.dialog.open(AddTodoDialogComponent, {
+      data: {plan: this.plan},
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('The dialog was closed');
+      this.data.createTodo(data).subscribe({
+        next:todo=>{
+          this.plan.countries.forEach(c => {
+            c.cities.forEach(city=>{
+              if(city.id == data.coun)
+                city.toDos.push(todo);
+            })
+            
           }); 
         }
       });
