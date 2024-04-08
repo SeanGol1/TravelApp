@@ -39,25 +39,36 @@ export class DataService {
     return this.http.post<Country>(this.baseUrl + 'countries/',data,{'headers': this.headers});
   }
 
+  updateCountry(data:UpdateCountryDialogData){
+    return this.http.post<Country>(this.baseUrl + 'countries/update/',data,{'headers': this.headers});
+  }
+
+  deleteCountry(id:number){
+    return this.http.delete(this.baseUrl + 'countries/' + id,{'headers': this.headers});
+  }
+
   createCity(data:CityDialogData){
     this.headers.set('Access-Control-Allow-Origin', '*');
     return this.http.post<City>(this.baseUrl + 'cities/',data,{'headers': this.headers});
   }
+
   createTodo(data:TodoDialogData){
     this.headers.set('Access-Control-Allow-Origin', '*');
     return this.http.post<ToDo>(this.baseUrl + 'todos/',data,{'headers': this.headers});
+  }
+
+  updateTodo(data:ToDo){
+    this.headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.post<ToDo>(this.baseUrl + 'todos/update/',data,{'headers': this.headers});
   }
 
   getCountry(name:string){
     return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
   }
 
-  updateCountry(data:UpdateCountryDialogData){
-    return this.http.post<Country>(this.baseUrl + 'countries/update/',data,{'headers': this.headers});
-  }
-  deleteCountry(id:number){
-    return this.http.delete(this.baseUrl + 'countries/' + id,{'headers': this.headers});
-  }
+  
+
+  
 
   getPOI(latlng:number[]){
     var data = {'client_id':'AMIldWC4IsUAz8zLDovkRNuZuq2pSPz9', 'client_secret':'GLysOz681Zm4QJfQ', 'grant_type':'client_credentials'}

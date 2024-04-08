@@ -75,7 +75,7 @@ namespace TravelPlannerApp.Controllers
 
             return NoContent();
         }
-
+        
         // POST: api/Cities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -89,6 +89,26 @@ namespace TravelPlannerApp.Controllers
             _repo.PostCityAsync(city);
 
             return CreatedAtAction("GetCity", new { id = city.Id }, city);
+        }
+
+        [Route("update")]
+        [HttpPost]
+        public async Task<ActionResult<City>> UpdateCity(UpdateCityDto dto)
+        {
+            City city = await _repo.GetCitybyIdAsync(dto.Id);
+            city.StartDate = dto.StartDate;
+            city.EndDate = dto.EndDate;
+            city.Name = dto.Name;
+            city.SortOrder = dto.SortOrder;
+            city.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);
+
+            if (CityExists(dto.Id))
+            {
+                await _repo.UpdateCityAsync(city);
+            }
+            else { return BadRequest(); }
+
+            return CreatedAtAction("GetCity",new { id = city.Id }, city);
         }
 
         // DELETE: api/Cities/5

@@ -41,7 +41,18 @@ namespace TravelPlannerApp.Data
 
         public async Task<Plan> GetPlanbyIdAsync(int id)
         {
-            return await context.Plan.FindAsync(id);
+            Plan plan = await context.Plan.FindAsync(id);
+            plan.Countries = await context.Country.Where(c => c.Plan.Id == id).OrderBy(c => c.StartDate.HasValue).ToListAsync();
+            foreach (var country in plan.Countries)
+            {
+                country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderBy(c => c.StartDate.HasValue).ToListAsync();
+                foreach (var cities in country.Cities)
+                {
+                    cities.ToDos = await context.ToDo.Where(c => c.City.Id == cities.Id).ToListAsync();
+                }
+            }
+                       
+            return plan;
 
         }
 
@@ -82,6 +93,20 @@ namespace TravelPlannerApp.Data
             context.Entry(country).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return country;
+        }
+
+        public async Task<City> UpdateCityAsync(City city)
+        {
+            context.Entry(city).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return city;
+        }
+
+        public async Task<ToDo> UpdateToDoAsync(ToDo todo)
+        {
+            context.Entry(todo).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return todo;
         }
 
         public async Task<bool> CountryExists(int id)

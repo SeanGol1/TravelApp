@@ -15,10 +15,12 @@ namespace TravelPlannerApp.Controllers
     public class PlansController : ControllerBase
     {
         private readonly TravelPlannerAppContext _context;
+        private readonly IRepo _repo;
 
-        public PlansController(TravelPlannerAppContext context)
+        public PlansController(TravelPlannerAppContext context, IRepo repo)
         {
             _context = context;
+            _repo = repo;
         }
 
         // GET: api/Plans
@@ -33,16 +35,7 @@ namespace TravelPlannerApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Plan>> GetPlan(int id)
         {
-            Plan plan = await _context.Plan.FindAsync(id);
-            plan.Countries = await _context.Country.Where(c => c.Plan.Id == id).ToListAsync();
-            foreach (var country in plan.Countries)
-            {
-                country.Cities = await _context.City.Where(c => c.Country.Id == country.Id).ToListAsync();
-                foreach (var cities in country.Cities)
-                {
-                    cities.ToDos = await _context.ToDo.Where(c => c.City.Id == cities.Id).ToListAsync();
-                }
-            }
+            Plan plan = await _repo.GetPlanbyIdAsync(id);
 
             if (plan == null)
             {

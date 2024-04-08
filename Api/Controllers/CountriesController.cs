@@ -99,6 +99,7 @@ namespace TravelPlannerApp.Controllers
             country.StartDate = dto.StartDate;
             country.EndDate = dto.EndDate;
             country.Name = dto.Name;
+            country.SortOrder = dto.SortOrder;
             if(await CountryExists(dto.Id))
             {
                 await _repo.UpdateCountryAsync(country);
@@ -107,6 +108,7 @@ namespace TravelPlannerApp.Controllers
 
             return CreatedAtAction("GetCountry", new { id = country.Id }, country);
         }
+
 
         // DELETE: api/Countries/5
         [HttpDelete("{id}")]

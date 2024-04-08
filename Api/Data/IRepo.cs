@@ -20,6 +20,7 @@ namespace TravelPlannerApp.Data
         Task<City> GetCitybyIdAsync(int id);
         Task<IEnumerable<City>> GetCityAsync();
         Task<City> PostCityAsync(City city);
+        Task<City> UpdateCityAsync(City city);
         Task<bool> DeleteCity(int id);
 
 
@@ -27,6 +28,7 @@ namespace TravelPlannerApp.Data
         Task<ToDo> GetToDobyIdAsync(int id);
         Task<IEnumerable<ToDo>> GetToDoAsync();
         Task<ToDo> PostToDoAsync(ToDo todo);
+        Task<ToDo> UpdateToDoAsync(ToDo todo);
         Task<bool> DeleteToDo(int id);
 
     }
