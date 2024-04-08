@@ -6,7 +6,7 @@
         public string Name { get; set; } = string.Empty;
         public Plan Plan { get; set; }
         public List<City> Cities { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }

@@ -121,6 +121,10 @@ namespace TravelPlannerApp.Controllers
             //_context.Country.Remove(country);
             //await _context.SaveChangesAsync();
 
+            bool success = await _repo.DeleteCountry(id);
+            if (!success)   
+                return BadRequest();
+
             return NoContent();
         }
 

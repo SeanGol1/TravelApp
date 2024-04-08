@@ -14,17 +14,20 @@ namespace TravelPlannerApp.Data
         Task<Country> PostCountryAsync(Country country);
         Task<Country> UpdateCountryAsync(Country country);
         Task<bool> CountryExists(int id);
+        Task<bool> DeleteCountry(int id);
 
         //City
         Task<City> GetCitybyIdAsync(int id);
         Task<IEnumerable<City>> GetCityAsync();
         Task<City> PostCityAsync(City city);
+        Task<bool> DeleteCity(int id);
 
 
         //ToDo
         Task<ToDo> GetToDobyIdAsync(int id);
         Task<IEnumerable<ToDo>> GetToDoAsync();
         Task<ToDo> PostToDoAsync(ToDo todo);
+        Task<bool> DeleteToDo(int id);
 
     }
 }

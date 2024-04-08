@@ -16,6 +16,7 @@ import { LOCALE_ID } from '@angular/core';
 })
 export class CountryInfoDialogComponent implements OnInit {
   countryinfo: any | undefined;
+  
 
   constructor(
     public dialogRef: MatDialogRef<CountryInfoDialogComponent>,
@@ -27,17 +28,30 @@ export class CountryInfoDialogComponent implements OnInit {
   ngOnInit(): void {
     this.dataservice.getCountry(this.data.name).subscribe(cdata=>{
       this.countryinfo = cdata[0];      
+      // this.dataservice.getPOI(this.countryinfo.latlng).subscribe(c=>{
+
+      // });
     });
+
+
     
   }
 
+  deleteCountry(){
+    this.dataservice.deleteCountry(this.data.id).subscribe({
+      next:country=>{
+        //remove from plan? 
+        this.dialogRef.close();
+      }
+    });
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
 
 export interface UpdateCountryDialogData {
-  countryId: number;
+  id: number;
   name: string;
   startDate: Date;
   endDate: Date;

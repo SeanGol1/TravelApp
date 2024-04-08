@@ -88,5 +88,68 @@ namespace TravelPlannerApp.Data
         {
             return context.Country.Any(e => e.Id == id);
         }
+
+        public async Task<bool> DeleteCountry(int id)
+        {
+            var country = await context.Country.FindAsync(id);
+            if (country == null)
+            {
+                return false;
+            }
+            try{
+                
+                context.Country.Remove(country);
+                await context.SaveChangesAsync();
+            }
+            catch
+            {
+                return false;
+            }
+            
+
+            return true;
+        }
+
+        public async Task<bool> DeleteCity(int id)
+        {
+            var city = await context.City.FindAsync(id);
+            if (city == null)
+            {
+                return false;
+            }
+            try
+            {
+                context.City.Remove(city);
+                await context.SaveChangesAsync();
+            }
+            catch
+            {
+                return false;
+            }
+
+
+            return true;
+        }
+
+        public async Task<bool> DeleteToDo(int id)
+        {
+            var todo = await context.ToDo.FindAsync(id);
+            if (todo == null)
+            {
+                return false;
+            }
+            try
+            {
+                context.ToDo.Remove(todo);
+                await context.SaveChangesAsync();
+            }
+            catch
+            {
+                return false;
+            }
+
+
+            return true;
+        }
     }
 }
