@@ -31,10 +31,7 @@ export class CountryInfoDialogComponent implements OnInit {
       // this.dataservice.getPOI(this.countryinfo.latlng).subscribe(c=>{
 
       // });
-    });
-
-
-    
+    });    
   }
 
   deleteCountry(){
