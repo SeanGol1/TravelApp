@@ -7,6 +7,7 @@ namespace TravelPlannerApp.Data
         //Plan
         Task<Plan> GetPlanbyIdAsync(int id);
         Task<IEnumerable<Plan>> GetPlanAsync();
+        Task<Plan> UpdatePlanAsync(Plan plan);
 
         //Country
         Task<Country> GetCountrybyIdAsync(int id);

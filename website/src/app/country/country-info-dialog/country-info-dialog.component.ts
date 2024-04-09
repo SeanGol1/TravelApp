@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
 import { DataService } from 'src/app/data.service';
-import { Country } from 'src/app/models/country';
+import { Country, UpdateCountryDialogData } from 'src/app/models/country';
 import { LOCALE_ID } from '@angular/core';
 
 
@@ -47,9 +47,4 @@ export class CountryInfoDialogComponent implements OnInit {
   }
 }
 
-export interface UpdateCountryDialogData {
-  id: number;
-  name: string;
-  startDate: Date;
-  endDate: Date;
-}
+

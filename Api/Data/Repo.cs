@@ -42,19 +42,28 @@ namespace TravelPlannerApp.Data
         public async Task<Plan> GetPlanbyIdAsync(int id)
         {
             Plan plan = await context.Plan.FindAsync(id);
-            plan.Countries = await context.Country.Where(c => c.Plan.Id == id).OrderBy(c => c.StartDate.HasValue).ToListAsync();
+            plan.Countries = await context.Country.Where(c => c.Plan.Id == id).OrderByDescending(c => c.StartDate.HasValue).ThenBy(c => c.StartDate).ToListAsync();
             foreach (var country in plan.Countries)
             {
-                country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderBy(c => c.StartDate.HasValue).ToListAsync();
+                var x = country.StartDate;
+                country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderByDescending(c => c.StartDate.HasValue).ThenBy(c => c.StartDate).ToListAsync();
                 foreach (var cities in country.Cities)
                 {
-                    cities.ToDos = await context.ToDo.Where(c => c.City.Id == cities.Id).ToListAsync();
+                    cities.ToDos = await context.ToDo.Where(c => c.City.Id == cities.Id).OrderBy(t=> t.SortOrder).ToListAsync();
                 }
             }
                        
             return plan;
 
         }
+
+        public async Task<Plan> UpdatePlanAsync(Plan plan)
+        {
+            context.Plan.Add(plan);
+            await context.SaveChangesAsync();
+            return plan;
+        }
+
 
         public async Task<IEnumerable<ToDo>> GetToDoAsync()
         {
@@ -105,9 +114,25 @@ namespace TravelPlannerApp.Data
         public async Task<ToDo> UpdateToDoAsync(ToDo todo)
         {
             context.Entry(todo).State = EntityState.Modified;
+            if (todo.SortOrder != Convert.ToInt32(context.ToDo.Where(t => t.Id == todo.Id).Select(t => t.SortOrder).ToString())) 
+            {
+                UpdateSortOrder(todo);
+            }
             await context.SaveChangesAsync();
             return todo;
         }
+
+        private void UpdateSortOrder(ToDo todo)
+        {
+            foreach (ToDo t in context.ToDo.Where(x=>x.City.Id == todo.City.Id).OrderByDescending(x=>x.SortOrder).ToList())
+            {
+                if(todo.SortOrder == t.SortOrder)
+                {
+
+                }
+            }
+        }
+
 
         public async Task<bool> CountryExists(int id)
         {

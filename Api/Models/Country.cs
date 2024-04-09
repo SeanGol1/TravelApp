@@ -1,4 +1,7 @@
-﻿namespace TravelPlannerApp.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
+
+namespace TravelPlannerApp.Models
 {
     public class Country
     {
@@ -8,6 +11,8 @@
         public List<City> Cities { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public int? SortOrder { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DefaultValue(0)]
+        public int SortOrder { get; set; } = 0;
     }
 }

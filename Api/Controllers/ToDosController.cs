@@ -86,6 +86,7 @@ namespace TravelPlannerApp.Controllers
             todo.Name = dto.Name;
             todo.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);
             todo.City = await _repo.GetCitybyIdAsync(dto.CityId);
+            todo.SortOrder = 0;
             _repo.PostToDoAsync(todo);
 
             return CreatedAtAction("GetToDo", new { id = todo.Id }, todo);
@@ -95,13 +96,15 @@ namespace TravelPlannerApp.Controllers
         [HttpPost]
         public async Task<ActionResult<ToDo>> UpdateToDo(UpdateToDoDto dto)
         {
-            ToDo todo = await _repo.GetToDobyIdAsync(dto.Id);
-            todo.Name = dto.Name;
-            todo.SortOrder = dto.SortOrder;
-            todo.City = await _repo.GetCitybyIdAsync(dto.CityId);
-            todo.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);
+            ToDo todo = new ToDo();
             if (ToDoExists(dto.Id))
             {
+                todo = await _repo.GetToDobyIdAsync(dto.Id);
+                todo.Name = dto.Name;
+                todo.SortOrder = dto.SortOrder;
+                todo.City = await _repo.GetCitybyIdAsync(dto.CityId);
+               // todo.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);
+                todo.SortOrder = dto.SortOrder;
                 await _repo.UpdateToDoAsync(todo);
             }
             else { return BadRequest(); }

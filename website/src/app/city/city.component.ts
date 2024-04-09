@@ -11,7 +11,7 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { Plan } from '../models/plan';
-import { ToDo } from '../models/todo';
+import { ToDo, ToDoUpdate } from '../models/todo';
 
 @Component({
   selector: 'app-city',
@@ -21,22 +21,26 @@ import { ToDo } from '../models/todo';
 export class CityComponent implements OnInit{
   @Input() city:City;
   plan:Plan | undefined ;
-
-  dropCityVariableName: string | undefined;
+  todo:ToDoUpdate | undefined ;
 
   constructor(public dialog: MatDialog,private data:DataService){    
   }
 
   ngOnInit(): void {
-    // if(this.city)
-    //   this.dropCityVariableName = '#drop' + this.city?.id;
-    // else
-    //   this.dropCityVariableName =   "#drop" + Math.random().toString(16).slice(2)
+
   }
 
   drop(event: CdkDragDrop<ToDo[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      
+      this.todo = event.item.data;
+      this.todo.cityId = this.city.id;
+      //this.todo.countryId = 0; //TODO: set country.  //this.city.country.id === null ? this.city.country.id:0; 
+      this.todo.sortOrder = event.currentIndex;
+
+      this.data.updateTodo(this.todo).subscribe(todo=>{
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      });
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -44,12 +48,21 @@ export class CityComponent implements OnInit{
         event.previousIndex,
         event.currentIndex,
       );
+
+      this.todo = event.item.data;
+      this.todo.cityId = this.city.id;
+      //this.todo.countryId = 0; //TODO: set country.  //this.city.country.id === null ? this.city.country.id:0; 
+      this.todo.sortOrder = event.currentIndex;
+
+      this.data.updateTodo(this.todo).subscribe(todo=>{
+        
+      });
     }
   }
 
   getCityDropList(){
     let list: string[] = [];
-    this.data.getPlanById(2).subscribe({
+    this.data.plan$.subscribe({
       next: plan=> {
         this.plan = plan              
         plan.countries.forEach(country => {
@@ -58,7 +71,17 @@ export class CityComponent implements OnInit{
           });
         });
       }
-    });
+    })
+    // this.data.getPlanById(2).subscribe({
+    //   next: plan=> {
+    //     this.plan = plan              
+    //     plan.countries.forEach(country => {
+    //       country.cities.forEach(city => {
+    //         list.push('drop'+city.id);
+    //       });
+    //     });
+    //   }
+    // });
     return list;
   }
 

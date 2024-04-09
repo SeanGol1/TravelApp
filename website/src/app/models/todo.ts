@@ -6,5 +6,13 @@ export interface ToDo {
     name : string;    
     city: City;
     country: Country;
+    sortOrder: number;
 }
 
+export interface ToDoUpdate{
+    id: number; 
+    name: string;
+    cityId: number;
+    countryId: number;
+    sortOrder:number;
+}

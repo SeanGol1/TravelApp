@@ -7,21 +7,21 @@ import { Plan } from './models/plan';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'TravelPlanner';
-  plan:Plan | undefined;
+  plan: Plan | undefined;
 
-  constructor(private data:DataService){
+  constructor(private data: DataService) {
 
   }
 
   ngOnInit(): void {
     this.data.getPlanById(2).subscribe({
-      next: plan=> {
-        this.plan = plan              
-        console.log(plan);
+      next: plan => {   
+        this.plan = plan
+        this.data.updateLocalPlan(plan);
       }
     });
   }
-  
+
 }

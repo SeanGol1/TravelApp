@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map, startWith } from 'rxjs';
-import { City } from 'src/app/models/city';
+import { City, CityDialogData } from 'src/app/models/city';
 import { Country } from 'src/app/models/country';
 import { Plan } from 'src/app/models/plan';
 import {MatSelectModule} from '@angular/material/select';
@@ -17,7 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 export class AddCityDialogComponent implements OnInit{
   // myControl = new FormControl<string | Country>('');
   // filteredOptions: Observable<Country[]>;
-  city: CityDialogData = {countryId: 0, name: ''};
+  city: CityDialogData = {countryId: 0, name: '', sortOrder:0};
 
   constructor(
     public dialogRef: MatDialogRef<AddCityDialogComponent>,
@@ -53,7 +53,3 @@ export class AddCityDialogComponent implements OnInit{
 
 }
 
-export interface CityDialogData {
-  countryId: number;
-  name: string;
-}

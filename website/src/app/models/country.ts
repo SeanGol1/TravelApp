@@ -7,5 +7,14 @@ export interface Country {
     plan : Plan;
     startDate:Date;
     endDate:Date;
+    sortOrder: number;
     cities: City[];
 }
+
+export interface UpdateCountryDialogData {
+    id: number;
+    name: string;
+    startDate: Date;
+    endDate: Date;
+    sortOrder: number;
+  }

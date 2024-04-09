@@ -8,5 +8,6 @@ namespace TravelPlannerApp.Dto
         public int PlanId { get; set; }
         public DateTime? StartDate { get; set; } = null;
         public DateTime? EndDate { get; set; } = null;
+        public int SortOrder { get; set; }
     }
 }

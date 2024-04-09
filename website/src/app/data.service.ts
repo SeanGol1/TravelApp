@@ -1,37 +1,57 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Plan } from './models/plan';
-import { Country } from './models/country';
+import { Country, UpdateCountryDialogData } from './models/country';
 import { CountryDialogData } from './plan/add-country-dialog/add-country-dialog.component';
-import { CityDialogData } from './country/add-city-dialog/add-city-dialog.component';
-import { City } from './models/city';
+import { City, CityDialogData } from './models/city';
 import { TodoDialogData } from './city/add-todo-dialog/add-todo-dialog.component';
-import { ToDo } from './models/todo';
-import { UpdateCountryDialogData } from './country/country-info-dialog/country-info-dialog.component';
+import { ToDo, ToDoUpdate } from './models/todo';
 import { HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  
+  private planSource = new BehaviorSubject<Plan | null>(null);
+  plan$ = this.planSource.asObservable();
 
   baseUrl = "https://localhost:7219/api/";
+  headers = new HttpHeaders()
+  .set('content-type', 'application/json');
+  
 
   constructor(private http: HttpClient ) {    
   }
 
-  headers = new HttpHeaders()
-  .set('content-type', 'application/json');
-  
-  
-
   // APIKEY AMIldWC4IsUAz8zLDovkRNuZuq2pSPz9
 
-  getPlanById(id:number){ 
+
+
+  getPlanById(id:number):Observable<Plan>{ 
     this.headers.set('Access-Control-Allow-Origin', '*');
+
+    // return this.http.post<Plan>(this.baseUrl + 'plans/' + id, {'headers': this.headers}).pipe(
+    //   map((response:Plan) => {
+    //     const plan = response;
+    //     if(plan){
+    //       localStorage.setItem('plan',JSON.stringify(plan));
+    //       this.planSource.next(plan);
+    //     }
+    //   })
+    // )
     return this.http.get<Plan>(this.baseUrl + 'plans/' + id,{'headers': this.headers});
+    
+  }
+
+  updatePlan(data:Plan){
+    return this.http.post<Plan>(this.baseUrl + 'plan/update/',data,{'headers': this.headers});
+  }
+
+  updateLocalPlan(plan:Plan){
+    localStorage.setItem('plan',JSON.stringify(plan));
+    this.planSource.next(plan);
   }
 
   createCountry(data:CountryDialogData){
@@ -57,7 +77,7 @@ export class DataService {
     return this.http.post<ToDo>(this.baseUrl + 'todos/',data,{'headers': this.headers});
   }
 
-  updateTodo(data:ToDo){
+  updateTodo(data:ToDoUpdate){
     this.headers.set('Access-Control-Allow-Origin', '*');
     return this.http.post<ToDo>(this.baseUrl + 'todos/update/',data,{'headers': this.headers});
   }

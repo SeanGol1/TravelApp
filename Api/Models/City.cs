@@ -1,4 +1,6 @@
-﻿namespace TravelPlannerApp.Models
+﻿using System.ComponentModel;
+
+namespace TravelPlannerApp.Models
 {
     public class City
     {
@@ -8,6 +10,7 @@
         public List<ToDo> ToDos { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public int? SortOrder { get; set; }
+        [DefaultValue(0)]
+        public int SortOrder { get; set; } = 0;
     }
 }

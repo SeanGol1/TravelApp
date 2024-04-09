@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelPlannerApp.Data;
+using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
 
 namespace TravelPlannerApp.Controllers
@@ -83,6 +84,19 @@ namespace TravelPlannerApp.Controllers
         {
             _context.Plan.Add(plan);
             await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetPlan", new { id = plan.Id }, plan);
+        }
+
+        [Route("update")]
+        [HttpPost]
+        public async Task<ActionResult<Plan>> UpdatePlan(Plan plan)
+        {           
+            if (PlanExists(plan.Id))
+            {
+                await _repo.UpdatePlanAsync(plan);
+            }
+            else { return BadRequest(); }
 
             return CreatedAtAction("GetPlan", new { id = plan.Id }, plan);
         }
