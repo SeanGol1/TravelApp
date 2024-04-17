@@ -36,6 +36,9 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { AddTravelDialogComponent } from './travel/add-travel-dialog/add-travel-dialog.component';
+import { TrainAnimationComponent } from './travel/animations/train-animation/train-animation.component';
+import { FlightAnimationComponent } from './travel/animations/flight-animation/flight-animation.component';
+import { BusAnimationComponent } from './travel/animations/bus-animation/bus-animation.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { AddTravelDialogComponent } from './travel/add-travel-dialog/add-travel-
     AddTodoDialogComponent,
     DragdropTestComponent,
     CountryInfoDialogComponent,
-    AddTravelDialogComponent
+    AddTravelDialogComponent,
+    TrainAnimationComponent,
+    FlightAnimationComponent,
+    BusAnimationComponent
   ],
   imports: [
     BrowserModule,

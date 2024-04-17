@@ -17,7 +17,22 @@
 <div *ngIf="travel" class="travel-item">
   <div class="row">
     <div class="col-12">
+      
+      @switch (travel.travelType) {
+        @case (0) {
+          <app-flight-animation></app-flight-animation>          
+        }
+        @case (1) {
+          <app-bus-animation></app-bus-animation>
+          
+        }
+        @case (2) {
+        <app-train-animation></app-train-animation>        
+          
+        }
+      }
       <p>{{enum[travel.travelType]}}</p>
+      <p>{{travel.fromCity.name}} ===> {{travel.toCity.name}}</p>
     </div>
   </div>
 </div>

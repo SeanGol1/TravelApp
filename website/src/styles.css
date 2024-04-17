@@ -37,6 +37,10 @@
     margin: 2%;
 }
 
+.travel-item{
+    height: 250px;    
+}
+
 html,
 body {
     height: 100%;
