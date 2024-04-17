@@ -5,6 +5,7 @@ import { DataService } from '../data.service';
 import { AddCityDialogComponent } from './add-city-dialog/add-city-dialog.component';
 import { CountryInfoDialogComponent } from './country-info-dialog/country-info-dialog.component';
 import { formatDate } from "@angular/common";
+import { Travel } from '../models/travel';
 
 @Component({
   selector: 'app-country',
@@ -14,6 +15,9 @@ import { formatDate } from "@angular/common";
 export class CountryComponent implements OnInit{
   @Input() country:Country | undefined ;
  countryinfo:any | undefined;
+ travel:Travel | undefined;
+
+ 
   constructor(public dialog: MatDialog,private data:DataService){
   }
   ngOnInit(): void {
@@ -21,6 +25,7 @@ export class CountryComponent implements OnInit{
       this.countryinfo = data[0];
       console.log(this.countryinfo);
     });
+    
     
   }
 

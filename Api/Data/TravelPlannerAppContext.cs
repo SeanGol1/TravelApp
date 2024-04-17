@@ -18,6 +18,7 @@ namespace TravelPlannerApp.Data
         public DbSet<Country> Country { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<ToDo> ToDo { get; set; }
+        public DbSet<Travel> Travel { get; set; }
 
     }
 }

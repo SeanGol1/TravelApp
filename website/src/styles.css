@@ -1,29 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
-.plan-item{
-    background-color: #7a7af4;
-    border: 2px solid black;
-    border-radius: 5px;
+
+
+.plan-item {
+    background-color: #afdde5;
+    /* border: 2px solid black; */
+    /* border-radius: 5px; */
+    background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996');
+    /* Full height */
+    height: 100%;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.country-item{
-    background-color: #7af496;
+.country-item {
+    background-color: #afdde5;
     border: 2px solid black;
     border-radius: 5px;
-    margin-left: 2%;
+    margin: 5%;
 }
 
-.city-item{
-    background-color: #f47ab3;
-    border: 2px solid black;
-    border-radius: 5px;    
-    margin-left: 2%;
-}
-
-.todo-item{
-    background-color: #d6f47a;
+.city-item {
+    background-color: #0fa4af;
     border: 2px solid black;
     border-radius: 5px;
-    margin-left: 2%;
+    margin: 5%;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.todo-item {
+    background-color: #964734;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 2%;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    text-align: center;
+}

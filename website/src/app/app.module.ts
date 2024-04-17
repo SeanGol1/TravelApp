@@ -35,6 +35,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { AddTravelDialogComponent } from './travel/add-travel-dialog/add-travel-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MatSelectModule } from '@angular/material/select';
     AddCityDialogComponent,
     AddTodoDialogComponent,
     DragdropTestComponent,
-    CountryInfoDialogComponent
+    CountryInfoDialogComponent,
+    AddTravelDialogComponent
   ],
   imports: [
     BrowserModule,

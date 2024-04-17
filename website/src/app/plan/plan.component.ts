@@ -18,6 +18,7 @@ import { AddCountryDialogComponent } from './add-country-dialog/add-country-dial
 import { DataService } from '../data.service';
 import { AddCityDialogComponent } from '../country/add-city-dialog/add-city-dialog.component';
 import { AddTodoDialogComponent } from '../city/add-todo-dialog/add-todo-dialog.component';
+import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel-dialog.component';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -84,6 +85,22 @@ export class PlanComponent {
             })
 
           });
+        }
+      });}
+    });
+  }
+
+  openTravelDialog(): void {
+    const dialogRef = this.dialog.open(AddTravelDialogComponent, {
+      data: { plan: this.plan },
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('The dialog was closed');
+      if(data){
+      this.data.createTravel(data).subscribe({
+        next: travel => {
+          
         }
       });}
     });

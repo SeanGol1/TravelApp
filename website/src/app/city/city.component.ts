@@ -12,6 +12,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Plan } from '../models/plan';
 import { ToDo, ToDoUpdate } from '../models/todo';
+import { Travel, TravelType } from '../models/travel';
 
 @Component({
   selector: 'app-city',
@@ -22,12 +23,16 @@ export class CityComponent implements OnInit{
   @Input() city:City;
   plan:Plan | undefined ;
   todo:ToDoUpdate | undefined ;
+  travel:Travel | undefined;
+  enum: typeof TravelType = TravelType;
 
   constructor(public dialog: MatDialog,private data:DataService){    
   }
 
   ngOnInit(): void {
-
+    this.data.getTravelByCityId(this.city.id).subscribe(data=>{
+      this.travel = data;
+    })
   }
 
   drop(event: CdkDragDrop<ToDo[]>) {

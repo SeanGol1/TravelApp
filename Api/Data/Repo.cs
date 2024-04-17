@@ -201,5 +201,60 @@ namespace TravelPlannerApp.Data
 
             return true;
         }
+
+        #region Travel
+
+        
+        public async Task<Travel> GetTravelbyIdAsync(int id)
+        {
+            return await context.Travel.FindAsync(id);
+        }
+
+        public async Task<Travel> GetTravelbyCityIdAsync(int id)
+        {
+            return await context.Travel.Where(x=>x.FromCity.Id == id).Include(x=>x.FromCity).Include(x => x.ToCity).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Travel>> GetTravelAsync()
+        {
+            return await context.Travel.ToListAsync();
+        }
+
+        public async Task<Travel> PostTravelAsync(Travel travel)
+        {
+            context.Travel.Add(travel);
+            await context.SaveChangesAsync();
+            return travel;
+        }
+
+        public async Task<Travel> UpdateTravelAsync(Travel travel)
+        {
+            context.Entry(travel).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return travel;
+        }
+
+        public async Task<bool> DeleteTravel(int id)
+        {
+            var travel = await context.Travel.FindAsync(id);
+            if (travel == null)
+            {
+                return false;
+            }
+            try
+            {
+                context.Travel.Remove(travel);
+                await context.SaveChangesAsync();
+            }
+            catch
+            {
+                return false;
+            }
+
+
+            return true;
+        }
+
+        #endregion
     }
 }

@@ -5,7 +5,7 @@
             <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" /></p>           
         </div>
         <div class="col-6">
-            <p>{{getDate(country?.startDate)}} => {{getDate(country?.endDate)}}</p>
+            <p *ngIf="country.startDate">{{getDate(country?.startDate)}} => {{getDate(country?.endDate)}}</p>
         </div>
 
         <!-- <div class="col-3">
@@ -15,6 +15,7 @@
     <div>
         <div *ngFor="let city of country?.cities">
             <app-city [city]="city"></app-city>
+            
         </div>
     </div>
 </div>

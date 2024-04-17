@@ -118,6 +118,33 @@ namespace TravelPlannerApp.Migrations
                     b.ToTable("ToDo");
                 });
 
+            modelBuilder.Entity("TravelPlannerApp.Models.Travel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("FromCityId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ToCityId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TravelType")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FromCityId");
+
+                    b.HasIndex("ToCityId");
+
+                    b.ToTable("Travel");
+                });
+
             modelBuilder.Entity("TravelPlannerApp.Models.City", b =>
                 {
                     b.HasOne("TravelPlannerApp.Models.Country", "Country")
@@ -155,6 +182,25 @@ namespace TravelPlannerApp.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("TravelPlannerApp.Models.Travel", b =>
+                {
+                    b.HasOne("TravelPlannerApp.Models.City", "FromCity")
+                        .WithMany()
+                        .HasForeignKey("FromCityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelPlannerApp.Models.City", "ToCity")
+                        .WithMany()
+                        .HasForeignKey("ToCityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FromCity");
+
+                    b.Navigation("ToCity");
                 });
 
             modelBuilder.Entity("TravelPlannerApp.Models.City", b =>

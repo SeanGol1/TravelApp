@@ -8,6 +8,7 @@ import { TodoDialogData } from './city/add-todo-dialog/add-todo-dialog.component
 import { ToDo, ToDoUpdate } from './models/todo';
 import { HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Travel } from './models/travel';
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +82,22 @@ export class DataService {
     this.headers.set('Access-Control-Allow-Origin', '*');
     return this.http.post<ToDo>(this.baseUrl + 'todos/update/',data,{'headers': this.headers});
   }
+
+// Travel
+
+  createTravel(data:CityDialogData){
+    this.headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.post<Travel>(this.baseUrl + 'travels/',data,{'headers': this.headers});
+  }
+
+  getTravelByCityId(id:number){ 
+    this.headers.set('Access-Control-Allow-Origin', '*');
+
+    return this.http.get<Travel>(this.baseUrl + 'travels/' + id,{'headers': this.headers});
+    
+  }
+
+
 
   getCountry(name:string){
     return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')

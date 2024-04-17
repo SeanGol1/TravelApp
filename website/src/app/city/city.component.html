@@ -14,5 +14,13 @@
   </div>
 </div>
 
+<div *ngIf="travel" class="travel-item">
+  <div class="row">
+    <div class="col-12">
+      <p>{{enum[travel.travelType]}}</p>
+    </div>
+  </div>
+</div>
+
 
 <!-- cdkDropList [cdkDropListData]="city?.toDos" class="example-list" (cdkDropListDropped)="drop($event)" -->
