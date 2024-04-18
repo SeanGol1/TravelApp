@@ -39,6 +39,8 @@ import { AddTravelDialogComponent } from './travel/add-travel-dialog/add-travel-
 import { TrainAnimationComponent } from './travel/animations/train-animation/train-animation.component';
 import { FlightAnimationComponent } from './travel/animations/flight-animation/flight-animation.component';
 import { BusAnimationComponent } from './travel/animations/bus-animation/bus-animation.component';
+import { WalkAnimationComponent } from './travel/animations/walk-animation/walk-animation.component';
+import { ScooterAnimationComponent } from './travel/animations/scooter-animation/scooter-animation.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { BusAnimationComponent } from './travel/animations/bus-animation/bus-ani
     AddTravelDialogComponent,
     TrainAnimationComponent,
     FlightAnimationComponent,
-    BusAnimationComponent
+    BusAnimationComponent,
+    WalkAnimationComponent,
+    ScooterAnimationComponent
   ],
   imports: [
     BrowserModule,

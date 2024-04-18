@@ -14,7 +14,7 @@ export enum TravelType {
     Bus=1,
     Train=2,
     Boat=3,
-    Scooter,
-    Walk,
-    Taxi
+    Scooter=4,
+    Walk=5,
+    Taxi=6
 }

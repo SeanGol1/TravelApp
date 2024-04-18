@@ -1,4 +1,4 @@
-<div class="city-item" >  
+<div class="city-item">
   <div class="row">
     <div class="col-12">
       <p>{{city?.name}}</p>
@@ -17,19 +17,29 @@
 <div *ngIf="travel" class="travel-item">
   <div class="row">
     <div class="col-12">
-      
+
       @switch (travel.travelType) {
-        @case (0) {
-          <app-flight-animation></app-flight-animation>          
-        }
-        @case (1) {
-          <app-bus-animation></app-bus-animation>
-          
-        }
-        @case (2) {
-        <app-train-animation></app-train-animation>        
-          
-        }
+      @case (0) {
+      <app-flight-animation></app-flight-animation>
+      }
+      @case (1) {
+      <app-bus-animation></app-bus-animation>
+      }
+      @case (2) {
+      <app-train-animation></app-train-animation>
+      }
+      @case (3) {
+      <!-- <app-train-animation></app-train-animation>                 -->
+      }
+      @case (4) {
+      <app-scooter-animation></app-scooter-animation>
+      }
+      @case (5) {
+      <app-walk-animation></app-walk-animation>
+      }
+      @case (6) {
+      <!-- <app-train-animation></app-train-animation>                 -->
+      }
       }
       <p>{{enum[travel.travelType]}}</p>
       <p>{{travel.fromCity.name}} ===> {{travel.toCity.name}}</p>
