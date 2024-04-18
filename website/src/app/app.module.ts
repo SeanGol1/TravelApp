@@ -14,11 +14,11 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import { AddCountryDialogComponent } from './plan/add-country-dialog/add-country-dialog.component';
+import { AddCountryDialogComponent } from './country/add-country-dialog/add-country-dialog.component';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { AddCityDialogComponent } from './country/add-city-dialog/add-city-dialog.component';
-import { AddTodoDialogComponent } from './city/add-todo-dialog/add-todo-dialog.component';
+import { AddCityDialogComponent } from './city/add-city-dialog/add-city-dialog.component';
+import { AddTodoDialogComponent } from './todo/add-todo-dialog/add-todo-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {
   CdkDragDrop,
@@ -41,6 +41,7 @@ import { FlightAnimationComponent } from './travel/animations/flight-animation/f
 import { BusAnimationComponent } from './travel/animations/bus-animation/bus-animation.component';
 import { WalkAnimationComponent } from './travel/animations/walk-animation/walk-animation.component';
 import { ScooterAnimationComponent } from './travel/animations/scooter-animation/scooter-animation.component';
+import { CityInfoDialogComponent } from './city/city-info-dialog/city-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ScooterAnimationComponent } from './travel/animations/scooter-animation
     FlightAnimationComponent,
     BusAnimationComponent,
     WalkAnimationComponent,
-    ScooterAnimationComponent
+    ScooterAnimationComponent,
+    CityInfoDialogComponent
   ],
   imports: [
     BrowserModule,

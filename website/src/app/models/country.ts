@@ -10,7 +10,10 @@ export interface Country {
     sortOrder: number;
     cities: City[];
 }
-
+export interface CountryDialogData {
+    planId: number;
+    name: string;
+  }
 export interface UpdateCountryDialogData {
     id: number;
     name: string;

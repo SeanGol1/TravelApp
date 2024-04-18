@@ -14,10 +14,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AddCountryDialogComponent } from './add-country-dialog/add-country-dialog.component';
+import { AddCountryDialogComponent } from '../country/add-country-dialog/add-country-dialog.component';
 import { DataService } from '../data.service';
-import { AddCityDialogComponent } from '../country/add-city-dialog/add-city-dialog.component';
-import { AddTodoDialogComponent } from '../city/add-todo-dialog/add-todo-dialog.component';
+import { AddCityDialogComponent } from '../city/add-city-dialog/add-city-dialog.component';
+import { AddTodoDialogComponent } from '../todo/add-todo-dialog/add-todo-dialog.component';
 import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel-dialog.component';
 @Component({
   selector: 'app-plan',

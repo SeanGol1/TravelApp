@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Country } from '../models/country';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../data.service';
-import { AddCityDialogComponent } from './add-city-dialog/add-city-dialog.component';
+import { AddCityDialogComponent } from '../city/add-city-dialog/add-city-dialog.component';
 import { CountryInfoDialogComponent } from './country-info-dialog/country-info-dialog.component';
 import { formatDate } from "@angular/common";
 import { Travel } from '../models/travel';

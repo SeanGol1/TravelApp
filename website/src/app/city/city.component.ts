@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { City } from '../models/city';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../data.service';
-import { AddTodoDialogComponent } from './add-todo-dialog/add-todo-dialog.component';
+import { AddTodoDialogComponent } from '../todo/add-todo-dialog/add-todo-dialog.component';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -13,6 +13,7 @@ import {
 import { Plan } from '../models/plan';
 import { ToDo, ToDoUpdate } from '../models/todo';
 import { Travel, TravelType } from '../models/travel';
+import { CityInfoDialogComponent } from './city-info-dialog/city-info-dialog.component';
 
 @Component({
   selector: 'app-city',
@@ -111,6 +112,24 @@ export class CityComponent implements OnInit{
           this.city?.toDos.push(todo);
         }
       });
+    });
+  }
+
+  openInfoDialog(): void {
+    const dialogRef = this.dialog.open(CityInfoDialogComponent, {
+      data: this.city,
+    });
+
+    dialogRef.afterClosed().subscribe(c => {
+      //data.countryId = this.country.id;
+
+      this.data.updateCity(c).subscribe({
+        next:city=>{
+          //this.country = country
+          //TODO: fix list.
+        }
+      });
+    
     });
   }
 }

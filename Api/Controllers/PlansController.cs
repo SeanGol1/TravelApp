@@ -36,8 +36,14 @@ namespace TravelPlannerApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Plan>> GetPlan(int id)
         {
-            Plan plan = await _repo.GetPlanbyIdAsync(id);
-
+            Plan plan;
+            try{
+               plan  = await _repo.GetPlanbyIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             if (plan == null)
             {
                 return NotFound();
