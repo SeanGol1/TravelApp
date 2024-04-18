@@ -43,6 +43,8 @@ import { WalkAnimationComponent } from './travel/animations/walk-animation/walk-
 import { ScooterAnimationComponent } from './travel/animations/scooter-animation/scooter-animation.component';
 import { CityInfoDialogComponent } from './city/city-info-dialog/city-info-dialog.component';
 
+import {CdkAccordionModule} from '@angular/cdk/accordion';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,7 +89,8 @@ import { CityInfoDialogComponent } from './city/city-info-dialog/city-info-dialo
     ReactiveFormsModule,
     MatFormFieldModule, 
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    CdkAccordionModule
 
   ],
   providers: [  

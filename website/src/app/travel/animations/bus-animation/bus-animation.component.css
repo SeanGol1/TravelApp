@@ -2,19 +2,7 @@ body {
     background: skyblue;
  }
  img{
-    max-width: 250px;
-    max-height: 250px;
- }
- .light {
-   width: 10px;
-   height: 10px;
-   background: red;
-   border-radius: 50%;
-      bottom: 295px;
-   position: absolute;
-   z-index: 10;
-   left: 20px;
-   animation: light 800ms ease-in-out 0s infinite alternate;
+    max-width: 200px;
  }
  .cloud {
    position: absolute;

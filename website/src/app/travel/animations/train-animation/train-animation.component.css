@@ -206,8 +206,8 @@ body {
 }
 
 .train {
-  -webkit-animation: voyage 20s linear infinite;
-  animation: voyage 20s linear infinite;
+  -webkit-animation: voyage 10s linear infinite;
+  animation: voyage 10s linear infinite;
 }
 
 

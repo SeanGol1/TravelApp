@@ -1,19 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-
-
-.plan-item {
+@media only screen and (min-device-width: 481px) {
+body {
     background-color: #afdde5;
-    /* border: 2px solid black; */
-    /* border-radius: 5px; */
+    background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996');
+    height: 100%;
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+body {
+    background-color: #afdde5;
     background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996');
     /* Full height */
     height: 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    }
 }
 
 .country-item {
@@ -41,7 +47,11 @@
 }
 
 .travel-item{
-    height: 250px;    
+    height: 120px;    
+}
+
+.citydroplist{
+    min-height: 50px;
 }
 
 html,
