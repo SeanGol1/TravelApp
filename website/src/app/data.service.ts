@@ -7,7 +7,7 @@ import { City, CityDialogData, UpdateCityDialogData } from './models/city';
 import { TodoDialogData } from './todo/add-todo-dialog/add-todo-dialog.component';
 import { ToDo, ToDoUpdate } from './models/todo';
 import { HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { Travel } from './models/travel';
 
 @Injectable({
@@ -128,45 +128,66 @@ export class DataService {
     return this.http.post('https://test.api.amadeus.com/v1/security/oauth2/token', body, { 'headers': xheaders });
   }
 
-  getCity(name: string) {
-    var accessToken
-    try {
-      this.getAmadeusKey().subscribe(access => {
-        accessToken = access;
-      });
-      console.log(accessToken["access_token"])
-      if (accessToken) {
-        this.headers.set('Authorization', 'Bearer ' + accessToken["access_token"]);
-        this.headers.set('content-type', 'application/vnd.amadeus+json');
-        return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { 'headers': this.headers })
-      }
-    }
-    catch(e){
-      console.log(e.message);
-    }
-    
-    return null
+  getCity(name: string) : Observable<any>{
+    // var accessToken
+    // try {
+    //   this.getAmadeusKey().subscribe({
+    //     next: (access) => {
+    //       accessToken = access;
+    //       let xheaders = new HttpHeaders()
+    //       xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);
+    //       xheaders.set('content-type', 'application/vnd.amadeus+json');
+    //       return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { 'headers': xheaders })
+    //     },
+    //     error: (e) => {
+    //       console.log(e);
+    //     }
+    //   });
+    // }
+    // catch (e) {
+    //   console.log(e.message);
+    // }
+
+    // return null
+
+    return this.getAmadeusKey().pipe(
+      switchMap((accessToken) => {
+        const headers = new HttpHeaders()
+          .set('Authorization', 'Bearer ' + accessToken["access_token"])
+          .set('Content-Type', 'application/vnd.amadeus+json');
+
+        return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { headers });
+      })
+    );
 
   }
 
 
-getPOI(latlng: number[]) {
-  if (latlng) {
-    var accessToken
-    try {
-      this.getAmadeusKey().subscribe(access => {
-        accessToken = access;
-      });
-    }
-    catch (e){
-      console.log(e.message);
-    }
-    this.headers.set('Authorization', 'Bearer ' + accessToken["access_token"]);
-    this.headers.set('content-type', 'application/vnd.amadeus+json');
-    return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=20&page%5Blimit%5D=10&page%5Boffset%5D=0', { 'headers': this.headers })
+  getPOI(latlng: number[]) : Observable<any> {
+      // var accessToken
+      //   this.getAmadeusKey().subscribe({
+      //     next: (access)=>{
+      //      accessToken = access;
+      //      let xheaders = new HttpHeaders()
+      //      xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);
+      //       xheaders.set('content-type', 'application/vnd.amadeus+json');
+      //       return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=20&page%5Blimit%5D=10&page%5Boffset%5D=0', { 'headers': xheaders })
+      //     },
+      //     error:(e)=>{
+      //       console.log(e);            
+      //     }
+      //   });
+
+      return this.getAmadeusKey().pipe(
+        switchMap((accessToken) => {
+          const headers = new HttpHeaders()
+            .set('Authorization', 'Bearer ' + accessToken["access_token"])
+            .set('Content-Type', 'application/vnd.amadeus+json');
+  
+          return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0', { headers });
+        })
+      );
   }
-  return null;
-}
 
 
 
