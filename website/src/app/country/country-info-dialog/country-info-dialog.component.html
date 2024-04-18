@@ -1,29 +1,31 @@
 <h2 mat-dialog-title>Edit Country</h2>
 <mat-dialog-content>
 
-    <img width="20%" height="20%" src="{{countryinfo?.flags.png}}" />
-    <p>Currency: {{countryinfo?.currencies[0]}}</p>
-    <p>Time Zone: {{countryinfo?.timezones}}</p>
-    <a href="{{countryinfo?.maps.googleMaps}}">Google Maps</a>
-
-    <p>______________________________</p>
-
-
-    <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="data.name" placeholder="{{data.name}}">
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate [(ngModel)]="data.startDate" placeholder="Start date">
-            <input matEndDate [(ngModel)]="data.endDate" placeholder="End date">
-        </mat-date-range-input>
-        <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
+    <mat-tab-group>
+        <mat-tab label="Content">
+            <img width="20%" height="20%" src="{{countryinfo?.flags.png}}" />
+            <p>Currency: {{countryinfo?.currencies[0]}}</p>
+            <p>Time Zone: {{countryinfo?.timezones}}</p>
+            <a href="{{countryinfo?.maps.googleMaps}}">Google Maps</a>    
+        </mat-tab>
+        <mat-tab label="Update"> 
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput [(ngModel)]="data.name" placeholder="{{data.name}}">
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate [(ngModel)]="data.startDate" placeholder="Start date">
+                    <input matEndDate [(ngModel)]="data.endDate" placeholder="End date">
+                </mat-date-range-input>
+                <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </mat-tab>
+      </mat-tab-group>
 
 
 </mat-dialog-content>

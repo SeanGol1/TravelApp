@@ -20,6 +20,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AddCityDialogComponent } from './city/add-city-dialog/add-city-dialog.component';
 import { AddTodoDialogComponent } from './todo/add-todo-dialog/add-todo-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTabsModule} from '@angular/material/tabs';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -90,7 +91,8 @@ import {CdkAccordionModule} from '@angular/cdk/accordion';
     MatFormFieldModule, 
     MatInputModule,
     MatSelectModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    MatTabsModule
 
   ],
   providers: [  
