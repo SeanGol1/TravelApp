@@ -1,7 +1,8 @@
 <div class="plan-item" cdkDropListGroup>
     <div class="row">
         <div class="col-9">
-            <h1>{{plan?.planName}}</h1>
+            <!-- <h1>{{plan?.planName}}</h1> -->
+            <app-countdown-timer [start]="plan.countries[0].startDate"></app-countdown-timer>
         </div>
 
         <div class="col-3">

@@ -45,6 +45,7 @@ import { ScooterAnimationComponent } from './travel/animations/scooter-animation
 import { CityInfoDialogComponent } from './city/city-info-dialog/city-info-dialog.component';
 
 import {CdkAccordionModule} from '@angular/cdk/accordion';
+import { CountdownTimerComponent } from './countdown-timer/countdown-timer.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {CdkAccordionModule} from '@angular/cdk/accordion';
     BusAnimationComponent,
     WalkAnimationComponent,
     ScooterAnimationComponent,
-    CityInfoDialogComponent
+    CityInfoDialogComponent,
+    CountdownTimerComponent
   ],
   imports: [
     BrowserModule,

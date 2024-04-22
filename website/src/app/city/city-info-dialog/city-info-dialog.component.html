@@ -1,11 +1,17 @@
-<h2 mat-dialog-title>Edit Country</h2>
+<h2 mat-dialog-title>Edit City</h2>
 <mat-dialog-content>
 
   <mat-tab-group>
-    <mat-tab label="Content"> 
+    <mat-tab label="Info"> 
       <p>Info about {{data.name}}</p>
 
-    <p>{{poi}}</p>
+    @for (poi of poi.data; track poi) {
+      <div class="poi-item">
+        <h5>{{poi.name}}</h5>
+        <p>{{poi.category}}</p>
+    </div>
+    }
+   
     </mat-tab>
     <mat-tab label="Update"> 
       <mat-form-field>
