@@ -46,6 +46,10 @@ import { CityInfoDialogComponent } from './city/city-info-dialog/city-info-dialo
 
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { CountdownTimerComponent } from './countdown-timer/countdown-timer.component';
+import { MapComponent } from './map/map.component';
+import * as L from 'leaflet';
+import { MapDialogComponent } from './map/map-dialog/map-dialog.component';
+import { MarkerServiceService } from './map/marker-service.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +70,9 @@ import { CountdownTimerComponent } from './countdown-timer/countdown-timer.compo
     WalkAnimationComponent,
     ScooterAnimationComponent,
     CityInfoDialogComponent,
-    CountdownTimerComponent
+    CountdownTimerComponent,
+    MapComponent,
+    MapDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -94,12 +100,14 @@ import { CountdownTimerComponent } from './countdown-timer/countdown-timer.compo
     MatInputModule,
     MatSelectModule,
     CdkAccordionModule,
-    MatTabsModule
+    MatTabsModule,
+    
 
   ],
   providers: [  
     provideAnimationsAsync(),
     MatDatepickerModule,
+    MarkerServiceService,
     [{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}],
 
   ],

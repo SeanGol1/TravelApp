@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>View Map</h2>
+<mat-dialog-content>
+    <div class="map-dialog-container">
+   <app-map [plan]="data"></app-map>
+</div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>ok</button>
+</mat-dialog-actions>

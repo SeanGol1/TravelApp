@@ -31,8 +31,8 @@ export class CityComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.data.getTravelByCityId(this.city.id).subscribe(data=>{
-      this.travel = data;
+    this.data.getTravelByCityId(this.city.id).subscribe({
+      next: (data)=>this.travel = data
     })
   }
 

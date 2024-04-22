@@ -1,24 +1,34 @@
 <div class="plan-item" cdkDropListGroup>
-    <div class="row">
-        <div class="col-9">
-            <!-- <h1>{{plan?.planName}}</h1> -->
-            <app-countdown-timer [start]="plan.countries[0].startDate"></app-countdown-timer>
-        </div>
+    <mat-tab-group preserveContent>
+        <mat-tab label="Plan">
+            <div class="row">
+                <div class="col-9">
+                    <!-- <h1>{{plan?.planName}}</h1> -->
+                    <app-countdown-timer [start]="plan.countries[0].startDate"></app-countdown-timer>
+                </div>
 
-        <div class="col-3">
-            <button mat-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="openCountryDialog()">Add Country</button>
-                <button mat-menu-item (click)="openCityDialog()">Add City</button>
-                <button mat-menu-item (click)="openToDoDialog()">Add To Do</button>
-                <button mat-menu-item (click)="openTravelDialog()">Add Travel</button>
-            </mat-menu>
-            <!-- <button mat-raised-button (click)="openDialog()">Add Country</button> -->
-        </div>
-    </div>
-    <div *ngFor="let country of plan?.countries">
-        <app-country [country]="country"></app-country>
-    </div>
+                <div class="col-3">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openCountryDialog()">Add Country</button>
+                        <button mat-menu-item (click)="openCityDialog()">Add City</button>
+                        <button mat-menu-item (click)="openToDoDialog()">Add To Do</button>
+                        <button mat-menu-item (click)="openTravelDialog()">Add Travel</button>
+                        <button mat-menu-item (click)="openMapDialog()">View Map</button>
+                    </mat-menu>
+                    <!-- <button mat-raised-button (click)="openDialog()">Add Country</button> -->
+                </div>
+            </div>
+            <div *ngFor="let country of plan?.countries">
+                <app-country [country]="country"></app-country>
+            </div>
+        </mat-tab>
+        <mat-tab label="Map">
+            <ng-template matTabContent>
+                <app-map [plan]="plan"></app-map>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
 </div>

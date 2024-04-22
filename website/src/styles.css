@@ -66,8 +66,8 @@ body {
 
 body {
     margin: 0;
-    /* font-family: Roboto, "Helvetica Neue", sans-serif; */
-    font-family: "Style Script", cursive;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    /* font-family: "Style Script", cursive; */
   font-weight: 400;
   font-style: normal;
     text-align: center;

@@ -1,11 +1,12 @@
 <h2 mat-dialog-title>Edit Country</h2>
 <mat-dialog-content>
-
     <mat-tab-group>
         <mat-tab label="Info">
-            <img width="20%" height="20%" src="{{countryinfo?.flags.png}}" />
+            <img width="20%" height="20%" class="imgFlag" src="{{countryinfo?.flags.png}}" />
             <p>Currency: {{countryinfo?.currencies[0]}}</p>
             <p>Time Zone: {{countryinfo?.timezones}}</p>
+            <p>Capital City: {{countryinfo?.capital}} </p>
+            <p>Region: {{countryinfo?.subregion}}</p>
             <a href="{{countryinfo?.maps.googleMaps}}">Google Maps</a>    
         </mat-tab>
         <mat-tab label="Update"> 
