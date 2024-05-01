@@ -46,7 +46,7 @@ namespace TravelPlannerApp.Data
             foreach (var country in plan.Countries)
             {
                 var x = country.StartDate;
-                country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderByDescending(c => c.StartDate.HasValue).ThenBy(c => c.StartDate).ToListAsync();
+                country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderBy(c=>c.SortOrder).ToListAsync();
                 foreach (var cities in country.Cities)
                 {
                     cities.ToDos = await context.ToDo.Where(c => c.City.Id == cities.Id).OrderBy(t=> t.SortOrder).ToListAsync();
@@ -75,8 +75,15 @@ namespace TravelPlannerApp.Data
             return await context.ToDo.FindAsync(id);
         }
 
+        private int GetSortOrder(int id)
+        {
+            int sort = context.City.Where(c => c.Country.Id == id).OrderByDescending(c=>c.SortOrder).First().SortOrder;
+            return sort;
+        }
+
         public async Task<City> PostCityAsync(City city)
         {
+            city.SortOrder = GetSortOrder(city.Country.Id);
             context.City.Add(city);
             await context.SaveChangesAsync();
             return city;
@@ -103,6 +110,7 @@ namespace TravelPlannerApp.Data
             await context.SaveChangesAsync();
             return country;
         }
+
 
         public async Task<City> UpdateCityAsync(City city)
         {

@@ -39,7 +39,8 @@ namespace TravelPlannerApp.Controllers
 
             if (travel == null)
             {
-                return NotFound();
+                return null;
+
             }
 
             return travel;

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Humanizer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelPlannerApp.Data;
@@ -109,6 +112,25 @@ namespace TravelPlannerApp.Controllers
             else { return BadRequest(); }
 
             return CreatedAtAction("GetCity",new { id = city.Id }, city);
+        }
+
+        [Route("updatesort")]
+        [HttpPost]
+        public async Task<ActionResult<HttpStatusCode>> UpdateCitySort(UpdateCityDto[] cities)
+        {
+            foreach (UpdateCityDto _city in cities)
+            {
+                City city = await _repo.GetCitybyIdAsync(_city.Id);
+                city.SortOrder = _city.SortOrder;
+                if (CityExists(_city.Id))
+                {
+                    await _repo.UpdateCityAsync(city);
+                }
+                else
+                    return BadRequest(); 
+            }
+
+            return HttpStatusCode.OK;
         }
 
         // DELETE: api/Cities/5

@@ -81,6 +81,10 @@ export class DataService {
     return this.http.post<City>(this.baseUrl + 'cities/update/', data, { 'headers': this.headers });
   }
 
+  updateCitySort(data: City[]) {
+    return this.http.post<any>(this.baseUrl + 'cities/updatesort/', data, { 'headers': this.headers });
+  }
+
   deleteCity(id: number) {
     return this.http.delete(this.baseUrl + 'cities/' + id, { 'headers': this.headers });
   }
@@ -111,11 +115,9 @@ export class DataService {
   }
 
 
-
   getCountry(name: string) {
     return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
   }
-
 
 
   getAmadeusKey() {

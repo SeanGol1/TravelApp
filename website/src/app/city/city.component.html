@@ -1,4 +1,4 @@
-<div class="city-item">
+<div class="city-item" cdkDrag [cdkDragData]="city">
   <div class="row">
     <div class="col-12">
       <p (click)="openInfoDialog()">{{city?.name}}</p>
@@ -7,9 +7,15 @@
       <button mat-raised-button (click)="openDialog()">Add To-Do</button>
     </div> -->
   </div>
-  <div cdkDropList [cdkDropListData]="city?.toDos" (cdkDropListDropped)="drop($event)" class="citydroplist">
+  <!-- <div cdkDropList [cdkDropListData]="city?.toDos" (cdkDropListDropped)="drop($event)" class="citydroplist">
     @for (todo of city?.toDos; track todo) {
     <app-todo cdkDrag [cdkDragData]="todo" [todo]="todo"></app-todo>
+    }
+  </div> -->
+
+  <div >
+    @for (todo of city?.toDos; track todo) {
+    <app-todo  [todo]="todo"></app-todo>
     }
   </div>
 </div>
@@ -41,8 +47,8 @@
       <!-- <app-train-animation></app-train-animation>                 -->
       }
       }
-      <p>{{enum[travel.travelType]}}</p>
-      <p>{{travel.fromCity.name}} ===> {{travel.toCity.name}}</p>
+      <!-- <p>{{enum[travel.travelType]}}</p>
+      <p>{{travel.fromCity.name}} ===> {{travel.toCity.name}}</p> -->
     </div>
   </div>
 </div>

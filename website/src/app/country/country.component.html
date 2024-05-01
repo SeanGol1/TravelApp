@@ -1,49 +1,42 @@
 <div class="country-item">
 
     <cdk-accordion class="example-accordion">
-          <cdk-accordion-item
-      
-            #accordionItem="cdkAccordionItem"
-            class="example-accordion-item"
-            role="button"
-            tabindex="0"
-            [attr.id]="'accordion-header-' + country.id"
-            [attr.aria-expanded]="accordionItem.expanded"
+        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button" tabindex="0"
+            [attr.id]="'accordion-header-' + country.id" [attr.aria-expanded]="accordionItem.expanded"
             [attr.aria-controls]="'accordion-body-' + country.id">
-            <div class="example-accordion-item-header"  >
+            <div class="example-accordion-item-header">
                 <div class="row">
                     <div class="col-5">
                         <p (click)="openInfoDialog()"><b>{{country?.name}} </b>
-                        <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" /></p>           
+                            <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" />
+                        </p>
                     </div>
                     <div class="col-5">
-                        <p *ngIf="country.startDate">{{getDate(country?.startDate)}} => {{getDate(country?.endDate)}}</p>
+                        <p *ngIf="country.startDate">{{getDate(country?.startDate)}} </p>
+                        <!-- => {{getDate(country?.endDate)}} -->
                     </div>
                     <div class="col-2" (click)="accordionItem.toggle()">
                         <span class="example-accordion-item-description">
                             Click to {{ accordionItem.expanded ? 'close' : 'open' }}
-                          </span>
+                        </span>
                     </div>
-                </div>              
+                </div>
             </div>
-            <div
-              class="example-accordion-item-body"
-              role="region"
-              [style.display]="accordionItem.expanded ? '' : 'none'"
-              [attr.id]="'accordion-body-' + country.id"
-              [attr.aria-labelledby]="'accordion-header-' + country.id">
-
-              <div *ngFor="let city of country?.cities">
-                <app-city [city]="city"></app-city>
-                
+            <div class="example-accordion-item-body" role="region"
+                [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + country.id"
+                [attr.aria-labelledby]="'accordion-header-' + country.id">
+               <div cdkDropList [cdkDropListData]="country?.cities" (cdkDropListDropped)="drop($event)" class="citydroplist">
+                    <div *ngFor="let city of country?.cities">
+                        <app-city   [city]="city"></app-city>
+                    </div>
+                </div>
             </div>
-            </div>
-          </cdk-accordion-item>
-      </cdk-accordion>
+        </cdk-accordion-item>
+    </cdk-accordion>
 
 
 
-<!-- 
+    <!-- 
     <div class="row">
         <div class="col-6">
             <p (click)="openInfoDialog()"><b>{{country?.name}} </b>

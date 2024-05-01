@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { City } from '../models/city';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../data.service';
 import { AddTodoDialogComponent } from '../todo/add-todo-dialog/add-todo-dialog.component';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-  CdkDrag,
-  CdkDropList,
-} from '@angular/cdk/drag-drop';
+// import {
+//   CdkDragDrop,
+//   moveItemInArray,
+//   transferArrayItem,
+//   CdkDrag,
+//   CdkDropList,
+// } from '@angular/cdk/drag-drop';
 import { Plan } from '../models/plan';
 import { ToDo, ToDoUpdate } from '../models/todo';
 import { Travel, TravelType } from '../models/travel';
@@ -20,7 +20,7 @@ import { CityInfoDialogComponent } from './city-info-dialog/city-info-dialog.com
   templateUrl: './city.component.html',
   styleUrls: ['./city.component.css']
 })
-export class CityComponent implements OnInit{
+export class CityComponent implements AfterViewInit{
   @Input() city:City;
   plan:Plan | undefined ;
   todo:ToDoUpdate | undefined ;
@@ -30,66 +30,67 @@ export class CityComponent implements OnInit{
   constructor(public dialog: MatDialog,private data:DataService){    
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.data.getTravelByCityId(this.city.id).subscribe({
-      next: (data)=>this.travel = data
+      next: (data)=>this.travel = data,
+      error:(e)=> console.log(e)
     })
   }
 
-  drop(event: CdkDragDrop<ToDo[]>) {
-    if (event.previousContainer === event.container) {
+  // drop(event: CdkDragDrop<ToDo[]>) {
+  //   if (event.previousContainer === event.container) {
       
-      this.todo = event.item.data;
-      this.todo.cityId = this.city.id;
-      //this.todo.countryId = 0; //TODO: set country.  //this.city.country.id === null ? this.city.country.id:0; 
-      this.todo.sortOrder = event.currentIndex;
+  //     this.todo = event.item.data;
+  //     this.todo.cityId = this.city.id;
+  //     //this.todo.countryId = 0; //TODO: set country.  //this.city.country.id === null ? this.city.country.id:0; 
+  //     this.todo.sortOrder = event.currentIndex;
 
-      this.data.updateTodo(this.todo).subscribe(todo=>{
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      });
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+  //     this.data.updateTodo(this.todo).subscribe(todo=>{
+  //       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //     });
+  //   } else {
+  //     transferArrayItem(
+  //       event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex,
+  //     );
 
-      this.todo = event.item.data;
-      this.todo.cityId = this.city.id;
-      //this.todo.countryId = 0; //TODO: set country.  //this.city.country.id === null ? this.city.country.id:0; 
-      this.todo.sortOrder = event.currentIndex;
+  //     this.todo = event.item.data;
+  //     this.todo.cityId = this.city.id;
+  //     //this.todo.countryId = 0; //TODO: set country.  //this.city.country.id === null ? this.city.country.id:0; 
+  //     this.todo.sortOrder = event.currentIndex;
 
-      this.data.updateTodo(this.todo).subscribe(todo=>{
+  //     this.data.updateTodo(this.todo).subscribe(todo=>{
         
-      });
-    }
-  }
+  //     });
+  //   }
+  // }
 
-  getCityDropList(){
-    let list: string[] = [];
-    this.data.plan$.subscribe({
-      next: plan=> {
-        this.plan = plan              
-        plan.countries.forEach(country => {
-          country.cities.forEach(city => {
-            list.push('drop'+city.id);
-          });
-        });
-      }
-    })
-    // this.data.getPlanById(2).subscribe({
-    //   next: plan=> {
-    //     this.plan = plan              
-    //     plan.countries.forEach(country => {
-    //       country.cities.forEach(city => {
-    //         list.push('drop'+city.id);
-    //       });
-    //     });
-    //   }
-    // });
-    return list;
-  }
+  // getCityDropList(){
+  //   let list: string[] = [];
+  //   this.data.plan$.subscribe({
+  //     next: plan=> {
+  //       this.plan = plan              
+  //       plan.countries.forEach(country => {
+  //         country.cities.forEach(city => {
+  //           list.push('drop'+city.id);
+  //         });
+  //       });
+  //     }
+  //   })
+  //   // this.data.getPlanById(2).subscribe({
+  //   //   next: plan=> {
+  //   //     this.plan = plan              
+  //   //     plan.countries.forEach(country => {
+  //   //       country.cities.forEach(city => {
+  //   //         list.push('drop'+city.id);
+  //   //       });
+  //   //     });
+  //   //   }
+  //   // });
+  //   return list;
+  // }
 
   // drop(event: CdkDragDrop<string[]>) {
   //   if(this.city)

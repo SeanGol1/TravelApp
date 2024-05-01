@@ -75,7 +75,8 @@ body {
 /*TRAIN*/
 
 .train {
-  position: absolute;
+  border-top: 20%;
+  position: relative;
   bottom: 10px;
   width: 310px;
   z-index: 1;
