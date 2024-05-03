@@ -1,0 +1,18 @@
+.accord-icon-closed .fa-chevron-down{
+     transition: .3s transform ease-in-out;  
+    transform: rotate(90deg);    
+  }
+
+
+  .fa-chevron-down{    
+    /* margin: auto; */
+margin-top: 25%;
+margin-bottom: 25%;
+    transform: rotate(90deg); 
+     transition: .3s transform ease-in-out; 
+  }
+
+
+.accord-icon-open .fa-chevron-down{
+    transform: rotate(0deg);
+  }

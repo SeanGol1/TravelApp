@@ -70,6 +70,15 @@ export class PlanComponent {
     });
   }
 
+  checkToday(startdate:Date){   
+    const today =  new Date(Date.now());
+    const start = new Date(startdate);
+    if(start > today )
+      return true;
+    else
+      return false;
+  }
+
   openToDoDialog(): void {
     const dialogRef = this.dialog.open(AddTodoDialogComponent, {
       data: { plan: this.plan },

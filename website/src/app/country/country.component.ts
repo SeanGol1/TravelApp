@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Country } from '../models/country';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../data.service';
@@ -14,27 +14,35 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
+import { Plan } from '../models/plan';
 
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.css']
 })
-export class CountryComponent implements OnInit {
+export class CountryComponent implements OnInit,AfterViewInit {
   @Input() country: Country | undefined;
   countryinfo: any | undefined;
   travel: Travel | undefined;
   city: City | undefined;
+  plan: Plan | undefined;
+  numOfDays: string | '';
 
 
   constructor(public dialog: MatDialog, private data: DataService) {
   }
-
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.data.getCountry(this.country.name).subscribe(data => {
       this.countryinfo = data[0];
       console.log(this.countryinfo);
     });
+
+    this.numOfDays = this.getDays().toString();
+  }
+
+  ngOnInit(): void {
+    
   }
 
   //Update every city other than the drop city. 
@@ -90,6 +98,29 @@ export class CountryComponent implements OnInit {
       return formatDate(date, 'dd MMM', 'en-GB')
     else
       return ''
+  }
+
+  getDays() {    
+    this.data.plan$.subscribe({
+      next: plan=>{
+        this.plan = plan; 
+      }
+    })
+
+    const index = this.plan.countries.findIndex(c=> c.id== this.country.id);
+
+
+if(this.plan.countries[index+1].startDate){
+    const start:Date  = new Date(this.country.startDate);
+    const end:Date = new Date(this.plan.countries[index+1].startDate);
+
+    const diff = end.getTime() - start.getTime(); 
+    return Math.round(diff / (1000 * 3600 * 24));
+}
+else
+{
+  return '';
+}
   }
 
   openInfoDialog(): void {

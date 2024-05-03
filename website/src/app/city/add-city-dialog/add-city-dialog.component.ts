@@ -6,6 +6,7 @@ import { City, CityDialogData } from 'src/app/models/city';
 import { Country } from 'src/app/models/country';
 import { Plan } from 'src/app/models/plan';
 import {MatSelectModule} from '@angular/material/select';
+import { DataService } from 'src/app/data.service';
 
 
 @Component({
@@ -20,13 +21,23 @@ export class AddCityDialogComponent implements OnInit{
   city: CityDialogData = {countryId: 0, name: '', sortOrder:0};
 
   constructor(
-    public dialogRef: MatDialogRef<AddCityDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {plan:Plan}, 
+    public dialogRef: MatDialogRef<AddCityDialogComponent>, public dataservice: DataService,
+    @Inject(MAT_DIALOG_DATA) public data: {plan:Plan,country:Country}, 
   ) {      
     
    }
 
   ngOnInit(): void {
+    if(this.data.country){
+      this.dataservice.plan$.subscribe({
+        next: plan=>{
+          this.data.plan = plan; 
+        }
+      })
+      this.city.countryId=this.data.country.id;
+      //this.data.plan.countries.find(c=>this.data.country)
+    }
+    
     // this.filteredOptions = this.myControl.valueChanges.pipe(
     //   startWith(''),
     //   map(value => {
