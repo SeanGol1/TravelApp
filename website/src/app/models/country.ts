@@ -17,7 +17,7 @@ export interface CountryDialogData {
 export interface UpdateCountryDialogData {
     id: number;
     name: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: Date| undefined;
+    endDate: Date| undefined;
     sortOrder: number;
   }

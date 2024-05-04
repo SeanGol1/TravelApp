@@ -27,7 +27,7 @@ namespace TravelPlannerApp.Data
         //City
         #region City
 
-        Task<City> GetCitybyIdAsync(int id);
+        Task<City> GetCitybyIdAsync(int? id);
         Task<IEnumerable<City>> GetCityAsync();
         Task<City> PostCityAsync(City city);
         Task<City> UpdateCityAsync(City city);

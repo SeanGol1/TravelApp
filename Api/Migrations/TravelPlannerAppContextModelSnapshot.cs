@@ -15,7 +15,7 @@ namespace TravelPlannerApp.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
 
             modelBuilder.Entity("TravelPlannerApp.Models.City", b =>
                 {
@@ -130,7 +130,7 @@ namespace TravelPlannerApp.Migrations
                     b.Property<int>("FromCityId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ToCityId")
+                    b.Property<int?>("ToCityId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("TravelType")
@@ -194,9 +194,7 @@ namespace TravelPlannerApp.Migrations
 
                     b.HasOne("TravelPlannerApp.Models.City", "ToCity")
                         .WithMany()
-                        .HasForeignKey("ToCityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ToCityId");
 
                     b.Navigation("FromCity");
 

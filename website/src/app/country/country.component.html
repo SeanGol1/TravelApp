@@ -18,9 +18,9 @@
                     <div class="col-2" (click)="accordionItem.toggle()">
                         <span class="example-accordion-item-description accord-button">
                             <div class=" {{ accordionItem.expanded ? 'accord-icon-open': 'accord-icon-close' }}">
-                            <i class="fa fa-chevron-down  pull-right"></i>
-                            <!-- Click to {{ accordionItem.expanded ? 'close' : 'open' }} -->
-                        </div>
+                                <i class="fa fa-chevron-down  pull-right"></i>
+                                <!-- Click to {{ accordionItem.expanded ? 'close' : 'open' }} -->
+                            </div>
                         </span>
                     </div>
                 </div>
@@ -28,20 +28,22 @@
             <div class="example-accordion-item-body" role="region"
                 [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + country.id"
                 [attr.aria-labelledby]="'accordion-header-' + country.id">
-<div class="row">
-    <div class="col-8">
-        <p *ngIf="country.startDate">{{getDate(country?.startDate)}} ( {{numOfDays}} days ) </p>
-    </div>
-    <div class="col-4">
-            <button mat-mini-fab color="primary" (click)="openDialog()" aria-label="Example icon button with a delete icon">
-                <mat-icon>add</mat-icon>
-              </button>
-    </div>
-</div>
+                <div class="row">
+                    <div class="col-8">
+                        <p *ngIf="country.startDate">{{getDate(country?.startDate)}} ( {{numOfDays}} days ) </p>
+                    </div>
+                    <div class="col-4">
+                        <button mat-mini-fab color="primary" (click)="openDialog()"
+                            aria-label="Add City Item">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>
 
-               <div cdkDropList [cdkDropListData]="country?.cities" (cdkDropListDropped)="drop($event)" class="citydroplist">
+                <div cdkDropList [cdkDropListData]="country?.cities" (cdkDropListDropped)="drop($event)"
+                    class="citydroplist">
                     <div *ngFor="let city of country?.cities">
-                        <app-city   [city]="city"></app-city>
+                        <app-city [city]="city"></app-city>
                     </div>
                 </div>
             </div>

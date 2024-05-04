@@ -99,8 +99,8 @@ namespace TravelPlannerApp.Controllers
         public async Task<ActionResult<City>> UpdateCity(UpdateCityDto dto)
         {
             City city = await _repo.GetCitybyIdAsync(dto.Id);
-            city.StartDate = dto.StartDate;
-            city.EndDate = dto.EndDate;
+            city.StartDate = dto.StartDate != null ? dto.StartDate : null;
+            city.EndDate = dto.EndDate != null ? dto.EndDate: null;
             city.Name = dto.Name;
             city.SortOrder = dto.SortOrder;
             city.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);

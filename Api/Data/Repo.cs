@@ -19,7 +19,7 @@ namespace TravelPlannerApp.Data
             return await context.City.ToListAsync();
         }
 
-        public async Task<City> GetCitybyIdAsync(int id)
+        public async Task<City> GetCitybyIdAsync(int? id)
         {
             return await context.City.FindAsync(id);
         }

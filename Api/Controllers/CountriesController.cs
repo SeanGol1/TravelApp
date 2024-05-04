@@ -96,8 +96,8 @@ namespace TravelPlannerApp.Controllers
         public async Task<ActionResult<Country>> UpdateCountry(UpdateCountryDto dto)
         {
             Country country = await _repo.GetCountrybyIdAsync(dto.Id);
-            country.StartDate = dto.StartDate;
-            country.EndDate = dto.EndDate;
+            country.StartDate = dto.StartDate != null ? dto.StartDate : null;
+            country.EndDate = dto.EndDate != null ? dto.EndDate : null;
             country.Name = dto.Name;
             country.SortOrder = dto.SortOrder;
             if(await CountryExists(dto.Id))

@@ -20,12 +20,13 @@
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
+      <mat-label>Date Entering the Country</mat-label>
+      <input matInput [(ngModel)]="data.startDate" [matDatepicker]="picker">
+        <!-- <mat-date-range-input [rangePicker]="picker">
             <input matStartDate [(ngModel)]="data.startDate" placeholder="Start date">
             <input matEndDate [(ngModel)]="data.endDate" placeholder="End date">
-        </mat-date-range-input>
-        <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+        </mat-date-range-input> -->
+        <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>

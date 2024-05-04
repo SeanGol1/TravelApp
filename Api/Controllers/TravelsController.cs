@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -86,7 +87,7 @@ namespace TravelPlannerApp.Controllers
                 Date = dto.Date,
                 TravelType = dto.TravelType,
                 FromCity = await _repo.GetCitybyIdAsync(dto.FromCity),
-                ToCity = await _repo.GetCitybyIdAsync(dto.ToCity)
+                ToCity = dto.ToCity != null ? await _repo.GetCitybyIdAsync(dto.ToCity) : null,
             };
 
             await _repo.PostTravelAsync(travel);

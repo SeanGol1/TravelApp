@@ -11,481 +11,492 @@ import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { Travel } from './models/travel';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class DataService {
 
-  private planSource = new BehaviorSubject<Plan | null>(null);
-  plan$ = this.planSource.asObservable();
+    private planSource = new BehaviorSubject<Plan | null>(null);
+    plan$ = this.planSource.asObservable();
 
-  //baseUrl = "https://localhost:7219/api/";
-  baseUrl = "https://travelplannerappapi.azurewebsites.net/api/";
-  headers = new HttpHeaders()
-    .set('content-type', 'application/json');
-
-
-  constructor(private http: HttpClient) {
-  }
-
-  // APIKEY AMIldWC4IsUAz8zLDovkRNuZuq2pSPz9
+    //baseUrl = "https://localhost:7219/api/";
+    baseUrl = "https://travelplannerappapi.azurewebsites.net/api/";
+    headers = new HttpHeaders()
+        .set('content-type', 'application/json');
 
 
+    constructor(private http: HttpClient) {
+    }
 
-  getPlanById(id: number): Observable<Plan> {
-    this.headers.set('Access-Control-Allow-Origin', '*');
-
-    // return this.http.post<Plan>(this.baseUrl + 'plans/' + id, {'headers': this.headers}).pipe(
-    //   map((response:Plan) => {
-    //     const plan = response;
-    //     if(plan){
-    //       localStorage.setItem('plan',JSON.stringify(plan));
-    //       this.planSource.next(plan);
-    //     }
-    //   })
-    // )
-    return this.http.get<Plan>(this.baseUrl + 'plans/' + id, { 'headers': this.headers });
-
-  }
-
-  updatePlan(data: Plan) {
-    return this.http.post<Plan>(this.baseUrl + 'plan/update/', data, { 'headers': this.headers });
-  }
-
-  updateLocalPlan(plan: Plan) {
-    localStorage.setItem('plan', JSON.stringify(plan));
-    this.planSource.next(plan);
-  }
-
-  // Country
-  createCountry(data: CountryDialogData) {
-    this.headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.post<Country>(this.baseUrl + 'countries/', data, { 'headers': this.headers });
-  }
-
-  updateCountry(data: UpdateCountryDialogData) {
-    return this.http.post<Country>(this.baseUrl + 'countries/update/', data, { 'headers': this.headers });
-  }
-
-  deleteCountry(id: number) {
-    return this.http.delete(this.baseUrl + 'countries/' + id, { 'headers': this.headers });
-  }
-
-  // City
-
-  createCity(data: CityDialogData) {
-    this.headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.post<City>(this.baseUrl + 'cities/', data, { 'headers': this.headers });
-  }
-
-  updateCity(data: UpdateCityDialogData) {
-    return this.http.post<City>(this.baseUrl + 'cities/update/', data, { 'headers': this.headers });
-  }
-
-  updateCitySort(data: City[]) {
-    return this.http.post<any>(this.baseUrl + 'cities/updatesort/', data, { 'headers': this.headers });
-  }
-
-  deleteCity(id: number) {
-    return this.http.delete(this.baseUrl + 'cities/' + id, { 'headers': this.headers });
-  }
-
-  //To Do
-  createTodo(data: TodoDialogData) {
-    this.headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });
-  }
-
-  updateTodo(data: ToDoUpdate) {
-    this.headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.post<ToDo>(this.baseUrl + 'todos/update/', data, { 'headers': this.headers });
-  }
-
-  // Travel
-
-  createTravel(data: CityDialogData) {
-    this.headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.post<Travel>(this.baseUrl + 'travels/', data, { 'headers': this.headers });
-  }
-
-  getTravelByCityId(id: number) {
-    this.headers.set('Access-Control-Allow-Origin', '*');
-
-    return this.http.get<Travel>(this.baseUrl + 'travels/' + id, { 'headers': this.headers });
-
-  }
+    // APIKEY AMIldWC4IsUAz8zLDovkRNuZuq2pSPz9
 
 
-  getCountry(name: string) {
-    return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
-  }
+
+    getPlanById(id: number): Observable<Plan> {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+
+        // return this.http.post<Plan>(this.baseUrl + 'plans/' + id, {'headers': this.headers}).pipe(
+        //   map((response:Plan) => {
+        //     const plan = response;
+        //     if(plan){
+        //       localStorage.setItem('plan',JSON.stringify(plan));
+        //       this.planSource.next(plan);
+        //     }
+        //   })
+        // )
+        return this.http.get<Plan>(this.baseUrl + 'plans/' + id, { 'headers': this.headers });
+
+    }
+
+    updatePlan(data: Plan) {
+        return this.http.post<Plan>(this.baseUrl + 'plan/update/', data, { 'headers': this.headers });
+    }
+
+    updateLocalPlan(plan: Plan) {
+        localStorage.setItem('plan', JSON.stringify(plan));
+        this.planSource.next(plan);
+    }
+
+    // Country
+    createCountry(data: CountryDialogData) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.post<Country>(this.baseUrl + 'countries/', data, { 'headers': this.headers });
+    }
+
+    updateCountry(data: UpdateCountryDialogData) {
+        return this.http.post<Country>(this.baseUrl + 'countries/update/', data, { 'headers': this.headers });
+    }
+
+    deleteCountry(id: number) {
+        return this.http.delete(this.baseUrl + 'countries/' + id, { 'headers': this.headers });
+    }
+
+    // City
+
+    createCity(data: CityDialogData) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.post<City>(this.baseUrl + 'cities/', data, { 'headers': this.headers });
+    }
+
+    updateCity(data: UpdateCityDialogData) {
+        return this.http.post<City>(this.baseUrl + 'cities/update/', data, { 'headers': this.headers });
+    }
+
+    updateCitySort(data: City[]) {
+        return this.http.post<any>(this.baseUrl + 'cities/updatesort/', data, { 'headers': this.headers });
+    }
+
+    deleteCity(id: number) {
+        return this.http.delete(this.baseUrl + 'cities/' + id, { 'headers': this.headers });
+    }
+
+    //To Do
+    createTodo(data: TodoDialogData) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });
+    }
+
+    updateTodo(data: ToDoUpdate) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.post<ToDo>(this.baseUrl + 'todos/update/', data, { 'headers': this.headers });
+    }
+
+    // Travel
+
+    createTravel(data: CityDialogData) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.post<Travel>(this.baseUrl + 'travels/', data, { 'headers': this.headers });
+    }
+
+    getTravelByCityId(id: number) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+
+        return this.http.get<Travel>(this.baseUrl + 'travels/' + id, { 'headers': this.headers });
+
+    }
 
 
-  getAmadeusKey() {
-    let xheaders = new HttpHeaders()
-      .set('content-type', 'application/x-www-form-urlencoded');
-    let body = new URLSearchParams();
-    body.set('grant_type', 'client_credentials');
-    body.set('client_id', 'AMIldWC4IsUAz8zLDovkRNuZuq2pSPz9');
-    body.set('client_secret', 'GLysOz681Zm4QJfQ');
-    return this.http.post('https://test.api.amadeus.com/v1/security/oauth2/token', body, { 'headers': xheaders });
-  }
+    getCountry(name: string) {
+        return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
+    }
 
-  getCity(name: string) : Observable<any>{
-    // var accessToken
-    // try {
-    //   this.getAmadeusKey().subscribe({
-    //     next: (access) => {
-    //       accessToken = access;
-    //       let xheaders = new HttpHeaders()
-    //       xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);
-    //       xheaders.set('content-type', 'application/vnd.amadeus+json');
-    //       return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { 'headers': xheaders })
-    //     },
-    //     error: (e) => {
-    //       console.log(e);
-    //     }
-    //   });
-    // }
-    // catch (e) {
-    //   console.log(e.message);
-    // }
+    getCountryByCityId(id: number) {
+        let country:Country;
+        this.planSource.value.countries.forEach(c => {
+            c.cities.forEach(ct => {
+                if (ct.id == id){
+                    country = c; 
+                }
+            })
+        })
+        return country;
+    }
 
-    // return null
+    getAmadeusKey() {
+        let xheaders = new HttpHeaders()
+            .set('content-type', 'application/x-www-form-urlencoded');
+        let body = new URLSearchParams();
+        body.set('grant_type', 'client_credentials');
+        body.set('client_id', 'AMIldWC4IsUAz8zLDovkRNuZuq2pSPz9');
+        body.set('client_secret', 'GLysOz681Zm4QJfQ');
+        return this.http.post('https://test.api.amadeus.com/v1/security/oauth2/token', body, { 'headers': xheaders });
+    }
 
-    return this.getAmadeusKey().pipe(
-      switchMap((accessToken) => {
-        const headers = new HttpHeaders()
-          .set('Authorization', 'Bearer ' + accessToken["access_token"])
-          .set('Content-Type', 'application/vnd.amadeus+json');
+    getCity(name: string): Observable<any> {
+        // var accessToken
+        // try {
+        //   this.getAmadeusKey().subscribe({
+        //     next: (access) => {
+        //       accessToken = access;
+        //       let xheaders = new HttpHeaders()
+        //       xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);
+        //       xheaders.set('content-type', 'application/vnd.amadeus+json');
+        //       return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { 'headers': xheaders })
+        //     },
+        //     error: (e) => {
+        //       console.log(e);
+        //     }
+        //   });
+        // }
+        // catch (e) {
+        //   console.log(e.message);
+        // }
 
-        return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { headers });
-      })
-    );
+        // return null
 
-  }
+        return this.getAmadeusKey().pipe(
+            switchMap((accessToken) => {
+                const headers = new HttpHeaders()
+                    .set('Authorization', 'Bearer ' + accessToken["access_token"])
+                    .set('Content-Type', 'application/vnd.amadeus+json');
+
+                return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { headers });
+            })
+        );
+
+    }
 
 
-  getPOI(latlng: number[])  {//: Observable<any>
-      // var accessToken
-      //   this.getAmadeusKey().subscribe({
-      //     next: (access)=>{
-      //      accessToken = access;
-      //      let xheaders = new HttpHeaders()
-      //      xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);
-      //       xheaders.set('content-type', 'application/vnd.amadeus+json');
-      //       return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=20&page%5Blimit%5D=10&page%5Boffset%5D=0', { 'headers': xheaders })
-      //     },
-      //     error:(e)=>{
-      //       console.log(e);            
-      //     }
-      //   });
+    getPOI(latlng: number[]) {//: Observable<any>
+        // var accessToken
+        //   this.getAmadeusKey().subscribe({
+        //     next: (access)=>{
+        //      accessToken = access;
+        //      let xheaders = new HttpHeaders()
+        //      xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);
+        //       xheaders.set('content-type', 'application/vnd.amadeus+json');
+        //       return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=20&page%5Blimit%5D=10&page%5Boffset%5D=0', { 'headers': xheaders })
+        //     },
+        //     error:(e)=>{
+        //       console.log(e);            
+        //     }
+        //   });
 
-      // return this.getAmadeusKey().pipe(
-      //   switchMap((accessToken) => {
-      //     const headers = new HttpHeaders()
-      //       .set('Authorization', 'Bearer ' + accessToken["access_token"])
-      //       .set('Content-Type', 'application/vnd.amadeus+json');
-      //   // DO NOT DELETE
-      //    // return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0', { headers });
-         
-      //   })
-      // );
-      var data =  {
-        "data": [
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "9CB40CB5D0",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/9CB40CB5D0",
-                    "methods": [
-                        "GET"
+        // return this.getAmadeusKey().pipe(
+        //   switchMap((accessToken) => {
+        //     const headers = new HttpHeaders()
+        //       .set('Authorization', 'Bearer ' + accessToken["access_token"])
+        //       .set('Content-Type', 'application/vnd.amadeus+json');
+        //   // DO NOT DELETE
+        //    // return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0', { headers });
+
+        //   })
+        // );
+        var data = {
+            "data": [
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "9CB40CB5D0",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/9CB40CB5D0",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.39165,
+                        "longitude": 2.164772
+                    },
+                    "name": "Casa Batlló",
+                    "category": "SIGHTS",
+                    "rank": 5,
+                    "tags": [
+                        "sightseeing",
+                        "sights",
+                        "museum",
+                        "landmark",
+                        "tourguide",
+                        "restaurant",
+                        "attraction",
+                        "activities",
+                        "commercialplace",
+                        "shopping",
+                        "souvenir"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.39165,
-                    "longitude": 2.164772
-                },
-                "name": "Casa Batlló",
-                "category": "SIGHTS",
-                "rank": 5,
-                "tags": [
-                    "sightseeing",
-                    "sights",
-                    "museum",
-                    "landmark",
-                    "tourguide",
-                    "restaurant",
-                    "attraction",
-                    "activities",
-                    "commercialplace",
-                    "shopping",
-                    "souvenir"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "4690B83DCA",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/4690B83DCA",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "4690B83DCA",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/4690B83DCA",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.397987,
+                        "longitude": 2.161159
+                    },
+                    "name": "La Pepita",
+                    "category": "RESTAURANT",
+                    "rank": 30,
+                    "tags": [
+                        "restaurant",
+                        "tapas",
+                        "pub",
+                        "bar",
+                        "sightseeing",
+                        "commercialplace"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.397987,
-                    "longitude": 2.161159
-                },
-                "name": "La Pepita",
-                "category": "RESTAURANT",
-                "rank": 30,
-                "tags": [
-                    "restaurant",
-                    "tapas",
-                    "pub",
-                    "bar",
-                    "sightseeing",
-                    "commercialplace"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "3EF139D861",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/3EF139D861",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "3EF139D861",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/3EF139D861",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.38827,
+                        "longitude": 2.161604
+                    },
+                    "name": "Brunch & Cake",
+                    "category": "RESTAURANT",
+                    "rank": 30,
+                    "tags": [
+                        "vegetarian",
+                        "restaurant",
+                        "breakfast",
+                        "shopping",
+                        "bakery",
+                        "transport",
+                        "patio",
+                        "garden"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.38827,
-                    "longitude": 2.161604
-                },
-                "name": "Brunch & Cake",
-                "category": "RESTAURANT",
-                "rank": 30,
-                "tags": [
-                    "vegetarian",
-                    "restaurant",
-                    "breakfast",
-                    "shopping",
-                    "bakery",
-                    "transport",
-                    "patio",
-                    "garden"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "AB3F122E3E",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/AB3F122E3E",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "AB3F122E3E",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/AB3F122E3E",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.392376,
+                        "longitude": 2.160919
+                    },
+                    "name": "Cervecería Catalana",
+                    "category": "RESTAURANT",
+                    "rank": 30,
+                    "tags": [
+                        "restaurant",
+                        "tapas",
+                        "sightseeing",
+                        "traditionalcuisine",
+                        "bar",
+                        "activities",
+                        "commercialplace"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.392376,
-                    "longitude": 2.160919
-                },
-                "name": "Cervecería Catalana",
-                "category": "RESTAURANT",
-                "rank": 30,
-                "tags": [
-                    "restaurant",
-                    "tapas",
-                    "sightseeing",
-                    "traditionalcuisine",
-                    "bar",
-                    "activities",
-                    "commercialplace"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "752402FCA2",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/752402FCA2",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "752402FCA2",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/752402FCA2",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.40043,
+                        "longitude": 2.15463
+                    },
+                    "name": "Botafumeiro",
+                    "category": "RESTAURANT",
+                    "rank": 30,
+                    "tags": [
+                        "restaurant",
+                        "seafood",
+                        "sightseeing",
+                        "professionalservices",
+                        "transport",
+                        "commercialplace"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.40043,
-                    "longitude": 2.15463
-                },
-                "name": "Botafumeiro",
-                "category": "RESTAURANT",
-                "rank": 30,
-                "tags": [
-                    "restaurant",
-                    "seafood",
-                    "sightseeing",
-                    "professionalservices",
-                    "transport",
-                    "commercialplace"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "5F1CED3994",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/5F1CED3994",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "5F1CED3994",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/5F1CED3994",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.39148,
+                        "longitude": 2.164981
+                    },
+                    "name": "Casa Amatller",
+                    "category": "SIGHTS",
+                    "rank": 100,
+                    "tags": [
+                        "sightseeing",
+                        "sights",
+                        "museum",
+                        "landmark",
+                        "restaurant",
+                        "tourguide",
+                        "historicplace",
+                        "historic",
+                        "attraction",
+                        "commercialplace",
+                        "activities",
+                        "shopping",
+                        "events"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.39148,
-                    "longitude": 2.164981
-                },
-                "name": "Casa Amatller",
-                "category": "SIGHTS",
-                "rank": 100,
-                "tags": [
-                    "sightseeing",
-                    "sights",
-                    "museum",
-                    "landmark",
-                    "restaurant",
-                    "tourguide",
-                    "historicplace",
-                    "historic",
-                    "attraction",
-                    "commercialplace",
-                    "activities",
-                    "shopping",
-                    "events"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "30601A1A90",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/30601A1A90",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "30601A1A90",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/30601A1A90",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.390785,
+                        "longitude": 2.167414
+                    },
+                    "name": "Tapas 24",
+                    "category": "RESTAURANT",
+                    "rank": 100,
+                    "tags": [
+                        "restaurant",
+                        "tapas",
+                        "traditionalcuisine",
+                        "sightseeing",
+                        "commercialplace",
+                        "transport",
+                        "patio",
+                        "garden",
+                        "activities",
+                        "bar"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.390785,
-                    "longitude": 2.167414
-                },
-                "name": "Tapas 24",
-                "category": "RESTAURANT",
-                "rank": 100,
-                "tags": [
-                    "restaurant",
-                    "tapas",
-                    "traditionalcuisine",
-                    "sightseeing",
-                    "commercialplace",
-                    "transport",
-                    "patio",
-                    "garden",
-                    "activities",
-                    "bar"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "15C8B8148C",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/15C8B8148C",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "15C8B8148C",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/15C8B8148C",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.392677,
+                        "longitude": 2.153942
+                    },
+                    "name": "Dry Martini",
+                    "category": "NIGHTLIFE",
+                    "rank": 100,
+                    "tags": [
+                        "bar",
+                        "restaurant",
+                        "nightlife",
+                        "club",
+                        "sightseeing",
+                        "attraction",
+                        "activities"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.392677,
-                    "longitude": 2.153942
-                },
-                "name": "Dry Martini",
-                "category": "NIGHTLIFE",
-                "rank": 100,
-                "tags": [
-                    "bar",
-                    "restaurant",
-                    "nightlife",
-                    "club",
-                    "sightseeing",
-                    "attraction",
-                    "activities"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "BD29CF2CCD",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/BD29CF2CCD",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "BD29CF2CCD",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/BD29CF2CCD",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.399193,
+                        "longitude": 2.159853
+                    },
+                    "name": "Con Gracia",
+                    "category": "RESTAURANT",
+                    "rank": 100,
+                    "tags": [
+                        "restaurant",
+                        "sightseeing",
+                        "commercialplace",
+                        "professionalservices",
+                        "activities"
                     ]
                 },
-                "geoCode": {
-                    "latitude": 41.399193,
-                    "longitude": 2.159853
-                },
-                "name": "Con Gracia",
-                "category": "RESTAURANT",
-                "rank": 100,
-                "tags": [
-                    "restaurant",
-                    "sightseeing",
-                    "commercialplace",
-                    "professionalservices",
-                    "activities"
-                ]
-            },
-            {
-                "type": "location",
-                "subType": "POINT_OF_INTEREST",
-                "id": "24DE6CE737",
-                "self": {
-                    "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/24DE6CE737",
-                    "methods": [
-                        "GET"
+                {
+                    "type": "location",
+                    "subType": "POINT_OF_INTEREST",
+                    "id": "24DE6CE737",
+                    "self": {
+                        "href": "https://test.api.amadeus.com/v1/reference-data/locations/pois/24DE6CE737",
+                        "methods": [
+                            "GET"
+                        ]
+                    },
+                    "geoCode": {
+                        "latitude": 41.390198,
+                        "longitude": 2.156974
+                    },
+                    "name": "Osmosis",
+                    "category": "RESTAURANT",
+                    "rank": 100,
+                    "tags": [
+                        "restaurant",
+                        "shopping",
+                        "transport",
+                        "professionalservices"
                     ]
-                },
-                "geoCode": {
-                    "latitude": 41.390198,
-                    "longitude": 2.156974
-                },
-                "name": "Osmosis",
-                "category": "RESTAURANT",
-                "rank": 100,
-                "tags": [
-                    "restaurant",
-                    "shopping",
-                    "transport",
-                    "professionalservices"
-                ]
+                }
+            ],
+            "meta": {
+                "count": 120,
+                "links": {
+                    "self": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=0",
+                    "next": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=10",
+                    "last": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=120",
+                    "first": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=0",
+                    "up": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=0"
+                }
             }
-        ],
-        "meta": {
-            "count": 120,
-            "links": {
-                "self": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=0",
-                "next": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=10",
-                "last": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=120",
-                "first": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=0",
-                "up": "https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=1&page[limit]=10&page[offset]=0"
-            }
+
+
         }
-    
-    
-      }
-      return data
+        return data
 
-  }
+    }
 
 
 

@@ -20,26 +20,26 @@ import { CityInfoDialogComponent } from './city-info-dialog/city-info-dialog.com
   templateUrl: './city.component.html',
   styleUrls: ['./city.component.css']
 })
-export class CityComponent implements AfterViewInit{
-  @Input() city:City;
-  plan:Plan | undefined ;
-  todo:ToDoUpdate | undefined ;
-  travel:Travel | undefined;
+export class CityComponent implements AfterViewInit {
+  @Input() city: City;
+  plan: Plan | undefined;
+  todo: ToDoUpdate | undefined;
+  travel: Travel | undefined;
   enum: typeof TravelType = TravelType;
 
-  constructor(public dialog: MatDialog,private data:DataService){    
+  constructor(public dialog: MatDialog, private data: DataService) {
   }
 
   ngAfterViewInit(): void {
     this.data.getTravelByCityId(this.city.id).subscribe({
-      next: (data)=>this.travel = data,
-      error:(e)=> console.log(e)
+      next: (data) => this.travel = data,
+      error: (e) => console.log(e)
     })
   }
 
   // drop(event: CdkDragDrop<ToDo[]>) {
   //   if (event.previousContainer === event.container) {
-      
+
   //     this.todo = event.item.data;
   //     this.todo.cityId = this.city.id;
   //     //this.todo.countryId = 0; //TODO: set country.  //this.city.country.id === null ? this.city.country.id:0; 
@@ -62,7 +62,7 @@ export class CityComponent implements AfterViewInit{
   //     this.todo.sortOrder = event.currentIndex;
 
   //     this.data.updateTodo(this.todo).subscribe(todo=>{
-        
+
   //     });
   //   }
   // }
@@ -99,17 +99,17 @@ export class CityComponent implements AfterViewInit{
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddTodoDialogComponent, {
-      data: {city: this.city},
+      data: { city: this.city },
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      data.cityId = this.city?.id;      
+      data.cityId = this.city?.id;
       // if(this.city?.country.id)
       //   data.countryId = this.city?.country.id;
       // else
       //   data.countryId = 0;
       this.data.createTodo(data).subscribe({
-        next:todo=>{
+        next: todo => {
           this.city?.toDos.push(todo);
         }
       });
@@ -118,19 +118,20 @@ export class CityComponent implements AfterViewInit{
 
   openInfoDialog(): void {
     const dialogRef = this.dialog.open(CityInfoDialogComponent, {
-      data: this.city,
+      data:{city: this.city},
     });
 
     dialogRef.afterClosed().subscribe(c => {
-      //data.countryId = this.country.id;
+      if (c) {
+        //data.countryId = this.country.id;
 
-      this.data.updateCity(c).subscribe({
-        next:city=>{
-          //this.country = country
-          //TODO: fix list.
-        }
-      });
-    
+        this.data.updateCity(c).subscribe({
+          next: city => {
+            //this.country = country
+            //TODO: fix list.
+          }
+        });
+      }
     });
   }
 }

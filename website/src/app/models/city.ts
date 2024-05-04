@@ -5,6 +5,7 @@ export interface City {
     id:number;
     name : string;
     country : Country;
+    countryId:number;
     sortOrder: number;
     startDate: Date;
     endDate: Date;
@@ -20,8 +21,8 @@ export interface CityDialogData {
   export interface UpdateCityDialogData {
     id: number;
     name: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: Date| undefined;
+    endDate: Date | undefined;
     countryId: number;
     sortOrder: number;
   }

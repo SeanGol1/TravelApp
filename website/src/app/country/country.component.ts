@@ -21,7 +21,7 @@ import { Plan } from '../models/plan';
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.css']
 })
-export class CountryComponent implements OnInit,AfterViewInit {
+export class CountryComponent implements OnInit, AfterViewInit {
   @Input() country: Country | undefined;
   countryinfo: any | undefined;
   travel: Travel | undefined;
@@ -42,7 +42,7 @@ export class CountryComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   //Update every city other than the drop city. 
@@ -100,27 +100,25 @@ export class CountryComponent implements OnInit,AfterViewInit {
       return ''
   }
 
-  getDays() {    
+  getDays() {
     this.data.plan$.subscribe({
-      next: plan=>{
-        this.plan = plan; 
+      next: plan => {
+        this.plan = plan;
       }
     })
 
-    const index = this.plan.countries.findIndex(c=> c.id== this.country.id);
+    const index = this.plan.countries.findIndex(c => c.id == this.country.id);
 
+    if (this.plan.countries[index + 1].startDate) {
+      const start: Date = new Date(this.country.startDate);
+      const end: Date = new Date(this.plan.countries[index + 1].startDate);
 
-if(this.plan.countries[index+1].startDate){
-    const start:Date  = new Date(this.country.startDate);
-    const end:Date = new Date(this.plan.countries[index+1].startDate);
-
-    const diff = end.getTime() - start.getTime(); 
-    return Math.round(diff / (1000 * 3600 * 24));
-}
-else
-{
-  return '';
-}
+      const diff = end.getTime() - start.getTime();
+      return Math.round(diff / (1000 * 3600 * 24));
+    }
+    else {
+      return '';
+    }
   }
 
   openInfoDialog(): void {
@@ -128,15 +126,18 @@ else
       data: this.country,
     });
 
-    dialogRef.afterClosed().subscribe(c => {
-      //data.countryId = this.country.id;
-
-      this.data.updateCountry(c).subscribe({
-        next: country => {
-          //this.country = country
-        }
-      });
-
+    dialogRef.afterClosed().subscribe({
+      next: c => {
+        if(c){
+        //data.countryId = this.country.id;
+        this.data.updateCountry(c).subscribe({
+          next: country => {
+            //this.country = country //TODO: Update Plan
+          }
+        });
+      }
+      },
+      error: e => console.log(e)
     });
   }
 
@@ -145,13 +146,16 @@ else
       data: { country: this.country },
     });
 
-    dialogRef.afterClosed().subscribe(data => {
-      data.countryId = this.country.id;
-      this.data.createCity(data).subscribe({
-        next: city => {
-          this.country?.cities.push(city);
-        }
-      });
+    dialogRef.afterClosed().subscribe({
+      next: data => {
+        data.countryId = this.country.id;
+        this.data.createCity(data).subscribe({
+          next: city => {
+            this.country?.cities.push(city);
+          }
+        });
+      },
+      error: e => console.log(e)
     });
   }
 }

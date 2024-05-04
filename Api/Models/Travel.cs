@@ -16,6 +16,6 @@
         public TravelType TravelType { get; set; }
         public DateTime Date { get; set; }
         public City FromCity { get; set; }
-        public City ToCity { get; set; }
+        public City? ToCity { get; set; }
     }
 }
