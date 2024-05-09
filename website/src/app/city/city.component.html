@@ -4,10 +4,20 @@
       <p (click)="openInfoDialog()">{{city?.name}}</p>
     </div>
     <div class="col-4">
-      <button mat-mini-fab color="primary" (click)="openDialog()"
-                            aria-label="Add ToDo Item">
-                            <mat-icon>add</mat-icon>
-                        </button>
+      <!-- <button mat-mini-fab color="primary" aria-label="Add ToDo Item">
+        <mat-icon>add</mat-icon> <mat-icon>more_vert</mat-icon>
+      </button> -->
+      <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openAddTodoDialog()">Add To Do</button>
+        <button mat-menu-item (click)="openInfoDialog()">Edit City</button>
+        <button mat-menu-item (click)="deleteCity()">Delete City</button>
+        <button mat-menu-item (click)="openTravelDialog()">Add Travel</button>
+        <button mat-menu-item (click)="deleteTravel()">Delete Travel</button>
+
+    </mat-menu>
     </div>
     <!-- <div class="col-4">
       <button mat-raised-button (click)="openDialog()">Add To-Do</button>
@@ -19,9 +29,9 @@
     }
   </div> -->
 
-  <div >
+  <div>
     @for (todo of city?.toDos; track todo) {
-    <app-todo  [todo]="todo"></app-todo>
+    <app-todo [todo]="todo"></app-todo>
     }
   </div>
 </div>

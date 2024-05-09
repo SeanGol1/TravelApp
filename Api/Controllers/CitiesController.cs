@@ -89,7 +89,7 @@ namespace TravelPlannerApp.Controllers
             city.StartDate = dto.StartDate;
             city.EndDate = dto.EndDate;
             city.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);
-            _repo.PostCityAsync(city);
+            city = await _repo.PostCityAsync(city);
 
             return CreatedAtAction("GetCity", new { id = city.Id }, city);
         }

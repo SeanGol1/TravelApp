@@ -4,6 +4,7 @@
   <mat-tab-group>
     <mat-tab label="Info"> 
       <p>Info about {{data.name}}</p>
+      <p>id: {{data.id}}</p>
 
     @for (poi of poi.data; track poi) {
       <div class="poi-item">
@@ -46,6 +47,6 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button (click)="deleteCountry()">Delete</button>
+    <button mat-button (click)="deleteCity()">Delete</button>
     <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Update</button>
 </mat-dialog-actions>

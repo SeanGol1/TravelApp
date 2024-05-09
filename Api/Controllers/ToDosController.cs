@@ -87,7 +87,7 @@ namespace TravelPlannerApp.Controllers
             todo.Country = await _repo.GetCountrybyIdAsync(dto.CountryId);
             todo.City = await _repo.GetCitybyIdAsync(dto.CityId);
             todo.SortOrder = 0;
-            _repo.PostToDoAsync(todo);
+            todo = await _repo.PostToDoAsync(todo);
 
             return CreatedAtAction("GetToDo", new { id = todo.Id }, todo);
         }
@@ -116,7 +116,8 @@ namespace TravelPlannerApp.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteToDo(int id)
         {
-            var toDo = await _context.ToDo.FindAsync(id);
+            var toDo = await _repo.GetToDobyIdAsync(id);
+                // _context.ToDo.FindAsync(id);
             if (toDo == null)
             {
                 return NotFound();

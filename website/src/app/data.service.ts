@@ -9,6 +9,7 @@ import { ToDo, ToDoUpdate } from './models/todo';
 import { HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { Travel } from './models/travel';
+import { TravelDialogData } from './travel/add-travel-dialog/add-travel-dialog.component';
 
 @Injectable({
     providedIn: 'root'
@@ -74,7 +75,20 @@ export class DataService {
 
     createCity(data: CityDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
-        return this.http.post<City>(this.baseUrl + 'cities/', data, { 'headers': this.headers });
+        const city = this.http.post<City>(this.baseUrl + 'cities/', data, { 'headers': this.headers });
+        if (city) {
+            this.plan$.subscribe(plan => {
+                plan.countries.forEach(c => {
+                    if(data.countryId == c.id){
+                        city.subscribe(city=>{
+                            c.cities.push(city);
+                            return city;
+                        });                       
+                    }
+                });
+            });
+        }
+        return city;
     }
 
     updateCity(data: UpdateCityDialogData) {
@@ -86,12 +100,38 @@ export class DataService {
     }
 
     deleteCity(id: number) {
-        return this.http.delete(this.baseUrl + 'cities/' + id, { 'headers': this.headers });
+        const resp = this.http.delete<City>(this.baseUrl + 'cities/' + id, { 'headers': this.headers });
+        if (resp) {
+            this.plan$.subscribe(plan => {
+                plan.countries.forEach(c => {
+                    c.cities.forEach(ct => {
+                        if (ct.id == id) {
+                            c.cities.splice(c.cities.indexOf(ct), 1);
+                        }
+                    })
+                })
+            });
+        }
+        return resp;
     }
 
     //To Do
     createTodo(data: TodoDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
+        const resp = this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });;
+        if (resp) {
+            this.plan$.subscribe(plan => {
+                plan.countries.forEach(c => {
+                    c.cities.forEach(ct => {
+                        if(ct.id == data.cityId){
+                        resp.subscribe(todo=>{
+                            ct.toDos.push(todo);       
+                        })
+                    }
+                    })
+                })
+            });
+        }
         return this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });
     }
 
@@ -100,11 +140,44 @@ export class DataService {
         return this.http.post<ToDo>(this.baseUrl + 'todos/update/', data, { 'headers': this.headers });
     }
 
+    deleteToDo(id: number) {
+        const resp = this.http.delete<ToDo>(this.baseUrl + 'todos/' + id, { 'headers': this.headers });
+        if (resp) {
+            this.plan$.subscribe(plan => {
+                plan.countries.forEach(c => {
+                    c.cities.forEach(ct => {
+                        ct.toDos.forEach(todo=>{
+                            if (todo.id == id) {
+                                ct.toDos.splice(ct.toDos.indexOf(todo), 1);
+                            }
+                        })
+                    })
+                })
+            });
+        }
+        return resp;
+    }
+
     // Travel
 
-    createTravel(data: CityDialogData) {
+    createTravel(data: TravelDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
-        return this.http.post<Travel>(this.baseUrl + 'travels/', data, { 'headers': this.headers });
+        // const result = this.http.post<Travel>(this.baseUrl + 'travels/', data, { 'headers': this.headers });
+        // if (result) {
+        //     this.plan$.subscribe(plan => {
+        //         plan.countries.forEach(c => {
+        //             c.cities.forEach(ct => {
+        //                 if(ct.id == data.fromCity){
+        //                 result.subscribe(travel=>{
+        //                     ct..push(todo);       
+        //                 })
+        //             }
+        //             })
+        //         })
+        //     });
+        // }
+
+        return this.http.post<Travel>(this.baseUrl + 'travels/', data, { 'headers': this.headers });;
     }
 
     getTravelByCityId(id: number) {
@@ -114,17 +187,33 @@ export class DataService {
 
     }
 
+    deleteTravel(id: number) {
+        // const resp = this.http.delete<ToDo>(this.baseUrl + 'todos/' + id, { 'headers': this.headers });
+        // if (resp) {
+        //     this.plan$.subscribe(plan => {
+        //         plan.countries.forEach(c => {
+        //             c.cities.forEach(ct => {
+        //                 if (ct.id == id) {
+        //                     c.cities.splice(c.cities.indexOf(ct), 1);
+        //                 }
+        //             })
+        //         })
+        //     });
+        // }
+        return this.http.delete<Travel>(this.baseUrl + 'travels/' + id, { 'headers': this.headers });;
+    }
+
 
     getCountry(name: string) {
         return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
     }
 
     getCountryByCityId(id: number) {
-        let country:Country;
+        let country: Country;
         this.planSource.value.countries.forEach(c => {
             c.cities.forEach(ct => {
-                if (ct.id == id){
-                    country = c; 
+                if (ct.id == id) {
+                    country = c;
                 }
             })
         })

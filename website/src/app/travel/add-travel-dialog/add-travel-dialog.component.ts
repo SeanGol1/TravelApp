@@ -1,5 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DataService } from 'src/app/data.service';
+import { City } from 'src/app/models/city';
 import { Plan } from 'src/app/models/plan';
 import { TravelType } from 'src/app/models/travel';
 
@@ -8,13 +10,22 @@ import { TravelType } from 'src/app/models/travel';
   templateUrl: './add-travel-dialog.component.html',
   styleUrls: ['./add-travel-dialog.component.css']
 })
-export class AddTravelDialogComponent {
+export class AddTravelDialogComponent implements OnInit {
  travel:TravelDialogData = {fromCity:0,toCity:0,travelType:null};
+ plan:Plan | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<AddTravelDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {plan:Plan},
+    @Inject(MAT_DIALOG_DATA) public data: {city:City},
+    private dataservice:DataService
   ) { }
+
+  ngOnInit(): void {
+    this.dataservice.plan$.subscribe(p=>
+      this.plan = p
+    )
+    this.travel.fromCity = this.data.city.id;
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

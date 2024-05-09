@@ -88,15 +88,15 @@ export class PlanComponent {
       console.log('The dialog was closed');
       if(data){
       this.data.createTodo(data).subscribe({
-        next: todo => {
-          this.plan.countries.forEach(c => {
-            c.cities.forEach(city => {
-              if (city.id == data.coun)
-                city.toDos.push(todo);
-            })
+        // next: todo => {
+        //   this.plan.countries.forEach(c => {
+        //     c.cities.forEach(city => {
+        //       if (city.id == data.coun)
+        //         city.toDos.push(todo);
+        //     })
 
-          });
-        }
+        //   });
+        // }
       });}
     });
   }

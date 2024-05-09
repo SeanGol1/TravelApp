@@ -352,8 +352,9 @@ export class CityInfoDialogComponent implements OnInit {
     })
   }
 
-  deleteCountry() {
-    this.dataservice.deleteCity(this.data.id).subscribe({
+  deleteCity() {
+    const i = this.data
+    this.dataservice.deleteCity(i.id).subscribe({
       next: city => {
         //remove from plan? 
         this.dialogRef.close();

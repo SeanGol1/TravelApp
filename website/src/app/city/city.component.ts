@@ -14,6 +14,7 @@ import { Plan } from '../models/plan';
 import { ToDo, ToDoUpdate } from '../models/todo';
 import { Travel, TravelType } from '../models/travel';
 import { CityInfoDialogComponent } from './city-info-dialog/city-info-dialog.component';
+import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel-dialog.component';
 
 @Component({
   selector: 'app-city',
@@ -34,6 +35,10 @@ export class CityComponent implements AfterViewInit {
     this.data.getTravelByCityId(this.city.id).subscribe({
       next: (data) => this.travel = data,
       error: (e) => console.log(e)
+    })
+
+    this.data.plan$.subscribe(p=>{
+      this.plan = p;
     })
   }
 
@@ -97,28 +102,31 @@ export class CityComponent implements AfterViewInit {
   //     moveItemInArray(this.city?.toDos, event.previousIndex, event.currentIndex);
   // }
 
-  openDialog(): void {
+  openAddTodoDialog(): void {
     const dialogRef = this.dialog.open(AddTodoDialogComponent, {
       data: { city: this.city },
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      data.cityId = this.city?.id;
-      // if(this.city?.country.id)
-      //   data.countryId = this.city?.country.id;
-      // else
-      //   data.countryId = 0;
-      this.data.createTodo(data).subscribe({
-        next: todo => {
-          this.city?.toDos.push(todo);
-        }
-      });
+      if (data) {
+        data.cityId = this.city?.id;
+        // if(this.city?.country.id)
+        //   data.countryId = this.city?.country.id;
+        // else
+        //   data.countryId = 0;
+        this.data.createTodo(data).subscribe({
+          next: todo => {
+            //this.city?.toDos.push(todo);
+          }
+        });
+      }
     });
+
   }
 
   openInfoDialog(): void {
     const dialogRef = this.dialog.open(CityInfoDialogComponent, {
-      data:{city: this.city},
+      data: this.city,
     });
 
     dialogRef.afterClosed().subscribe(c => {
@@ -133,5 +141,34 @@ export class CityComponent implements AfterViewInit {
         });
       }
     });
+  }
+
+  deleteCity() {
+    this.data.deleteCity(this.city.id).subscribe({
+      next: city => {
+      }
+    });
+  }
+
+  openTravelDialog(): void {
+    const dialogRef = this.dialog.open(AddTravelDialogComponent, {
+      data: { city: this.city },
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('The dialog was closed');
+      if(data){
+      this.data.createTravel(data).subscribe({
+        next: travel => {
+          this.travel = travel
+        }
+      });}
+    });
+  }
+
+  deleteTravel(){
+    this.data.deleteTravel(this.travel.id).subscribe(travel=>{
+      this.travel = undefined;
+    })
   }
 }
