@@ -6,7 +6,7 @@ export interface Travel {
     travelType:TravelType;
     date: Date;
     fromCity : City;
-    toCity: City;
+    toCity: City; //TODO: Remove 
 }
 
 export enum TravelType {

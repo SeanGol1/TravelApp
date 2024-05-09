@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using TravelPlannerApp.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TravelPlannerAppContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
+//options.UseSqlite(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
 
 builder.Services.AddScoped<IRepo, Repo>();
 
