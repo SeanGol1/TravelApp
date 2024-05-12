@@ -28,6 +28,7 @@ import { MapDialogComponent } from '../map/map-dialog/map-dialog.component';
 })
 export class PlanComponent {
   @Input() plan: Plan | undefined;
+  
 
   constructor(public dialog: MatDialog, private data: DataService) {
   }

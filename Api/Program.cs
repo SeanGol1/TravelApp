@@ -4,10 +4,12 @@ using Microsoft.Extensions.Options;
 using TravelPlannerApp.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TravelPlannerAppContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
-//options.UseSqlite(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
 
 builder.Services.AddScoped<IRepo, Repo>();
+builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Add services to the container.
 

@@ -10,6 +10,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { Travel } from './models/travel';
 import { TravelDialogData } from './travel/add-travel-dialog/add-travel-dialog.component';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -19,8 +20,7 @@ export class DataService {
     private planSource = new BehaviorSubject<Plan | null>(null);
     plan$ = this.planSource.asObservable();
 
-    //baseUrl = "https://localhost:7219/api/";
-    baseUrl = "https://travelplannerappapi.azurewebsites.net/api/";
+    baseUrl = environment.apiUrl;
     headers = new HttpHeaders()
         .set('content-type', 'application/json');
 
