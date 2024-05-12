@@ -1,0 +1,12 @@
+<div>
+    <h1>Add User to the Plan</h1>
+    <div class="nb-3">
+        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Username">
+    </div>
+    <button (click)="AddUser()">Add User</button>
+
+
+    <div *ngFor="let u of userList">
+        <h3>{{u.userName}}</h3>
+    </div>
+</div>

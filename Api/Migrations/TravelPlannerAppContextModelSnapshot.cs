@@ -168,6 +168,27 @@ namespace TravelPlannerApp.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("TravelPlannerApp.Models.UserPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PlanId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPlan");
+                });
+
             modelBuilder.Entity("TravelPlannerApp.Models.City", b =>
                 {
                     b.HasOne("TravelPlannerApp.Models.Country", "Country")
@@ -222,6 +243,25 @@ namespace TravelPlannerApp.Migrations
                     b.Navigation("FromCity");
 
                     b.Navigation("ToCity");
+                });
+
+            modelBuilder.Entity("TravelPlannerApp.Models.UserPlan", b =>
+                {
+                    b.HasOne("TravelPlannerApp.Models.Plan", "Plan")
+                        .WithMany()
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelPlannerApp.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plan");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TravelPlannerApp.Models.City", b =>

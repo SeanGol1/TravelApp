@@ -16,14 +16,14 @@ namespace TravelPlannerApp.Data
             return await context.User.ToListAsync();
         }
 
-        public Task<User> GetUserByIdAsync(int id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.User.FindAsync(id);
         }
 
-        public Task<User> GetUserByUsernameAsync(string username)
+        public async Task<User> GetUserByUsernameAsync(string username)
         {
-            throw new NotImplementedException();
+            return await context.User.Where(u => u.UserName==username).FirstOrDefaultAsync();
         }
 
         public void Update(User user)

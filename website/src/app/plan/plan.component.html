@@ -1,8 +1,5 @@
 <div class="plan-item" cdkDropListGroup>
     <mat-tab-group preserveContent>
-        <mat-tab label="Home">
-            
-        </mat-tab>
         <mat-tab label="Plan">
             <div class="row">
                 <div class="col-9">
@@ -31,9 +28,10 @@
                 <app-country [country]="country"></app-country>
             </div>
         </mat-tab>
-        <mat-tab label="Map">
+        <mat-tab label="Users">
             <ng-template matTabContent>
                 <!-- <app-map [plan]="plan"></app-map> -->
+                <app-user-management></app-user-management>
             </ng-template>
         </mat-tab>
     </mat-tab-group>

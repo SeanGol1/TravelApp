@@ -50,6 +50,7 @@ import { MapComponent } from './map/map.component';
 import * as L from 'leaflet';
 import { MapDialogComponent } from './map/map-dialog/map-dialog.component';
 import { MarkerServiceService } from './map/marker-service.service';
+import { UserManagementComponent } from './user/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { MarkerServiceService } from './map/marker-service.service';
     CityInfoDialogComponent,
     CountdownTimerComponent,
     MapComponent,
-    MapDialogComponent
+    MapDialogComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,

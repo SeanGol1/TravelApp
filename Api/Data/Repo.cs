@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics.Metrics;
+using System.Net;
+using System.Numerics;
+using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
 
 namespace TravelPlannerApp.Data
@@ -8,10 +11,12 @@ namespace TravelPlannerApp.Data
     public class Repo : IRepo
     {
         private readonly TravelPlannerAppContext context;
+        private readonly IUserRepo userRepo;
 
-        public Repo(TravelPlannerAppContext _DbContext)
+        public Repo(TravelPlannerAppContext _DbContext,IUserRepo _userRepo)
         {
             this.context = _DbContext;
+            userRepo = _userRepo;
         }
 
         public async Task<IEnumerable<City>> GetCityAsync()
@@ -39,6 +44,30 @@ namespace TravelPlannerApp.Data
             return await context.Plan.ToListAsync();
         }
 
+        public async Task<IEnumerable<Plan>> GetPlansbyUserAsync(string username)
+        {
+            //Get all Campaign info by user id
+            var query = from p in context.Plan
+                        join up in context.UserPlan on p.Id equals up.Plan.Id
+                        join u in context.User on up.User.Id equals u.Id
+                        where u.UserName == username
+                        select p;
+            
+            return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetUserbyPlanAsync(int id)
+        {
+            //Get all Campaign info by user id
+            var query = from p in context.Plan
+                        join up in context.UserPlan on p.Id equals up.Plan.Id
+                        join u in context.User on up.User.Id equals u.Id
+                        where p.Id == id
+                        select u;
+
+            return await query.ToListAsync();
+        }
+
         public async Task<Plan> GetPlanbyIdAsync(int id)
         {
             Plan plan = await context.Plan.FindAsync(id);
@@ -54,7 +83,19 @@ namespace TravelPlannerApp.Data
             }
                        
             return plan;
+        }
 
+        public async Task<Plan> CreatePlanAsync(CreatePlanDto dto)
+        {
+            Plan plan = new Plan() { PlanName = dto.Name };
+            UserPlan userPlan = new UserPlan() { Plan = plan , User = await userRepo.GetUserByUsernameAsync(dto.Username)};
+            context.Plan.Add(plan);
+            context.UserPlan.Add(userPlan);
+
+
+            await context.SaveChangesAsync();
+
+            return plan;
         }
 
         public async Task<Plan> UpdatePlanAsync(Plan plan)
@@ -62,6 +103,32 @@ namespace TravelPlannerApp.Data
             context.Plan.Add(plan);
             await context.SaveChangesAsync();
             return plan;
+        }
+
+        public async Task<HttpStatusCode> AddUserPlanAsync(AddUserPlanDto dto)
+        {
+            UserPlan up = new UserPlan()
+            {
+                Plan = await GetPlanbyIdAsync(dto.PlanId),
+                User = await userRepo.GetUserByUsernameAsync(dto.Username)
+            };
+            UserPlan ups = null;
+            try
+            {
+                ups = await context.UserPlan.Where(u => u.Plan.Id == up.Plan.Id && u.User.UserName == up.User.UserName).FirstAsync();
+            }
+            catch(Exception ex)
+            {
+                string m = ex.Message;
+            }
+            if (ups == null)
+            {
+                context.UserPlan.Add(up);
+                await context.SaveChangesAsync();
+                return HttpStatusCode.OK;
+            }
+            else
+                return HttpStatusCode.BadRequest;
         }
 
 

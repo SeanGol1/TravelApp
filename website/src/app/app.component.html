@@ -1,46 +1,28 @@
 <div class="row">
-  <div *ngIf="!plan">
 
     <div *ngIf="!(accountService.currentUser$| async)">
       <h2 class="text-center text-primary">Sign Up</h2>
       <div class="nb-3">
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Username">
+        <input type="text" class="form-control" name="username" [(ngModel)]="modelUser.username" placeholder="Username">
       </div>
       <div class="nb-3">
-        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Password">
+        <input type="password" class="form-control" name="password" [(ngModel)]="modelUser.password" placeholder="Password">
       </div>
       <div class="text-center">
         <button class="btn btn-primary me-2" type="submit" (click)="login()">Login</button>
         <button class="btn btn-primary me-2" type="submit" (click)="register()">Register</button>
-        <!-- <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button> -->
       </div>
     </div>
 
-    <!-- <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
-      <h2 class="text-center text-primary">Sign Up</h2>
+    <div *ngIf="!plan && (accountService.currentUser$| async)">
+      <h2>Add Plan</h2>
       <div class="nb-3">
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Username">
+        <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.name" placeholder="Plan Name">
       </div>
-      <div class="nb-3">
-        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Password">
+      <div *ngFor="let p of planList">
+        <h1 (click)="loadPlan(p.id)">{{p.planName}}</h1>
       </div>
-      <div class="text-center">
-        <button class="btn btn-primary me-2" type="submit">Register</button>
-        <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button> 
-      </div>
-    </form>
-
-    <form *ngIf="!(accountService.currentUser$| async)" #loginForm="ngForm" class="" id="login-form" (ngSubmit)="login()" autocomplete="off">
-      <h2 class="text-center text-primary">Log In</h2>
-      <input name="Username" [(ngModel)]="model.Username" class="form-control me-2" type="text" placeholder="Username">
-
-      <input name="Password" [(ngModel)]="model.Password" class="form-control me-2" type="password"
-        placeholder="Password">
-      <div class="text-center">
-        <button class="btn btn-primary" style=" text-align: center;" type="submit">Login</button>
-      </div>
-    </form>
-  </div> -->
+    </div>
 
 
   <ng-container *ngIf="plan">

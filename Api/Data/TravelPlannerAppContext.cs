@@ -20,6 +20,8 @@ namespace TravelPlannerApp.Data
         public DbSet<ToDo> ToDo { get; set; }
         public DbSet<Travel> Travel { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<UserPlan> UserPlan { get; set; }
+
 
     }
 }

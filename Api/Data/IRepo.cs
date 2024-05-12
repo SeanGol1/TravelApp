@@ -1,4 +1,6 @@
-﻿using TravelPlannerApp.Models;
+﻿using System.Net;
+using TravelPlannerApp.Dto;
+using TravelPlannerApp.Models;
 
 namespace TravelPlannerApp.Data
 {
@@ -9,6 +11,10 @@ namespace TravelPlannerApp.Data
         Task<Plan> GetPlanbyIdAsync(int id);
         Task<IEnumerable<Plan>> GetPlanAsync();
         Task<Plan> UpdatePlanAsync(Plan plan);
+        Task<HttpStatusCode> AddUserPlanAsync(AddUserPlanDto userplan);
+        Task<Plan> CreatePlanAsync(CreatePlanDto dto);
+        Task<IEnumerable<Plan>> GetPlansbyUserAsync(string username);
+        Task<IEnumerable<User>> GetUserbyPlanAsync(int id);
         #endregion
 
 

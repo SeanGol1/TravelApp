@@ -537,7 +537,6 @@ D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp.genruntimeconfig.cache
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\ref\TravelPlannerApp.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp.sourcelink.json
-D:\Visual Studio Projects\TravelPlannerApp\Api\bin\Debug\net8.0\TravelPlannerAppContext-b92c459d-4a09-42f2-83af-48841da9d3f1.db
 D:\Visual Studio Projects\TravelPlannerApp\Api\bin\Debug\net8.0\Azure.Core.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\bin\Debug\net8.0\Azure.Identity.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll

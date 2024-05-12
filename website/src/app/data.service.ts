@@ -11,6 +11,7 @@ import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { Travel } from './models/travel';
 import { TravelDialogData } from './travel/add-travel-dialog/add-travel-dialog.component';
 import { environment } from 'src/environments/environment';
+import { User } from './models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -48,8 +49,30 @@ export class DataService {
 
     }
 
+    getPlanByUser(username: string){
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.get<Plan[]>(this.baseUrl + 'plans/userplanlist/' + username, { 'headers': this.headers });
+    }
+
+    addUserToPlan(data:any){
+        return this.http.post<Plan>(this.baseUrl + 'plans/adduser', data, { 'headers': this.headers });
+    }
+
+    getUserByPlanId(id:number){
+        return this.http.get(this.baseUrl + 'plans/userlist/' + id, { 'headers': this.headers })
+    }
+
+    createPlan(data: any) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        let plan = this.http.post<Plan>(this.baseUrl + 'plans/', data, { 'headers': this.headers });
+        let p:Plan = undefined; 
+        plan.subscribe(plan=>p=plan);
+        this.updateLocalPlan(p);
+        return plan;
+    }
+
     updatePlan(data: Plan) {
-        return this.http.post<Plan>(this.baseUrl + 'plan/update/', data, { 'headers': this.headers });
+        return this.http.post<Plan>(this.baseUrl + 'plans/update/', data, { 'headers': this.headers });
     }
 
     updateLocalPlan(plan: Plan) {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,36 @@ namespace TravelPlannerApp.Controllers
             return plan;
         }
 
+
+        [HttpGet("userplanlist/{username}")]
+        public async Task<ActionResult<IEnumerable<Plan>>> GetPlanByUser(string username)
+        {
+            try
+            {
+                return Ok(await _repo.GetPlansbyUserAsync(username));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpGet("userlist/{id}")]
+        public async Task<ActionResult<IEnumerable<Plan>>> GetUserByPlan(int id)
+        {
+            List<User> userlist = new List<User>();
+            try
+            {
+                return Ok(await _repo.GetUserbyPlanAsync(id));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+
         // PUT: api/Plans/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -86,12 +117,18 @@ namespace TravelPlannerApp.Controllers
         // POST: api/Plans
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Plan>> PostPlan(Plan plan)
+        public async Task<ActionResult<Plan>> PostPlan(CreatePlanDto dto)
         {
-            _context.Plan.Add(plan);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPlan", new { id = plan.Id }, plan);
+            try
+            {
+                Plan plan = await _repo.CreatePlanAsync(dto);
+                return CreatedAtAction("GetPlan", new { id = plan.Id }, plan);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         [Route("update")]
@@ -105,6 +142,19 @@ namespace TravelPlannerApp.Controllers
             else { return BadRequest(); }
 
             return CreatedAtAction("GetPlan", new { id = plan.Id }, plan);
+        }
+
+        [Route("adduser")]
+        [HttpPost]
+        public async Task<ActionResult<HttpStatusCode>> AddUserToPlan(AddUserPlanDto dto)
+        {
+            if (PlanExists(dto.PlanId))
+            {                
+                return await _repo.AddUserPlanAsync(dto);
+            }
+            else { return BadRequest(); }
+
+            
         }
 
         // DELETE: api/Plans/5
