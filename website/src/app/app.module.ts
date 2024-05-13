@@ -43,6 +43,7 @@ import { BusAnimationComponent } from './travel/animations/bus-animation/bus-ani
 import { WalkAnimationComponent } from './travel/animations/walk-animation/walk-animation.component';
 import { ScooterAnimationComponent } from './travel/animations/scooter-animation/scooter-animation.component';
 import { CityInfoDialogComponent } from './city/city-info-dialog/city-info-dialog.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { CountdownTimerComponent } from './countdown-timer/countdown-timer.component';
@@ -51,6 +52,10 @@ import * as L from 'leaflet';
 import { MapDialogComponent } from './map/map-dialog/map-dialog.component';
 import { MarkerServiceService } from './map/marker-service.service';
 import { UserManagementComponent } from './user/user-management/user-management.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +79,9 @@ import { UserManagementComponent } from './user/user-management/user-management.
     CountdownTimerComponent,
     MapComponent,
     MapDialogComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    NavbarComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +110,9 @@ import { UserManagementComponent } from './user/user-management/user-management.
     MatSelectModule,
     CdkAccordionModule,
     MatTabsModule,
-    
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule
 
   ],
   providers: [  

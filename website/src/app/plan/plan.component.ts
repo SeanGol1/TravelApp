@@ -33,6 +33,11 @@ export class PlanComponent {
   constructor(public dialog: MatDialog, private data: DataService) {
   }
 
+toggleNav(){
+  this.data.updateNav();
+}
+
+
   openCountryDialog(): void {
     const dialogRef = this.dialog.open(AddCountryDialogComponent, {
       data: { plan: this.plan },

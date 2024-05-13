@@ -109,7 +109,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
 
     const index = this.plan.countries.findIndex(c => c.id == this.country.id);
 
-    if (this.plan.countries[index + 1].startDate) {
+    if (this.plan.countries[index + 1].startDate != null) {
       const start: Date = new Date(this.country.startDate);
       const end: Date = new Date(this.plan.countries[index + 1].startDate);
 

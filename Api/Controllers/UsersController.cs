@@ -117,7 +117,7 @@ namespace TravelPlannerApp.Controllers
 
         private async Task<bool> UserExists(string username)
         {
-            return await _context.User.AnyAsync(x => x.UserName == username.ToLower());
+            return await _context.User.AnyAsync(x => x.UserName.ToLower() == username.ToLower());
         }
     }
 }

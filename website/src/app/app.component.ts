@@ -16,13 +16,14 @@ export class AppComponent implements OnInit {
   modelUser: any = {}
   modelPlan: any = {}
   planList: Plan[] = [];
+  errorMessage:string = "";
 
-  constructor(private data: DataService, public accountService: AccountService) {
+  constructor(public data: DataService, public accountService: AccountService) {
   }
 
 
   ngOnInit(): void {
-
+    this.errorMessage = ''
   }
 
   login() {
@@ -30,10 +31,12 @@ export class AppComponent implements OnInit {
       next: user => {
         this.accountService.currentUser$.subscribe(user => {
           this.loadPlanList(user.username);
+          this.errorMessage = ''
         })
       },
       error: e => {
         console.log(e.error)
+        this.errorMessage = e.error
       }
     });
   }
@@ -42,6 +45,7 @@ export class AppComponent implements OnInit {
     this.accountService.register(this.modelUser).subscribe({
       error: e => {
         console.log(e.error)
+        this.errorMessage = e.error
       }
     });
   }

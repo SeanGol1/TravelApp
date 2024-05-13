@@ -1,0 +1,11 @@
+ .sidenavbody{
+        float: left;
+        position: fixed;
+        top: 0%;
+        display: block;
+        background: lightblue;
+        z-index: 2400;
+        border: 2px solid black;
+        border-radius: 5px;
+        top:25%;
+} 

@@ -1,0 +1,17 @@
+<div class="sidenavbody" *ngIf="(data.navIsOpen$ | async)">
+    <div (click)="openCountryDialog()">
+        <p>Add Country</p>
+    </div>
+    <div>
+        <p (click)="openTravelDialog()">Add Travel</p>
+    </div>
+    <div>
+        <p (click)="openMapDialog()">View Map</p>
+    </div>
+    <div>
+        <p (click)="exitPlan()">Exit Plan</p>
+    </div>
+    <div>
+        <p (click)="logout()">Logout</p>
+    </div>
+</div>

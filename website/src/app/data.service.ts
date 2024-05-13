@@ -21,6 +21,9 @@ export class DataService {
     private planSource = new BehaviorSubject<Plan | null>(null);
     plan$ = this.planSource.asObservable();
 
+    private navSource = new BehaviorSubject<Boolean | false>(false);
+    navIsOpen$ = this.navSource.asObservable();
+
     baseUrl = environment.apiUrl;
     headers = new HttpHeaders()
         .set('content-type', 'application/json');
@@ -78,6 +81,10 @@ export class DataService {
     updateLocalPlan(plan: Plan) {
         localStorage.setItem('plan', JSON.stringify(plan));
         this.planSource.next(plan);
+    }
+
+    updateNav() {
+        this.navSource.next(!this.navSource.value);
     }
 
     // Country
