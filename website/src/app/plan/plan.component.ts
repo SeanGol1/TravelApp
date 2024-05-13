@@ -1,4 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input, Inject, OnInit } from '@angular/core';
 import { Plan } from '../models/plan';
 import {
   MatDialog,
@@ -21,16 +21,20 @@ import { AddTodoDialogComponent } from '../todo/add-todo-dialog/add-todo-dialog.
 import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel-dialog.component';
 import { MapComponent } from '../map/map.component';
 import { MapDialogComponent } from '../map/map-dialog/map-dialog.component';
+import { AccountService } from '../account.service';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
   styleUrls: ['./plan.component.css']
 })
-export class PlanComponent {
-  @Input() plan: Plan | undefined;
-  
+export class PlanComponent implements OnInit{
+  //@Input() plan: Plan | undefined;
+  plan: Plan | undefined;
 
-  constructor(public dialog: MatDialog, private data: DataService) {
+  constructor(public dialog: MatDialog, private data: DataService,private account:AccountService) {
+  }
+  ngOnInit(): void {
+    this.data.plan$.subscribe(p=>this.plan = p)
   }
 
 toggleNav(){
@@ -105,6 +109,18 @@ toggleNav(){
         // }
       });}
     });
+  }
+
+  exitPlan(){
+    this.data.updateLocalPlan(null);
+    this.data.updateNav();
+  }
+  
+  logout(){
+    this.data.updateLocalPlan(null);
+    this.data.updateNav();
+    this.account.logout();  
+  
   }
 
   openTravelDialog(): void {

@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
     this.accountService.login(this.modelUser).subscribe({
       next: user => {
         this.accountService.currentUser$.subscribe(user => {
+          this.user = user;
           this.loadPlanList(user.username);
           this.errorMessage = ''
         })
@@ -51,7 +52,24 @@ export class AppComponent implements OnInit {
   }
 
   createPlan() {
+    this.modelPlan.username = this.user.username;
     this.data.createPlan(this.modelPlan).subscribe({
+      next:plan=>{
+        this.planList.push(plan);
+      },
+      error: e => {
+        console.log(e.error)
+      }
+    });
+  }
+
+  joinPlan() {
+    this.modelPlan.username = this.user.username;
+    this.modelPlan.password = "";
+    this.data.joinPlan(this.modelPlan).subscribe({
+      next: plan =>{
+        this.planList.push(plan);
+      },
       error: e => {
         console.log(e.error)
       }

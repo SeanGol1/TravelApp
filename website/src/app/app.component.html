@@ -1,37 +1,50 @@
-<app-sidenav></app-sidenav>
-
 <div>
-      <div *ngIf="!(accountService.currentUser$| async)" class="accountData">
-        <h2 class="text-center text-primary">Sign Up</h2>
-        <div class="nb-3">
-          <input type="text" class="form-control" name="username" [(ngModel)]="modelUser.username"
-            placeholder="Username">
-        </div>
-        <div class="nb-3">
-          <input type="password" class="form-control" name="password" [(ngModel)]="modelUser.password"
-            placeholder="Password">
-        </div>
-        <p><b>{{errorMessage}}</b></p>
-        <div class="text-center">
-          <button class="btn btn-primary me-2" type="submit" (click)="login()">Login</button>
-          <button class="btn btn-primary me-2" type="submit" (click)="register()">Register</button>
-        </div>
-      </div>
+  <div *ngIf="!(accountService.currentUser$| async)" class="accountData">
+    <h2 class="text-center text-primary">Sign Up</h2>
+    <div class="nb-3">
+      <input type="text" class="form-control" name="username" [(ngModel)]="modelUser.username" placeholder="Username">
+    </div>
+    <div class="nb-3">
+      <input type="password" class="form-control" name="password" [(ngModel)]="modelUser.password"
+        placeholder="Password">
+    </div>
+    <p><b>{{errorMessage}}</b></p>
+    <div class="text-center">
+      <button class="btn btn-primary me-2" type="submit" (click)="login()">Login</button>
+      <button class="btn btn-primary me-2" type="submit" (click)="register()">Register</button>
+    </div>
+  </div>
 
-      <div *ngIf="!(data.plan$| async) && (accountService.currentUser$| async)">
-        <h2>Add Plan</h2>
-        <div class="nb-3">
-          <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.name" placeholder="Plan Name">
-        </div>
-        <div *ngFor="let p of planList">
-          <h1 (click)="loadPlan(p.id)">{{p.planName}}</h1>
-        </div>
+  <div *ngIf="!(data.plan$| async) && (accountService.currentUser$| async)">
+    <div class="container">
+      <h2>Create Plan</h2>
+      <div class="nb-3">
+        <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.name" placeholder="Plan Name">
       </div>
+      <button (click)="createPlan()">Create</button>
+      <hr/>
+      <h2>Join Plan</h2>
+      <div class="nb-3">
+        <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.joinCode" placeholder="Plan Code">
+      </div>
+      <div class="nb-3">        
+        <input type="password" class="form-control" name="password" [(ngModel)]="modelPlan.password" placeholder="Plan Password">
+        <i>Password only needed if you are admin.</i>
+      </div>
+      <button (click)="joinPlan()">Join</button>
+      <div>
+        <h2>My Plans</h2>
+      <div *ngFor="let p of planList">
+        <h4 (click)="loadPlan(p.id)">{{p.planName}}</h4>
+      </div>
+    </div>
+    </div>
+  </div>
 
-      <ng-container *ngIf="(data.plan$| async)">
-        <div class="col-12">
-          <app-plan [plan]="(data.plan$| async)"></app-plan>
-        </div>
-      </ng-container>
+  <ng-container *ngIf="(data.plan$| async)">
+    <div class="col-12">
+      <app-plan ></app-plan>
+    </div>
+  </ng-container>
 
 </div>

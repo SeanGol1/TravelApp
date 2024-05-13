@@ -74,6 +74,15 @@ export class DataService {
         return plan;
     }
 
+    joinPlan(data: any) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        let plan = this.http.post<Plan>(this.baseUrl + 'plans/joinplan', data, { 'headers': this.headers });
+        let p:Plan = undefined; 
+        plan.subscribe(plan=>p=plan);
+        this.updateLocalPlan(p);
+        return plan;
+    }
+
     updatePlan(data: Plan) {
         return this.http.post<Plan>(this.baseUrl + 'plans/update/', data, { 'headers': this.headers });
     }

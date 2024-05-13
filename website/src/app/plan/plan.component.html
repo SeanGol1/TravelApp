@@ -2,25 +2,32 @@
     <mat-tab-group preserveContent>
         <mat-tab label="Plan">
             <div class="row">
+                <h1>{{plan?.planName}}</h1>
+                <h1>{{plan?.joinCode}}</h1>
                 <div class="col-9">
-                    <!-- <h1>{{plan?.planName}}</h1> -->
-                    <ng-container *ngIf="checkToday(plan.countries[0].startDate)">
+                    
+                    <!-- <ng-container *ngIf="plan.countries"> -->
+                    <ng-container *ngIf="plan.countries.length > 0 && checkToday(plan.countries[0].startDate)">
                         <app-countdown-timer [start]="plan.countries[0].startDate"></app-countdown-timer>
                     </ng-container>
+                <!-- </ng-container> -->
                     
                 </div>
 
                 <div class="col-3">
-                     <!-- [matMenuTriggerFor]="menu" -->
-                    <button mat-mini-fab color="primary" (click)="toggleNav()">
+                     <!-- [matMenuTriggerFor]="menu"
+                     (click)="toggleNav()" -->
+                    <button mat-mini-fab color="primary"  [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                    
-                    <!-- <mat-menu #menu="matMenu">
+                    <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="openCountryDialog()">Add Country</button>
                         <button mat-menu-item (click)="openTravelDialog()">Add Travel</button>
                         <button mat-menu-item (click)="openMapDialog()">View Map</button>
-                    </mat-menu> -->
+                        <button mat-menu-item (click)="exitPlan()">Exit Plan</button>
+                        <button mat-menu-item (click)="logout()">Logout</button>
+                    </mat-menu>
                 </div>
             </div>
             <div *ngFor="let country of plan?.countries">

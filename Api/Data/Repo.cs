@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics.Metrics;
 using System.Net;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
 
@@ -50,7 +52,7 @@ namespace TravelPlannerApp.Data
             var query = from p in context.Plan
                         join up in context.UserPlan on p.Id equals up.Plan.Id
                         join u in context.User on up.User.Id equals u.Id
-                        where u.UserName == username
+                        where u.UserName.ToLower() == username.ToLower()
                         select p;
             
             return await query.ToListAsync();
@@ -87,15 +89,55 @@ namespace TravelPlannerApp.Data
 
         public async Task<Plan> CreatePlanAsync(CreatePlanDto dto)
         {
-            Plan plan = new Plan() { PlanName = dto.Name };
-            UserPlan userPlan = new UserPlan() { Plan = plan , User = await userRepo.GetUserByUsernameAsync(dto.Username)};
-            context.Plan.Add(plan);
+            int id = GenerateId();
+            while (PlanCodeExists(id))
+            {
+                id = GenerateId();
+            }
+            Plan plan = new Plan() { PlanName = dto.Name , JoinCode = id};
+            plan = context.Plan.Add(plan).Entity;
+            await context.SaveChangesAsync();
+            UserPlan userPlan = new UserPlan() { Plan = plan , User = await userRepo.GetUserByUsernameAsync(dto.Username) , IsAdmin = true};            
             context.UserPlan.Add(userPlan);
-
 
             await context.SaveChangesAsync();
 
             return plan;
+        }
+
+        public async Task<Plan> JoinPlanByCodeAsync(JoinByCodeDto dto)
+        {
+            if (PlanCodeExists(dto.JoinCode))
+            {
+                Plan plan = await context.Plan.Where(p => p.JoinCode == dto.JoinCode).FirstOrDefaultAsync();
+                UserPlan userPlan = new UserPlan() { Plan = plan, User = await userRepo.GetUserByUsernameAsync(dto.Username), IsAdmin = false };   
+                var up = context.UserPlan.Where(p=>p.Plan.Id == plan.Id && p.User.Id == userPlan.User.Id).FirstOrDefault();
+                if (up == null)
+                    context.UserPlan.Add(userPlan);
+                else
+                    return null;
+                await context.SaveChangesAsync();
+
+                return plan;
+            }
+            else
+                return null;
+            
+        }
+
+        private bool PlanCodeExists(int id)
+        {
+            Plan plan = context.Plan.Where(p=>p.JoinCode == id).FirstOrDefault();
+
+            return plan == null ? false : true;
+        }
+
+        private int GenerateId()
+        {
+            int id = 0;
+            Random r = new Random();
+            id = r.Next(100000, 999999);
+            return id; 
         }
 
         public async Task<Plan> UpdatePlanAsync(Plan plan)
@@ -110,7 +152,8 @@ namespace TravelPlannerApp.Data
             UserPlan up = new UserPlan()
             {
                 Plan = await GetPlanbyIdAsync(dto.PlanId),
-                User = await userRepo.GetUserByUsernameAsync(dto.Username)
+                User = await userRepo.GetUserByUsernameAsync(dto.Username),
+                IsAdmin = dto.IsAdmin
             };
             UserPlan ups = null;
             try

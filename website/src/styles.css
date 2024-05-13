@@ -27,6 +27,10 @@ body {
     border-radius: 5px;
 }
 
+.plan-item{
+    max-height: 100%;
+}
+
 .country-item {
     background-color: #afdde5;
     border: 2px solid black;

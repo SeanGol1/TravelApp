@@ -30,7 +30,7 @@ namespace TravelPlannerApp.Controllers
         public async Task<ActionResult<IEnumerable<Plan>>> GetPlan()
         {
             //Plan plan = await _context.Plan.ToListAsync();
-            return await _context.Plan.Include(c=>c.Countries).ToListAsync();
+            return await _context.Plan.Include(c => c.Countries).ToListAsync();
         }
 
         // GET: api/Plans/5
@@ -38,8 +38,9 @@ namespace TravelPlannerApp.Controllers
         public async Task<ActionResult<Plan>> GetPlan(int id)
         {
             Plan plan;
-            try{
-               plan  = await _repo.GetPlanbyIdAsync(id);
+            try
+            {
+                plan = await _repo.GetPlanbyIdAsync(id);
             }
             catch (Exception ex)
             {
@@ -128,18 +129,18 @@ namespace TravelPlannerApp.Controllers
             {
                 return BadRequest();
             }
-            
+
         }
 
         [Route("update")]
         [HttpPost]
         public async Task<ActionResult<Plan>> UpdatePlan(Plan plan)
-        {           
+        {
             if (PlanExists(plan.Id))
             {
                 await _repo.UpdatePlanAsync(plan);
             }
-            else { return BadRequest(); }
+            else { return BadRequest("No Plan Exists"); }
 
             return CreatedAtAction("GetPlan", new { id = plan.Id }, plan);
         }
@@ -149,12 +150,18 @@ namespace TravelPlannerApp.Controllers
         public async Task<ActionResult<HttpStatusCode>> AddUserToPlan(AddUserPlanDto dto)
         {
             if (PlanExists(dto.PlanId))
-            {                
+            {
                 return await _repo.AddUserPlanAsync(dto);
             }
-            else { return BadRequest(); }
+            else { return BadRequest("No Plan Exists"); }
 
-            
+        }
+
+        [Route("joinplan")]
+        [HttpPost]
+        public async Task<ActionResult<Plan>> JoinPlanByCode(JoinByCodeDto dto)
+        {
+            return await _repo.JoinPlanByCodeAsync(dto);
         }
 
         // DELETE: api/Plans/5

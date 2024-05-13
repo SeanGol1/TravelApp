@@ -81,6 +81,9 @@ namespace TravelPlannerApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("JoinCode")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("PlanName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -172,6 +175,9 @@ namespace TravelPlannerApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsAdmin")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PlanId")
