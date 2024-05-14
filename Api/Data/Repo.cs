@@ -209,8 +209,13 @@ namespace TravelPlannerApp.Data
 
         private int GetSortOrder(int id)
         {
-            int sort = context.City.Where(c => c.Country.Id == id).OrderByDescending(c=>c.SortOrder).First().SortOrder;
-            return sort;
+            List<City> cities = context.City.Where(c => c.Country.Id == id).ToList();
+            if (cities.Count() > 0)
+                return context.City.Where(c => c.Country.Id == id).OrderByDescending(c => c.SortOrder).First().SortOrder;
+            else
+            {
+                return 0;
+            }
         }
 
         public async Task<City> PostCityAsync(City city)

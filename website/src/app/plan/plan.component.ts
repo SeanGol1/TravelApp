@@ -22,6 +22,8 @@ import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel
 import { MapComponent } from '../map/map.component';
 import { MapDialogComponent } from '../map/map-dialog/map-dialog.component';
 import { AccountService } from '../account.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../models/user';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -30,11 +32,27 @@ import { AccountService } from '../account.service';
 export class PlanComponent implements OnInit{
   //@Input() plan: Plan | undefined;
   plan: Plan | undefined;
+  user: User | undefined;
 
-  constructor(public dialog: MatDialog, private data: DataService,private account:AccountService) {
+
+  constructor(public dialog: MatDialog, private data: DataService,public account:AccountService,private route:ActivatedRoute, private router:Router) {
   }
+  
   ngOnInit(): void {
-    this.data.plan$.subscribe(p=>this.plan = p)
+    var planid = Number(this.route.snapshot.paramMap.get('id'));  
+    this.account.currentUser$.subscribe(u => this.user = u );
+    if(this.user){
+      this.data.getPlanById(planid).subscribe({
+        next: plan => {
+          this.plan = plan
+          this.data.updateLocalPlan(plan);
+        }
+      });
+    }
+    else{
+      this.router.navigate(['/']);
+    }
+    //this.data.plan$.subscribe(p=>this.plan = p)
   }
 
 toggleNav(){
@@ -113,13 +131,16 @@ toggleNav(){
 
   exitPlan(){
     this.data.updateLocalPlan(null);
-    this.data.updateNav();
+    //this.data.updateNav();
+    this.router.navigate(['/']);
+
   }
   
   logout(){
     this.data.updateLocalPlan(null);
-    this.data.updateNav();
+    //this.data.updateNav();
     this.account.logout();  
+    this.router.navigate(['/']);
   
   }
 

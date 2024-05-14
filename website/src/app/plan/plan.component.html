@@ -1,4 +1,4 @@
-<div class="plan-item" cdkDropListGroup>
+<div class="plan-item" *ngIf="plan"  cdkDropListGroup>
     <mat-tab-group preserveContent>
         <mat-tab label="Plan">
             <div class="row">
@@ -18,8 +18,8 @@
                         <button mat-menu-item (click)="openCountryDialog()">Add Country</button>
                         <button mat-menu-item (click)="openTravelDialog()">Add Travel</button>
                         <button mat-menu-item (click)="openMapDialog()">View Map</button>
-                        <button mat-menu-item (click)="exitPlan()">Exit Plan</button>
-                        <button mat-menu-item (click)="logout()">Logout</button>
+                        <!-- <button mat-menu-item (click)="exitPlan()">Exit Plan</button>
+                        <button mat-menu-item (click)="logout()">Logout</button> -->
                     </mat-menu>
                 </div>
 
@@ -30,10 +30,13 @@
             <div *ngFor="let country of plan?.countries">
                 <app-country [country]="country"></app-country>
             </div>
+            <div *ngIf="plan.countries.length == 0">
+                <p>Click here to add your first country</p>
+                <button (click)="openCountryDialog()">Add Country</button>
+            </div>
         </mat-tab>
         <mat-tab label="Users">
             <ng-template matTabContent>
-                <!-- <app-map [plan]="plan"></app-map> -->
                 <app-user-management></app-user-management>
             </ng-template>
         </mat-tab>

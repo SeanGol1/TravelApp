@@ -21,7 +21,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Date Entering the Country</mat-label>
+      <mat-label>Date Entering the City</mat-label>
       <input matInput [(ngModel)]="data.startDate" [matDatepicker]="picker">
         <!-- <mat-date-range-input [rangePicker]="picker">
             <input matStartDate [(ngModel)]="data.startDate" placeholder="Start date">
@@ -29,7 +29,7 @@
         </mat-date-range-input> -->
         <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field>

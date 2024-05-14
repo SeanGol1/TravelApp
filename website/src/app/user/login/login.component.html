@@ -1,0 +1,17 @@
+<div class="container">
+<div *ngIf="!(accountService.currentUser$| async)" class="accountData">
+    <h2 class="text-center text-primary">Sign Up/Login</h2>
+    <div class="nb-3">
+      <input type="text" class="form-control" name="username" [(ngModel)]="modelUser.username" placeholder="Username">
+    </div>
+    <div class="nb-3">
+      <input type="password" class="form-control" name="password" [(ngModel)]="modelUser.password"
+        placeholder="Password">
+    </div>
+    <p><b>{{errorMessage}}</b></p>
+    <div class="text-center">
+      <button class="btn btn-primary me-2" type="submit" (click)="login()">Login</button>
+      <button class="btn btn-primary me-2" type="submit" (click)="register()">Register</button>
+    </div>
+  </div>
+</div>

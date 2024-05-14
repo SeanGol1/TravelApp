@@ -13,14 +13,16 @@ export class UserManagementComponent {
   plan:Plan | undefined;
   model:any={};
   userList:any;
+  copycode:string = "";
 
 
   constructor(private data:DataService,private accountService:AccountService){
     this.data.plan$.subscribe(plan=>{
       this.plan = plan;
+      this.copycode = 'https://backpackererapp.web.app/joinplan/'+plan.id;
     })
 
-    this.GetUserList()
+    this.GetUserList();
 
   }
 
@@ -37,5 +39,14 @@ export class UserManagementComponent {
         this.userList.push(this.model.username)
       }
     });
+  }
+
+  copyText(){
+
+   // Copy the text inside the text field
+  navigator.clipboard.writeText(this.copycode);
+
+  // Alert the copied text
+  alert("Copied the text: " + this.copycode);
   }
 }

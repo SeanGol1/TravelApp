@@ -116,20 +116,20 @@ export class DataService {
 
     createCity(data: CityDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
-        const city = this.http.post<City>(this.baseUrl + 'cities/', data, { 'headers': this.headers });
-        if (city) {
-            this.plan$.subscribe(plan => {
-                plan.countries.forEach(c => {
-                    if(data.countryId == c.id){
-                        city.subscribe(city=>{
-                            c.cities.push(city);
-                            return city;
-                        });                       
-                    }
-                });
-            });
-        }
-        return city;
+        return this.http.post<City>(this.baseUrl + 'cities/', data, { 'headers': this.headers });
+        // if (city) {
+        //     this.plan$.subscribe(plan => {
+        //         plan.countries.forEach(c => {
+        //             if(data.countryId == c.id){
+        //                 city.pipe(city=>{
+        //                     c.cities.push(city);
+        //                     return city;
+        //                 });                       
+        //             }
+        //         });
+        //     });
+        // }
+        // return city;
     }
 
     updateCity(data: UpdateCityDialogData) {

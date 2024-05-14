@@ -151,7 +151,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
         data.countryId = this.country.id;
         this.data.createCity(data).subscribe({
           next: city => {
-            //this.country?.cities.push(city);
+            this.country?.cities.push(city);
           }
         });
       },

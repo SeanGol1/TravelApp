@@ -56,6 +56,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { AddUserPlanComponent } from './plan/add-user-plan/add-user-plan.component';
+import { LoginComponent } from './user/login/login.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +85,10 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MapDialogComponent,
     UserManagementComponent,
     NavbarComponent,
-    SidenavComponent
+    SidenavComponent,
+    HomeComponent,
+    AddUserPlanComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +119,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MatTabsModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    AppRoutingModule
 
   ],
   providers: [  
