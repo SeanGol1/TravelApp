@@ -105,6 +105,28 @@ namespace TravelPlannerApp.Data
             return plan;
         }
 
+        public async Task<HttpStatusCode> DeletePlanAsync(int id)
+        {
+            try
+            {
+                Plan plan = await GetPlanbyIdAsync(id);
+                context.Plan.Remove(plan);
+                List<UserPlan> users = context.UserPlan.Where(x => x.Plan.Id == id).ToList();
+                foreach (UserPlan up in users)
+                {
+                    context.UserPlan.Remove(up);
+                }
+
+                await context.SaveChangesAsync();
+
+                return HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<Plan> JoinPlanByCodeAsync(JoinByCodeDto dto)
         {
             if (PlanCodeExists(dto.JoinCode))

@@ -168,15 +168,7 @@ namespace TravelPlannerApp.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlan(int id)
         {
-            var plan = await _context.Plan.FindAsync(id);
-            if (plan == null)
-            {
-                return NotFound();
-            }
-
-            _context.Plan.Remove(plan);
-            await _context.SaveChangesAsync();
-
+            await _repo.DeletePlanAsync(id);
             return NoContent();
         }
 

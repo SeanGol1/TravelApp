@@ -67,11 +67,13 @@ export class DataService {
 
     createPlan(data: any) {
         this.headers.set('Access-Control-Allow-Origin', '*');
-        let plan = this.http.post<Plan>(this.baseUrl + 'plans/', data, { 'headers': this.headers });
-        let p:Plan = undefined; 
-        plan.subscribe(plan=>p=plan);
-        this.updateLocalPlan(p);
+        const plan = this.http.post<Plan>(this.baseUrl + 'plans/', data, { 'headers': this.headers });
         return plan;
+    }
+
+    deletePlan(id: number) {
+        const resp = this.http.delete<Plan>(this.baseUrl + 'plans/' + id, { 'headers': this.headers });
+        return resp;
     }
 
     joinPlan(data: any) {
@@ -79,7 +81,7 @@ export class DataService {
         let plan = this.http.post<Plan>(this.baseUrl + 'plans/joinplan', data, { 'headers': this.headers });
         let p:Plan = undefined; 
         plan.subscribe(plan=>p=plan);
-        this.updateLocalPlan(p);
+        //this.updateLocalPlan(p);
         return plan;
     }
 

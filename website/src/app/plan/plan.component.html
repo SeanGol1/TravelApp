@@ -2,16 +2,9 @@
     <mat-tab-group preserveContent>
         <mat-tab label="Plan">
             <div class="row">
-                <h1>{{plan?.planName}}</h1>
-                <h1>{{plan?.joinCode}}</h1>
                 <div class="col-9">
-                    
-                    <!-- <ng-container *ngIf="plan.countries"> -->
-                    <ng-container *ngIf="plan.countries.length > 0 && checkToday(plan.countries[0].startDate)">
-                        <app-countdown-timer [start]="plan.countries[0].startDate"></app-countdown-timer>
-                    </ng-container>
-                <!-- </ng-container> -->
-                    
+                    <h4>{{plan?.planName}}</h4>
+                    <h4>Join Code: {{plan?.joinCode}}</h4>                    
                 </div>
 
                 <div class="col-3">
@@ -29,6 +22,10 @@
                         <button mat-menu-item (click)="logout()">Logout</button>
                     </mat-menu>
                 </div>
+
+                <ng-container *ngIf="plan.countries.length > 0 && checkToday(plan.countries[0].startDate)">
+                    <app-countdown-timer class="container" [start]="plan.countries[0].startDate"></app-countdown-timer>
+                </ng-container>
             </div>
             <div *ngFor="let country of plan?.countries">
                 <app-country [country]="country"></app-country>

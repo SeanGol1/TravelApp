@@ -63,6 +63,14 @@ export class AppComponent implements OnInit {
     });
   }
 
+  deletePlan(plan : Plan){
+    this.data.deletePlan(plan.id).subscribe({
+      next:()=>{
+        this.planList.splice(this.planList.indexOf(plan),1);
+      }
+    })
+  }
+
   joinPlan() {
     this.modelPlan.username = this.user.username;
     this.modelPlan.password = "";
