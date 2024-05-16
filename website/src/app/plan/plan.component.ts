@@ -161,21 +161,22 @@ toggleNav(){
   }
 
   openMapDialog(): void {
-    const dialogRef = this.dialog.open(MapDialogComponent, {
-      data: { plan: this.plan },
-      height: '80%',
-      width: '80%',
-    });
+    this.router.navigate(['/map/'+this.plan.id]);
+    // const dialogRef = this.dialog.open(MapDialogComponent, {
+    //   data: { plan: this.plan },
+    //   height: '80%',
+    //   width: '80%',
+    // });
 
-    dialogRef.afterClosed().subscribe(data => {
-      // console.log('The dialog was closed');
-      // if(data){
-      // this.data.createTravel(data).subscribe({
-      //   next: travel => {
+    // dialogRef.afterClosed().subscribe(data => {
+    //   // console.log('The dialog was closed');
+    //   // if(data){
+    //   // this.data.createTravel(data).subscribe({
+    //   //   next: travel => {
           
-      //   }
-      // });}
-    });
+    //   //   }
+    //   // });}
+    // });
   }
 
 }

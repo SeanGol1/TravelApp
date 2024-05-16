@@ -40,6 +40,8 @@ namespace TravelPlannerApp.Data
         Task<City> PostCityAsync(City city);
         Task<City> UpdateCityAsync(City city);
         Task<bool> DeleteCity(int id);
+        Task<RefCity> GetRefCityByName(string city,string country);
+        Task<IEnumerable<RefCity>> GetRefCityListByPlanIdAsync(int id);
 
         #endregion
 

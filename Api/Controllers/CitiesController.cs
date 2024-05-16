@@ -48,6 +48,12 @@ namespace TravelPlannerApp.Controllers
             return city;
         }
 
+        [HttpGet("cityref/{id}")]
+        public async Task<IEnumerable<RefCity>> GetRefCity(int id)
+        {
+            return await _repo.GetRefCityListByPlanIdAsync(id);
+        }
+
         // PUT: api/Cities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

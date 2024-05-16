@@ -93,6 +93,27 @@ namespace TravelPlannerApp.Migrations
                     b.ToTable("Plan");
                 });
 
+            modelBuilder.Entity("TravelPlannerApp.Models.RefCity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Lat")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Lng")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RefCity");
+                });
+
             modelBuilder.Entity("TravelPlannerApp.Models.ToDo", b =>
                 {
                     b.Property<int>("Id")

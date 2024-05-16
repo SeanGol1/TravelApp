@@ -132,6 +132,10 @@ export class DataService {
         // return city;
     }
 
+    getRefCityList(id: number){
+        return this.http.get<any[]>(this.baseUrl + 'cities/cityref/' + id,{ 'headers': this.headers });
+    }
+
     updateCity(data: UpdateCityDialogData) {
         return this.http.post<City>(this.baseUrl + 'cities/update/', data, { 'headers': this.headers });
     }

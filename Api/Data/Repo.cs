@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Nancy.Json;
+using NuGet.Protocol;
 using System;
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Net;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TravelPlannerApp.Data
 {
@@ -14,11 +18,13 @@ namespace TravelPlannerApp.Data
     {
         private readonly TravelPlannerAppContext context;
         private readonly IUserRepo userRepo;
+        private readonly IConfiguration config;
 
-        public Repo(TravelPlannerAppContext _DbContext,IUserRepo _userRepo)
+        public Repo(TravelPlannerAppContext _DbContext,IUserRepo _userRepo, IConfiguration _config)
         {
             this.context = _DbContext;
             userRepo = _userRepo;
+            config = _config;
         }
 
         public async Task<IEnumerable<City>> GetCityAsync()
@@ -218,9 +224,85 @@ namespace TravelPlannerApp.Data
             }
         }
 
+        public async Task<RefCity> GetRefCityByName(string city, string country)
+        {
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = config["Python"];
+            //var obj = new { city=city, country=country};
+            start.Arguments = string.Format("{0} \"{1}\" \"{2}\"  ", config["PythonScript"], city,country);
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;            
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    string result = reader.ReadToEnd();
+                    if (result != string.Empty)
+                    {
+                        //JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+                        //RefCity refCity = (RefCity)json_serializer.DeserializeObject(result);
+                        RefCity refCity = new RefCity(result);
+                        return refCity;
+                    }
+                    else
+                    {
+                        throw new Exception("Not Found");
+                    }
+                }
+            }
+        }
+
+        private bool RefCityExists(string city)
+        {
+            return context.RefCity.Where(c=>c.Name == city).Count() > 0;
+        }
+
+        public async Task<IEnumerable<City>> GetCitiesByPlan(int id)
+        {
+            return await context.City.Where(c=> c.Country.Plan.Id == id).ToListAsync();
+        }
+
+        public async Task<IEnumerable<RefCity>> GetRefCityListByPlanIdAsync(int id)
+        {
+            Plan p = await GetPlanbyIdAsync(id);
+            List<RefCity> list = new List<RefCity>();
+            foreach (City city in await GetCitiesByPlan(id))
+            {
+                try
+                {
+                    RefCity refCity = await context.RefCity.Where(c => c.Name == city.Name).FirstOrDefaultAsync();
+                    if (refCity != null)
+                        list.Add(refCity);
+                    else
+                    {
+                        //refCity = await GetRefCityByName(city.Name, city.Country.Name);
+                        //if (refCity != null)
+                        //{
+                        //    list.Add(refCity);
+                        //    context.RefCity.Add(refCity);
+                        //    await context.SaveChangesAsync();
+                        //}
+                    }
+                   // Console.WriteLine(list.Count);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+               
+            }
+
+            return list;
+        }
+
         public async Task<City> PostCityAsync(City city)
         {
             city.SortOrder = GetSortOrder(city.Country.Id);
+            if (!RefCityExists(city.Name))
+            {
+                RefCity refcity = await GetRefCityByName(city.Name, city.Country.Name);
+                context.RefCity.Add(refcity);
+            }
             context.City.Add(city);
             await context.SaveChangesAsync();
             return city;
