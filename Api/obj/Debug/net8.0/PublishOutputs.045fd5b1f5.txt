@@ -1,3 +1,4 @@
+D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\GetRefCity.py
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\TravelPlannerApp.exe
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\appsettings.Development.json
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\appsettings.json
@@ -43,6 +44,7 @@ D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Micro
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.Extensions.DependencyModel.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.Extensions.Options.dll
+D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.Extensions.PlatformAbstractions.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.Identity.Client.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.Identity.Client.Extensions.Msal.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.IdentityModel.Abstractions.dll
@@ -64,6 +66,7 @@ D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Micro
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Mono.TextTemplating.dll
+D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Nancy.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Newtonsoft.Json.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\Newtonsoft.Json.Bson.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\PubTmp\Out\NuGet.Common.dll

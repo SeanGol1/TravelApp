@@ -3,7 +3,7 @@
     
     <p>
         <input class="form-control" type="text" value="https://backpackererapp.web.app/joinplan/{{plan.id}}" [(ngModel)]="copycode" >
-        <button (click)="copyText()">Copy</button>
+        <button mat-flat-button color="primary" (click)="copyText()">Copy</button>
     </p>
     
 
@@ -13,7 +13,7 @@
     <div class="nb-3">
         <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Username">
     </div>
-    <button (click)="AddUser()">Add User</button>
+    <button mat-flat-button color="primary" (click)="AddUser()">Add User</button>
 
     <hr/>
 

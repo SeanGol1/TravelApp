@@ -4,32 +4,34 @@ import { DataService } from '../data.service';
 import { Plan } from '../models/plan';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { DeletePlanConfirmationComponent } from '../plan/delete-plan-confirmation/delete-plan-confirmation.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   title = 'TravelPlanner';
   user: User | undefined;
   modelPlan: any = {}
   planList: Plan[] = [];
-  
 
-  constructor(public data: DataService, public accountService: AccountService,private router: Router) {
+
+  constructor(public data: DataService, public accountService: AccountService, private router: Router, public dialog: MatDialog) {
   }
 
 
   ngOnInit(): void {
-    this.accountService.currentUser$.subscribe(u=>this.user=u);
-    if(this.user){
+    this.accountService.currentUser$.subscribe(u => this.user = u);
+    if (this.user) {
       this.loadPlanList(this.user.username);
     }
-    else{
+    else {
       this.router.navigate(['/login']);
     }
-    
+
   }
 
   // ngAfterViewInit(): void {
@@ -37,14 +39,14 @@ export class HomeComponent implements OnInit{
   //   if(this.user){
   //     this.loadPlanList(this.user.username);
   //   }
-    
+
   // }
 
 
   createPlan() {
     this.modelPlan.username = this.user.username;
     this.data.createPlan(this.modelPlan).subscribe({
-      next:plan=>{
+      next: plan => {
         this.planList.push(plan);
       },
       error: e => {
@@ -53,19 +55,26 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  deletePlan(plan : Plan){
-    this.data.deletePlan(plan.id).subscribe({
-      next:()=>{
-        this.planList.splice(this.planList.indexOf(plan),1);
+  deletePlan(plan: Plan) {
+    const dialogRef = this.dialog.open(DeletePlanConfirmationComponent, {
+      data: plan,
+    });
+    dialogRef.afterClosed().subscribe(_plan => {
+      if (_plan) {
+        this.data.deletePlan(_plan.id).subscribe({
+          next: plan => {
+            this.planList.splice(this.planList.indexOf(plan), 1);
+          }
+        })
       }
-    })
+    });
   }
 
   joinPlan() {
     this.modelPlan.username = this.user.username;
     this.modelPlan.password = "";
     this.data.joinPlan(this.modelPlan).subscribe({
-      next: plan =>{
+      next: plan => {
         this.planList.push(plan);
       },
       error: e => {
@@ -79,16 +88,16 @@ export class HomeComponent implements OnInit{
       this.planList = plans;
     })
 
-}
+  }
 
-loadPlan(id: number){
-  this.data.getPlanById(id).subscribe({
-    next: plan => {
-      //this.plan = plan
-      this.data.updateLocalPlan(plan);
-    }
-  });
-}
+  loadPlan(id: number) {
+    this.data.getPlanById(id).subscribe({
+      next: plan => {
+        //this.plan = plan
+        this.data.updateLocalPlan(plan);
+      }
+    });
+  }
 
 
 

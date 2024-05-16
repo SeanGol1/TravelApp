@@ -8,6 +8,7 @@ using System.Diagnostics.Metrics;
 using System.Net;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.Text;
 using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
 using static System.Net.Mime.MediaTypeNames;
@@ -82,10 +83,12 @@ namespace TravelPlannerApp.Data
             plan.Countries = await context.Country.Where(c => c.Plan.Id == id).OrderByDescending(c => c.StartDate.HasValue).ThenBy(c => c.StartDate).ToListAsync();
             foreach (var country in plan.Countries)
             {
+                country.Name = country.Name.Trim();
                 var x = country.StartDate;
                 country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderBy(c=>c.SortOrder).ToListAsync();
                 foreach (var cities in country.Cities)
                 {
+                    cities.Name = cities.Name.Trim();
                     cities.ToDos = await context.ToDo.Where(c => c.City.Id == cities.Id).OrderBy(t=> t.SortOrder).ToListAsync();
                 }
             }
@@ -239,14 +242,12 @@ namespace TravelPlannerApp.Data
                     string result = reader.ReadToEnd();
                     if (result != string.Empty)
                     {
-                        //JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-                        //RefCity refCity = (RefCity)json_serializer.DeserializeObject(result);
                         RefCity refCity = new RefCity(result);
                         return refCity;
                     }
                     else
                     {
-                        throw new Exception("Not Found");
+                        return null;
                     }
                 }
             }
@@ -266,6 +267,7 @@ namespace TravelPlannerApp.Data
         {
             Plan p = await GetPlanbyIdAsync(id);
             List<RefCity> list = new List<RefCity>();
+            string[] errList = []; 
             foreach (City city in await GetCitiesByPlan(id))
             {
                 try
@@ -275,13 +277,17 @@ namespace TravelPlannerApp.Data
                         list.Add(refCity);
                     else
                     {
-                        //refCity = await GetRefCityByName(city.Name, city.Country.Name);
-                        //if (refCity != null)
-                        //{
-                        //    list.Add(refCity);
-                        //    context.RefCity.Add(refCity);
-                        //    await context.SaveChangesAsync();
-                        //}
+                        refCity = await GetRefCityByName(city.Name, city.Country.Name);
+                        if (refCity != null)
+                        {
+                            list.Add(refCity);
+                            context.RefCity.Add(refCity);
+                            await context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            errList.Append(city.Name);
+                        }
                     }
                    // Console.WriteLine(list.Count);
                 }
@@ -291,17 +297,52 @@ namespace TravelPlannerApp.Data
                 }
                
             }
-
+            LogError(errList);
             return list;
+        }
+
+        private void LogError(string[] error)
+        {
+            string fileName = @"C:\home\log.txt";
+
+            try
+            {
+                // Check if file already exists. If yes, delete it.
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
+                }
+
+                // Create a new file
+                using (FileStream fs = File.Create(fileName))
+                {
+                    foreach (var item in error)
+                    {
+                        Byte[] errorstring = new UTF8Encoding(true).GetBytes(item);
+                        fs.Write(errorstring, 0, errorstring.Length);
+                    }                    
+                }
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine(Ex.ToString());
+            }
         }
 
         public async Task<City> PostCityAsync(City city)
         {
+            city.Name = city.Name.Trim();
             city.SortOrder = GetSortOrder(city.Country.Id);
             if (!RefCityExists(city.Name))
             {
-                RefCity refcity = await GetRefCityByName(city.Name, city.Country.Name);
-                context.RefCity.Add(refcity);
+                try
+                {
+                    RefCity refcity = await GetRefCityByName(city.Name, city.Country.Name);
+                    context.RefCity.Add(refcity);
+                }catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
             context.City.Add(city);
             await context.SaveChangesAsync();
@@ -310,7 +351,7 @@ namespace TravelPlannerApp.Data
 
         public async Task<Country> PostCountryAsync(Country country)
         {
-            
+            country.Name = country.Name.Trim();
             context.Country.Add(country);
             await context.SaveChangesAsync();
             return country;

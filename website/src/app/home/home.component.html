@@ -7,7 +7,7 @@
         <div class="nb-3">
           <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.name" placeholder="Plan Name">
         </div>
-        <button (click)="createPlan()">Create</button>
+        <button mat-flat-button color="primary" (click)="createPlan()">Create</button>
         <hr/>
         <h2>Join Plan</h2>
         <div class="nb-3">
@@ -17,18 +17,17 @@
           <input type="password" class="form-control" name="password" [(ngModel)]="modelPlan.password" placeholder="Plan Password">
           <i>Password only needed if you are admin.</i>
         </div>
-        <button (click)="joinPlan()">Join</button>
+        <button mat-flat-button color="primary" (click)="joinPlan()">Join</button>
         <div>
+          <hr/>
           <h2>My Plans</h2>
-        <div *ngFor="let p of planList">
+        <div *ngFor="let p of planList" class="plan-list-item">
           <div class="row">
-            <div class="col-10">
-              <!-- <h4 (click)="loadPlan(p.id)">{{p.planName}}</h4> -->
-              <a routerLink="/plan/{{p.id}}">{{p.planName}}</a>
-  
+            <div class="col-8" routerLink="/plan/{{p.id}}">
+              <h3>{{p.planName}}</h3>  
             </div>
-            <div class="col-2">
-              <button (click)="deletePlan(p)">Delete</button>
+            <div class="col-4">
+              <button mat-flat-button color="warn" (click)="deletePlan(p)">Delete</button>
             </div>
         </div>
         </div>

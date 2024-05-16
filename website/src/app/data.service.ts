@@ -101,10 +101,12 @@ export class DataService {
     // Country
     createCountry(data: CountryDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
+        data.name = data.name.trim();
         return this.http.post<Country>(this.baseUrl + 'countries/', data, { 'headers': this.headers });
     }
 
     updateCountry(data: UpdateCountryDialogData) {
+        data.name = data.name.trim();
         return this.http.post<Country>(this.baseUrl + 'countries/update/', data, { 'headers': this.headers });
     }
 
@@ -116,6 +118,7 @@ export class DataService {
 
     createCity(data: CityDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
+        data.name = data.name.trim();
         return this.http.post<City>(this.baseUrl + 'cities/', data, { 'headers': this.headers });
         // if (city) {
         //     this.plan$.subscribe(plan => {
@@ -137,6 +140,7 @@ export class DataService {
     }
 
     updateCity(data: UpdateCityDialogData) {
+        data.name = data.name.trim();
         return this.http.post<City>(this.baseUrl + 'cities/update/', data, { 'headers': this.headers });
     }
 

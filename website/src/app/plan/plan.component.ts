@@ -24,6 +24,7 @@ import { MapDialogComponent } from '../map/map-dialog/map-dialog.component';
 import { AccountService } from '../account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
+import { DeletePlanConfirmationComponent } from './delete-plan-confirmation/delete-plan-confirmation.component';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -68,6 +69,22 @@ toggleNav(){
     dialogRef.afterClosed().subscribe(data => {
       console.log('The dialog was closed');
       data.planId = this.plan?.id;
+      // data.name = data.name.trim();
+      this.data.createCountry(data).subscribe({
+        next: country => {
+          this.plan?.countries.push(country);
+        }
+      });
+    });
+  }
+
+  openDeleteCountryDialog(): void {
+    const dialogRef = this.dialog.open(DeletePlanConfirmationComponent);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('The dialog was closed');
+      data.planId = this.plan?.id;
+      // data.name = data.name.trim();
       this.data.createCountry(data).subscribe({
         next: country => {
           this.plan?.countries.push(country);

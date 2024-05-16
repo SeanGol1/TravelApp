@@ -4,8 +4,9 @@
   <mat-tab-group>
     <mat-tab label="Info"> 
       <p>Info about {{data.name}}</p>
-      <p>id: {{data.id}}</p>
+      <!-- <p>id: {{data.id}}</p> -->
 
+      <h4>Points of Interest</h4>
     @for (poi of poi.data; track poi) {
       <div class="poi-item">
         <h5>{{poi.name}}</h5>

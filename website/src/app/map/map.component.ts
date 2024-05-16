@@ -21,7 +21,7 @@ export class MapComponent implements AfterViewInit {
       zoom: 3
     });
     
-    const tiles = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
+    const tiles = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png?api_key=beb52c10-67f9-4aa0-8323-bfc953c9efe5', {
       maxZoom: 18,
       minZoom: 3,
       attribution: ''
@@ -31,7 +31,7 @@ export class MapComponent implements AfterViewInit {
     tiles.addTo(this.map);
 
     const myIcon = L.icon({
-      iconUrl: '/marker-icon.png'
+      iconUrl: 'src/marker-icon.jpg'
    });
 
     this.data.plan$.subscribe(p=> this.plan=p)

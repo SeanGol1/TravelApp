@@ -60,6 +60,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { AddUserPlanComponent } from './plan/add-user-plan/add-user-plan.component';
 import { LoginComponent } from './user/login/login.component';
+import { DeletePlanConfirmationComponent } from './plan/delete-plan-confirmation/delete-plan-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { LoginComponent } from './user/login/login.component';
     SidenavComponent,
     HomeComponent,
     AddUserPlanComponent,
-    LoginComponent
+    LoginComponent,
+    DeletePlanConfirmationComponent
   ],
   imports: [
     BrowserModule,

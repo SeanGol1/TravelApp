@@ -1,0 +1,8 @@
+<mat-dialog-content>
+    <h1>Are you sure you want to delete plan?</h1>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
+</mat-dialog-actions>
