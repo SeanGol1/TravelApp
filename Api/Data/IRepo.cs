@@ -67,5 +67,18 @@ namespace TravelPlannerApp.Data
         Task<Travel> UpdateTravelAsync(Travel travel);
         Task<bool> DeleteTravel(int id);
         #endregion
+
+
+        //ToDo
+        #region ChecklistItem
+
+
+        Task<ChecklistItem> GetChecklistItembyIdAsync(int id);
+        Task<IEnumerable<ChecklistItem>> GetChecklistItemAsync();
+        Task<IEnumerable<ChecklistItem>> GetChecklistItemByCountryAsync(int id);
+        Task<ChecklistItem> PostChecklistItemAsync(ChecklistItem item);
+        Task<ChecklistItem> UpdateChecklistItemAsync(ChecklistItem item);
+        Task<bool> DeleteChecklistItem(int id);
+        #endregion
     }
 }

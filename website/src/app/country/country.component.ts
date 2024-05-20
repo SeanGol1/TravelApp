@@ -15,6 +15,7 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { Plan } from '../models/plan';
+import { ChecklistDialogComponent } from './checklist-dialog/checklist-dialog.component';
 
 @Component({
   selector: 'app-country',
@@ -154,6 +155,32 @@ export class CountryComponent implements OnInit, AfterViewInit {
             this.country?.cities.push(city);
           }
         });
+      },
+      error: e => console.log(e)
+    });
+  }
+
+  deleteCountry(){
+    this.data.deleteCountry(this.country.id).subscribe({
+      next: country => {
+      }
+    });
+  }
+
+  openChecklistDialog(){
+    //TODO: get to do checklist
+    const dialogRef = this.dialog.open(ChecklistDialogComponent, {
+      data: { country: this.country },
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: data => {
+        // data.countryId = this.country.id;
+        // this.data.createCity(data).subscribe({
+        //   next: city => {
+        //     this.country?.cities.push(city);
+        //   }
+        // });
       },
       error: e => console.log(e)
     });

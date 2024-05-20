@@ -17,6 +17,29 @@ namespace TravelPlannerApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
 
+            modelBuilder.Entity("TravelPlannerApp.Models.ChecklistItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Completed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("ChecklistItem");
+                });
+
             modelBuilder.Entity("TravelPlannerApp.Models.City", b =>
                 {
                     b.Property<int>("Id")
@@ -214,6 +237,17 @@ namespace TravelPlannerApp.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserPlan");
+                });
+
+            modelBuilder.Entity("TravelPlannerApp.Models.ChecklistItem", b =>
+                {
+                    b.HasOne("TravelPlannerApp.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("TravelPlannerApp.Models.City", b =>

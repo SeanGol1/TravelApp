@@ -10,6 +10,7 @@ import { DataService } from '../data.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
+
 export class MapComponent implements AfterViewInit {
   @Input() plan:Plan
 
@@ -31,7 +32,7 @@ export class MapComponent implements AfterViewInit {
     tiles.addTo(this.map);
 
     const myIcon = L.icon({
-      iconUrl: 'src/marker-icon.jpg'
+      iconUrl: 'assets/images/marker-icon.png'
    });
 
     this.data.plan$.subscribe(p=> this.plan=p)

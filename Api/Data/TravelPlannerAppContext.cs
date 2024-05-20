@@ -22,6 +22,7 @@ namespace TravelPlannerApp.Data
         public DbSet<User> User { get; set; }
         public DbSet<UserPlan> UserPlan { get; set; }
         public DbSet<RefCity> RefCity { get; set; }
+        public DbSet<ChecklistItem> ChecklistItem { get; set; }
 
 
     }

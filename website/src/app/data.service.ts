@@ -12,6 +12,7 @@ import { Travel } from './models/travel';
 import { TravelDialogData } from './travel/add-travel-dialog/add-travel-dialog.component';
 import { environment } from 'src/environments/environment';
 import { User } from './models/user';
+import { ChecklistItem, ChecklistItemDialogData, UpdateChecklistItemDialogData } from './models/checklistitem';
 
 @Injectable({
     providedIn: 'root'
@@ -226,7 +227,7 @@ export class DataService {
         //     });
         // }
 
-        return this.http.post<Travel>(this.baseUrl + 'travels/', data, { 'headers': this.headers });;
+        return this.http.post<Travel>(this.baseUrl + 'travels/', data, { 'headers': this.headers });
     }
 
     getTravelByCityId(id: number) {
@@ -249,8 +250,29 @@ export class DataService {
         //         })
         //     });
         // }
-        return this.http.delete<Travel>(this.baseUrl + 'travels/' + id, { 'headers': this.headers });;
+        return this.http.delete<Travel>(this.baseUrl + 'travels/' + id, { 'headers': this.headers });
     }
+
+
+
+    //Checklist Item
+
+    createChecklistItem(data: ChecklistItemDialogData) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.post<ChecklistItem>(this.baseUrl + 'checklistitems/', data, { 'headers': this.headers });
+    }
+
+    getChecklistItemByCountry(id:number){
+        return this.http.get<ChecklistItem[]>(this.baseUrl + 'checklistitems/list/' + id,{ 'headers': this.headers });
+    }
+
+    updateChecklistItem(data:UpdateChecklistItemDialogData){
+        return this.http.post<ChecklistItem>(this.baseUrl + 'checklistitems/update', data, { 'headers': this.headers });
+    }
+
+
+
+    // External API
 
 
     getCountry(name: string) {
@@ -301,6 +323,7 @@ export class DataService {
 
         // return null
 
+        //TODO: Change this to read LATLNG from RefCity Table
         return this.getAmadeusKey().pipe(
             switchMap((accessToken) => {
                 const headers = new HttpHeaders()
@@ -316,8 +339,7 @@ export class DataService {
 
     getPOI(latlng: number[]) {//: Observable<any>
         // var accessToken
-        //   this.getAmadeusKey().subscribe({
-        //     next: (access)=>{
+        //   this.getAmadeusKey().subscribe({        //     next: (access)=>{
         //      accessToken = access;
         //      let xheaders = new HttpHeaders()
         //      xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);

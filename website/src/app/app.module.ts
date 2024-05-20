@@ -61,6 +61,9 @@ import { HomeComponent } from './home/home.component';
 import { AddUserPlanComponent } from './plan/add-user-plan/add-user-plan.component';
 import { LoginComponent } from './user/login/login.component';
 import { DeletePlanConfirmationComponent } from './plan/delete-plan-confirmation/delete-plan-confirmation.component';
+import { ChecklistDialogComponent } from './country/checklist-dialog/checklist-dialog.component';
+import { ChecklistItemComponent } from './country/checklist-item/checklist-item.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -90,7 +93,9 @@ import { DeletePlanConfirmationComponent } from './plan/delete-plan-confirmation
     HomeComponent,
     AddUserPlanComponent,
     LoginComponent,
-    DeletePlanConfirmationComponent
+    DeletePlanConfirmationComponent,
+    ChecklistDialogComponent,
+    ChecklistItemComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +127,8 @@ import { DeletePlanConfirmationComponent } from './plan/delete-plan-confirmation
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatCheckboxModule
 
   ],
   providers: [  

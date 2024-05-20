@@ -1,0 +1,7 @@
+
+<mat-checkbox class="example-margin"
+    [checked]="this.item.completed"
+    [(ngModel)]="this.item.completed"
+    (change)="updateChecked()">
+    <h4>{{this.item.name}}</h4>
+</mat-checkbox>

@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Checklist</h2>
+<mat-dialog-content>
+  <p></p>
+  <mat-form-field>
+    <mat-label></mat-label>
+    <input matInput [(ngModel)]="this.newitem.name">
+  </mat-form-field> 
+  <button mat-flat-button color="primary" (click)="addItem()">Add Item</button>
+
+<div *ngFor="let item of this.checklistitems">
+    <app-checklist-item [item]='item'></app-checklist-item>
+</div>
+
+  
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

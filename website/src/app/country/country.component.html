@@ -33,10 +33,20 @@
                         <p *ngIf="country.startDate">{{getDate(country?.startDate)}} ( {{numOfDays}} days ) </p>
                     </div>
                     <div class="col-4">
-                        <button mat-mini-fab color="primary" (click)="openDialog()"
+                        <!-- <button mat-mini-fab color="primary" (click)="openDialog()"
                             aria-label="Add City Item">
                             <mat-icon>add</mat-icon>
+                        </button> -->
+                        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
                         </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openDialog()">Add City</button>
+                            <button mat-menu-item (click)="openInfoDialog()">View/Edit Country</button>
+                            <button mat-menu-item (click)="deleteCountry()">Delete Country</button>
+                            <button mat-menu-item (click)="openChecklistDialog()">View Checklist</button>
+                    
+                        </mat-menu>
                     </div>
                 </div>
 

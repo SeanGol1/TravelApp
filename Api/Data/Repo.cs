@@ -21,7 +21,7 @@ namespace TravelPlannerApp.Data
         private readonly IUserRepo userRepo;
         private readonly IConfiguration config;
 
-        public Repo(TravelPlannerAppContext _DbContext,IUserRepo _userRepo, IConfiguration _config)
+        public Repo(TravelPlannerAppContext _DbContext, IUserRepo _userRepo, IConfiguration _config)
         {
             this.context = _DbContext;
             userRepo = _userRepo;
@@ -40,7 +40,7 @@ namespace TravelPlannerApp.Data
 
         public async Task<IEnumerable<Country>> GetCountryAsync()
         {
-            return await context.Country.Include(c=> c.Cities).ToListAsync();
+            return await context.Country.Include(c => c.Cities).ToListAsync();
         }
 
         public async Task<Country> GetCountrybyIdAsync(int id)
@@ -61,7 +61,7 @@ namespace TravelPlannerApp.Data
                         join u in context.User on up.User.Id equals u.Id
                         where u.UserName.ToLower() == username.ToLower()
                         select p;
-            
+
             return await query.ToListAsync();
         }
 
@@ -85,14 +85,14 @@ namespace TravelPlannerApp.Data
             {
                 country.Name = country.Name.Trim();
                 var x = country.StartDate;
-                country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderBy(c=>c.SortOrder).ToListAsync();
+                country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderBy(c => c.SortOrder).ToListAsync();
                 foreach (var cities in country.Cities)
                 {
                     cities.Name = cities.Name.Trim();
-                    cities.ToDos = await context.ToDo.Where(c => c.City.Id == cities.Id).OrderBy(t=> t.SortOrder).ToListAsync();
+                    cities.ToDos = await context.ToDo.Where(c => c.City.Id == cities.Id).OrderBy(t => t.SortOrder).ToListAsync();
                 }
             }
-                       
+
             return plan;
         }
 
@@ -103,10 +103,10 @@ namespace TravelPlannerApp.Data
             {
                 id = GenerateId();
             }
-            Plan plan = new Plan() { PlanName = dto.Name , JoinCode = id};
+            Plan plan = new Plan() { PlanName = dto.Name, JoinCode = id };
             plan = context.Plan.Add(plan).Entity;
             await context.SaveChangesAsync();
-            UserPlan userPlan = new UserPlan() { Plan = plan , User = await userRepo.GetUserByUsernameAsync(dto.Username) , IsAdmin = true};            
+            UserPlan userPlan = new UserPlan() { Plan = plan, User = await userRepo.GetUserByUsernameAsync(dto.Username), IsAdmin = true };
             context.UserPlan.Add(userPlan);
 
             await context.SaveChangesAsync();
@@ -141,8 +141,8 @@ namespace TravelPlannerApp.Data
             if (PlanCodeExists(dto.JoinCode))
             {
                 Plan plan = await context.Plan.Where(p => p.JoinCode == dto.JoinCode).FirstOrDefaultAsync();
-                UserPlan userPlan = new UserPlan() { Plan = plan, User = await userRepo.GetUserByUsernameAsync(dto.Username), IsAdmin = false };   
-                var up = context.UserPlan.Where(p=>p.Plan.Id == plan.Id && p.User.Id == userPlan.User.Id).FirstOrDefault();
+                UserPlan userPlan = new UserPlan() { Plan = plan, User = await userRepo.GetUserByUsernameAsync(dto.Username), IsAdmin = false };
+                var up = context.UserPlan.Where(p => p.Plan.Id == plan.Id && p.User.Id == userPlan.User.Id).FirstOrDefault();
                 if (up == null)
                     context.UserPlan.Add(userPlan);
                 else
@@ -153,12 +153,12 @@ namespace TravelPlannerApp.Data
             }
             else
                 return null;
-            
+
         }
 
         private bool PlanCodeExists(int id)
         {
-            Plan plan = context.Plan.Where(p=>p.JoinCode == id).FirstOrDefault();
+            Plan plan = context.Plan.Where(p => p.JoinCode == id).FirstOrDefault();
 
             return plan == null ? false : true;
         }
@@ -168,7 +168,7 @@ namespace TravelPlannerApp.Data
             int id = 0;
             Random r = new Random();
             id = r.Next(100000, 999999);
-            return id; 
+            return id;
         }
 
         public async Task<Plan> UpdatePlanAsync(Plan plan)
@@ -191,7 +191,7 @@ namespace TravelPlannerApp.Data
             {
                 ups = await context.UserPlan.Where(u => u.Plan.Id == up.Plan.Id && u.User.UserName == up.User.UserName).FirstAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string m = ex.Message;
             }
@@ -232,9 +232,9 @@ namespace TravelPlannerApp.Data
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = config["Python"];
             //var obj = new { city=city, country=country};
-            start.Arguments = string.Format("{0} \"{1}\" \"{2}\"  ", config["PythonScript"], city,country);
+            start.Arguments = string.Format("{0} \"{1}\" \"{2}\"  ", config["PythonScript"], city, country);
             start.UseShellExecute = false;
-            start.RedirectStandardOutput = true;            
+            start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
             {
                 using (StreamReader reader = process.StandardOutput)
@@ -255,19 +255,19 @@ namespace TravelPlannerApp.Data
 
         private bool RefCityExists(string city)
         {
-            return context.RefCity.Where(c=>c.Name == city).Count() > 0;
+            return context.RefCity.Where(c => c.Name == city).Count() > 0;
         }
 
         public async Task<IEnumerable<City>> GetCitiesByPlan(int id)
         {
-            return await context.City.Where(c=> c.Country.Plan.Id == id).ToListAsync();
+            return await context.City.Where(c => c.Country.Plan.Id == id).ToListAsync();
         }
 
         public async Task<IEnumerable<RefCity>> GetRefCityListByPlanIdAsync(int id)
         {
             Plan p = await GetPlanbyIdAsync(id);
             List<RefCity> list = new List<RefCity>();
-            string[] errList = []; 
+            string[] errList = [];
             foreach (City city in await GetCitiesByPlan(id))
             {
                 try
@@ -277,25 +277,25 @@ namespace TravelPlannerApp.Data
                         list.Add(refCity);
                     else
                     {
-                        refCity = await GetRefCityByName(city.Name, city.Country.Name);
-                        if (refCity != null)
-                        {
-                            list.Add(refCity);
-                            context.RefCity.Add(refCity);
-                            await context.SaveChangesAsync();
-                        }
-                        else
-                        {
-                            errList.Append(city.Name);
-                        }
+                        //refCity = await GetRefCityByName(city.Name, city.Country.Name);
+                        //if (refCity != null)
+                        //{
+                        //    list.Add(refCity);
+                        //    context.RefCity.Add(refCity);
+                        //    await context.SaveChangesAsync();
+                        //}
+                        //else
+                        //{
+                        //    errList.Append(city.Name);
+                        //}
                     }
-                   // Console.WriteLine(list.Count);
+                    // Console.WriteLine(list.Count);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-               
+
             }
             LogError(errList);
             return list;
@@ -320,7 +320,7 @@ namespace TravelPlannerApp.Data
                     {
                         Byte[] errorstring = new UTF8Encoding(true).GetBytes(item);
                         fs.Write(errorstring, 0, errorstring.Length);
-                    }                    
+                    }
                 }
             }
             catch (Exception Ex)
@@ -339,7 +339,8 @@ namespace TravelPlannerApp.Data
                 {
                     RefCity refcity = await GetRefCityByName(city.Name, city.Country.Name);
                     context.RefCity.Add(refcity);
-                }catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -382,7 +383,7 @@ namespace TravelPlannerApp.Data
         public async Task<ToDo> UpdateToDoAsync(ToDo todo)
         {
             context.Entry(todo).State = EntityState.Modified;
-            if (todo.SortOrder != Convert.ToInt32(context.ToDo.Where(t => t.Id == todo.Id).Select(t => t.SortOrder).ToString())) 
+            if (todo.SortOrder != Convert.ToInt32(context.ToDo.Where(t => t.Id == todo.Id).Select(t => t.SortOrder).ToString()))
             {
                 UpdateSortOrder(todo);
             }
@@ -392,9 +393,9 @@ namespace TravelPlannerApp.Data
 
         private void UpdateSortOrder(ToDo todo)
         {
-            foreach (ToDo t in context.ToDo.Where(x=>x.City.Id == todo.City.Id).OrderByDescending(x=>x.SortOrder).ToList())
+            foreach (ToDo t in context.ToDo.Where(x => x.City.Id == todo.City.Id).OrderByDescending(x => x.SortOrder).ToList())
             {
-                if(todo.SortOrder == t.SortOrder)
+                if (todo.SortOrder == t.SortOrder)
                 {
 
                 }
@@ -414,8 +415,9 @@ namespace TravelPlannerApp.Data
             {
                 return false;
             }
-            try{
-                
+            try
+            {
+
                 context.Country.Remove(country);
                 await context.SaveChangesAsync();
             }
@@ -423,7 +425,7 @@ namespace TravelPlannerApp.Data
             {
                 return false;
             }
-            
+
 
             return true;
         }
@@ -472,7 +474,7 @@ namespace TravelPlannerApp.Data
 
         #region Travel
 
-        
+
         public async Task<Travel> GetTravelbyIdAsync(int id)
         {
             return await context.Travel.FindAsync(id);
@@ -480,7 +482,7 @@ namespace TravelPlannerApp.Data
 
         public async Task<Travel> GetTravelbyCityIdAsync(int id)
         {
-            return await context.Travel.Where(x=>x.FromCity.Id == id).Include(x=>x.FromCity).Include(x => x.ToCity).FirstOrDefaultAsync();
+            return await context.Travel.Where(x => x.FromCity.Id == id).Include(x => x.FromCity).Include(x => x.ToCity).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Travel>> GetTravelAsync()
@@ -521,6 +523,40 @@ namespace TravelPlannerApp.Data
 
 
             return true;
+        }
+
+        public async Task<ChecklistItem> GetChecklistItembyIdAsync(int id)
+        {
+            return await context.ChecklistItem.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<ChecklistItem>> GetChecklistItemAsync()
+        {
+            return await context.ChecklistItem.ToListAsync();
+        }
+
+        public async Task<IEnumerable<ChecklistItem>> GetChecklistItemByCountryAsync(int id)
+        {
+            return await context.ChecklistItem.Where(c => c.Country.Id == id).ToListAsync();
+        }
+
+        public async Task<ChecklistItem> PostChecklistItemAsync(ChecklistItem item)
+        {
+            context.ChecklistItem.Add(item);
+            await context.SaveChangesAsync();
+            return item;
+        }
+
+        public async Task<ChecklistItem> UpdateChecklistItemAsync(ChecklistItem item)
+        {
+            context.Entry(item).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return item;
+        }
+
+        public Task<bool> DeleteChecklistItem(int id)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
