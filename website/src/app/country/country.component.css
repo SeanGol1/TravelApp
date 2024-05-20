@@ -16,3 +16,7 @@ margin-bottom: 25%;
 .accord-icon-open .fa-chevron-down{
     transform: rotate(0deg);
   }
+
+  .country-info{
+    display: inline;
+  }
