@@ -530,7 +530,6 @@ D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\staticwebassets\
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.TravelPlannerApp.props
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\staticwebassets.pack.json
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\scopedcss\bundle\TravelPlannerApp.styles.css
-D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp.csproj.CopyComplete
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\refint\TravelPlannerApp.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPlannerApp.pdb
@@ -563,3 +562,4 @@ D:\Visual Studio Projects\TravelPlannerApp\Api\bin\Debug\net8.0\runtimes\win\lib
 D:\Visual Studio Projects\TravelPlannerApp\Api\bin\Debug\net8.0\Microsoft.Extensions.PlatformAbstractions.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\bin\Debug\net8.0\Nancy.dll
 D:\Visual Studio Projects\TravelPlannerApp\Api\bin\Debug\net8.0\GetRefCity.py
+D:\Visual Studio Projects\TravelPlannerApp\Api\obj\Debug\net8.0\TravelPl.82E50FFF.Up2Date

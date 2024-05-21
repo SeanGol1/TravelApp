@@ -66,6 +66,8 @@ import { ChecklistItemComponent } from './country/checklist-item/checklist-item.
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { BoatAnimationComponent } from './travel/animations/boat-animation/boat-animation.component';
+import { TaxiAnimationComponent } from './travel/animations/taxi-animation/taxi-animation.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
     LoginComponent,
     DeletePlanConfirmationComponent,
     ChecklistDialogComponent,
-    ChecklistItemComponent
+    ChecklistItemComponent,
+    BoatAnimationComponent,
+    TaxiAnimationComponent
   ],
   imports: [
     BrowserModule,
