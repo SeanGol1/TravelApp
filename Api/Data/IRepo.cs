@@ -17,6 +17,7 @@ namespace TravelPlannerApp.Data
         Task<Plan> JoinPlanByCodeAsync(JoinByCodeDto dto);
         Task<IEnumerable<Plan>> GetPlansbyUserAsync(string username);
         Task<IEnumerable<User>> GetUserbyPlanAsync(int id);
+        Task<bool> IsAdminCheck(int planId, string username);
         #endregion
 
 

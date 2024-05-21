@@ -12,7 +12,7 @@ import { PlanComponent } from 'src/app/plan/plan.component';
 export class UserManagementComponent {
   plan:Plan | undefined;
   model:any={};
-  userList:any;
+  userList:any = [];
   copycode:string = "";
 
 
@@ -28,8 +28,18 @@ export class UserManagementComponent {
 
   GetUserList(){
     this.data.getUserByPlanId(this.plan.id).subscribe(userlist=>{
-      this.userList = userlist;
+      //this.userList = userlist;
+      userlist.forEach(user => {
+        this.data.isAdminCheck(this.plan.id, user.userName).subscribe({
+          next:isadmin=>{
+            user.isadmin = isadmin;
+            this.userList.push(user);
+          }
+        });
+      });
     })
+
+    
   }
 
   AddUser(){

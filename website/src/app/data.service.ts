@@ -25,6 +25,9 @@ export class DataService {
     private navSource = new BehaviorSubject<Boolean | false>(false);
     navIsOpen$ = this.navSource.asObservable();
 
+    private isAdminSource = new BehaviorSubject<Boolean | false>(false);
+    isAdmin$ = this.isAdminSource.asObservable();
+
     baseUrl = environment.apiUrl;
     headers = new HttpHeaders()
         .set('content-type', 'application/json');
@@ -63,7 +66,15 @@ export class DataService {
     }
 
     getUserByPlanId(id:number){
-        return this.http.get(this.baseUrl + 'plans/userlist/' + id, { 'headers': this.headers })
+        return this.http.get<any[]>(this.baseUrl + 'plans/userlist/' + id, { 'headers': this.headers })
+    }
+
+    isAdminCheck(planid:number, username:string){
+        return this.http.post<boolean>(this.baseUrl + 'plans/isadmin', {planId: planid, username:username}, { 'headers': this.headers })
+    }
+
+    setLocalIsAdmin(isadmin:boolean){
+        this.isAdminSource.next(isadmin);
     }
 
     createPlan(data: any) {
@@ -168,21 +179,9 @@ export class DataService {
     //To Do
     createTodo(data: TodoDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
-        const resp = this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });;
-        if (resp) {
-            this.plan$.subscribe(plan => {
-                plan.countries.forEach(c => {
-                    c.cities.forEach(ct => {
-                        if(ct.id == data.cityId){
-                        resp.subscribe(todo=>{
-                            ct.toDos.push(todo);       
-                        })
-                    }
-                    })
-                })
-            });
-        }
         return this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });
+        
+       // return this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });
     }
 
     updateTodo(data: ToDoUpdate) {
@@ -296,9 +295,9 @@ export class DataService {
             .set('content-type', 'application/x-www-form-urlencoded');
         let body = new URLSearchParams();
         body.set('grant_type', 'client_credentials');
-        body.set('client_id', 'AMIldWC4IsUAz8zLDovkRNuZuq2pSPz9');
-        body.set('client_secret', 'GLysOz681Zm4QJfQ');
-        return this.http.post('https://test.api.amadeus.com/v1/security/oauth2/token', body, { 'headers': xheaders });
+        body.set('client_id', environment.amadeus_client_id);
+        body.set('client_secret', environment.amadeus_client_secret);
+        return this.http.post(environment.amadeus_url + 'security/oauth2/token', body, { 'headers': xheaders });
     }
 
     getCity(name: string): Observable<any> {
@@ -330,7 +329,7 @@ export class DataService {
                     .set('Authorization', 'Bearer ' + accessToken["access_token"])
                     .set('Content-Type', 'application/vnd.amadeus+json');
 
-                return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { headers });
+                return this.http.get(environment.amadeus_url + 'reference-data/locations/cities?keyword=' + name + '&max=1', { headers });
             })
         );
 
@@ -344,7 +343,7 @@ export class DataService {
         //      let xheaders = new HttpHeaders()
         //      xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);
         //       xheaders.set('content-type', 'application/vnd.amadeus+json');
-        //       return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=20&page%5Blimit%5D=10&page%5Boffset%5D=0', { 'headers': xheaders })
+        //       return this.http.get(environment.amadeus_url + 'reference-data/locations/pois?latitude=' + latlng[0] + '&longitude=' + latlng[1] + '&radius=20&page%5Blimit%5D=10&page%5Boffset%5D=0', { 'headers': xheaders })
         //     },
         //     error:(e)=>{
         //       console.log(e);            

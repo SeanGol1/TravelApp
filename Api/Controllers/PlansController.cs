@@ -82,6 +82,20 @@ namespace TravelPlannerApp.Controllers
             }
         }
 
+        [Route("isadmin")]
+        [HttpPost]
+        public async Task<ActionResult<bool>> GetIsAdmin(UserPlanDto dto)
+        {             
+            try
+            {
+                return await _repo.IsAdminCheck(dto.PlanId, dto.Username);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
 
         // PUT: api/Plans/5

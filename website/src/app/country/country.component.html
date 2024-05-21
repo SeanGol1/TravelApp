@@ -6,8 +6,13 @@
             [attr.aria-controls]="'accordion-body-' + country.id">
             <div class="example-accordion-item-header">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-10" *ngIf="(data.isAdmin$| async)">
                         <p (click)="openInfoDialog()"><b>{{country?.name}} </b>
+                            <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" />
+                        </p>
+                    </div>
+                    <div class="col-10" *ngIf="!(data.isAdmin$| async)">
+                        <p><b>{{country?.name}} </b>
                             <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" />
                         </p>
                     </div>
@@ -37,7 +42,7 @@
                             aria-label="Add City Item">
                             <mat-icon>add</mat-icon>
                         </button> -->
-                        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+                        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" *ngIf="(data.isAdmin$| async)">
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">

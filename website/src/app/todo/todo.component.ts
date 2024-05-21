@@ -10,7 +10,7 @@ import { DataService } from '../data.service';
 export class TodoComponent {
   @Input() todo:ToDo | undefined ;
 
-  constructor(private data:DataService){
+  constructor(public data:DataService){
   }
 
   deleteTodo(){

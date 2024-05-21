@@ -10,7 +10,7 @@
                 <div class="col-3">
                      <!-- [matMenuTriggerFor]="menu"
                      (click)="toggleNav()" -->
-                    <button mat-mini-fab color="primary"  [matMenuTriggerFor]="menu">
+                    <button mat-mini-fab color="primary"  [matMenuTriggerFor]="menu" *ngIf="(data.isAdmin$| async)">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                    
@@ -30,12 +30,14 @@
             <div *ngFor="let country of plan?.countries">
                 <app-country [country]="country"></app-country>
             </div>
-            <div *ngIf="plan.countries.length == 0">
+            <div *ngIf="plan.countries.length == 0 && data.isAdmin$| async"  >
                 <p>Click here to add your first country</p>
                 <button (click)="openCountryDialog()">Add Country</button>
             </div>
         </mat-tab>
-        <mat-tab label="Users">
+
+        
+        <mat-tab *ngIf="(data.isAdmin$| async)" label="Users">
             <ng-template matTabContent>
                 <app-user-management></app-user-management>
             </ng-template>

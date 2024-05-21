@@ -28,7 +28,7 @@ export class CityComponent implements AfterViewInit {
   travel: Travel | undefined;
   enum: typeof TravelType = TravelType;
 
-  constructor(public dialog: MatDialog, private data: DataService) {
+  constructor(public dialog: MatDialog, public data: DataService) {
   }
 
   ngAfterViewInit(): void {
@@ -110,13 +110,19 @@ export class CityComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
         data.cityId = this.city?.id;
-        // if(this.city?.country.id)
-        //   data.countryId = this.city?.country.id;
-        // else
-        //   data.countryId = 0;
         this.data.createTodo(data).subscribe({
           next: todo => {
-            //this.city?.toDos.push(todo);
+            if (todo) {
+              this.data.plan$.subscribe(plan => {
+                  plan.countries.forEach(c => {
+                      c.cities.forEach(ct => {
+                          if(ct.id == data.cityId){
+                              ct.toDos.push(todo);   
+                      }
+                      })
+                  })
+              });
+          }
           }
         });
       }

@@ -77,6 +77,25 @@ namespace TravelPlannerApp.Data
             return await query.ToListAsync();
         }
 
+        public async Task<bool> IsAdminCheck(int planId, string username)
+        {
+            //Get all Campaign info by user id
+            var query = from p in context.Plan
+                        join up in context.UserPlan on p.Id equals up.Plan.Id
+                        join u in context.User on up.User.Id equals u.Id
+                        where p.Id == planId && u.UserName.ToLower() == username.ToLower()
+                        select up.IsAdmin;
+            try
+            {
+                return Convert.ToBoolean(await query.FirstAsync());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Not Found");
+            }
+            
+        }
+
         public async Task<Plan> GetPlanbyIdAsync(int id)
         {
             Plan plan = await context.Plan.FindAsync(id);

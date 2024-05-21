@@ -34,21 +34,32 @@ export class PlanComponent implements OnInit{
   //@Input() plan: Plan | undefined;
   plan: Plan | undefined;
   user: User | undefined;
+  isadmin:boolean = false;
 
 
-  constructor(public dialog: MatDialog, private data: DataService,public account:AccountService,private route:ActivatedRoute, private router:Router) {
+  constructor(public dialog: MatDialog, public data: DataService,public account:AccountService,private route:ActivatedRoute, private router:Router) {
   }
   
   ngOnInit(): void {
     var planid = Number(this.route.snapshot.paramMap.get('id'));  
     this.account.currentUser$.subscribe(u => this.user = u );
     if(this.user){
+      
+      //Get and Save Plan
       this.data.getPlanById(planid).subscribe({
         next: plan => {
           this.plan = plan
           this.data.updateLocalPlan(plan);
         }
       });
+
+      //Check if user is admin
+      this.data.isAdminCheck(planid,this.user.username).subscribe({
+        next:isadmin=>{
+          this.data.setLocalIsAdmin(isadmin);
+        }
+      })
+
     }
     else{
       this.router.navigate(['/']);
@@ -124,27 +135,27 @@ toggleNav(){
       return false;
   }
 
-  openToDoDialog(): void {
-    const dialogRef = this.dialog.open(AddTodoDialogComponent, {
-      data: { plan: this.plan },
-    });
+  // openToDoDialog(): void {
+  //   const dialogRef = this.dialog.open(AddTodoDialogComponent, {
+  //     data: { plan: this.plan },
+  //   });
 
-    dialogRef.afterClosed().subscribe(data => {
-      console.log('The dialog was closed');
-      if(data){
-      this.data.createTodo(data).subscribe({
-        // next: todo => {
-        //   this.plan.countries.forEach(c => {
-        //     c.cities.forEach(city => {
-        //       if (city.id == data.coun)
-        //         city.toDos.push(todo);
-        //     })
+  //   dialogRef.afterClosed().subscribe(data => {
+  //     console.log('The dialog was closed');
+  //     if(data){
+  //     this.data.createTodo(data).subscribe({
+  //       // next: todo => {
+  //       //   this.plan.countries.forEach(c => {
+  //       //     c.cities.forEach(city => {
+  //       //       if (city.id == data.coun)
+  //       //         city.toDos.push(todo);
+  //       //     })
 
-        //   });
-        // }
-      });}
-    });
-  }
+  //       //   });
+  //       // }
+  //     });}
+  //   });
+  // }
 
   exitPlan(){
     this.data.updateLocalPlan(null);

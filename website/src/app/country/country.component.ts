@@ -33,7 +33,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
   currency:any = [];
 
 
-  constructor(public dialog: MatDialog, private data: DataService) {
+  constructor(public dialog: MatDialog, public data: DataService) {
   }
   ngAfterViewInit(): void {
     this.data.getCountry(this.country.name).subscribe(data => {
@@ -42,24 +42,15 @@ export class CountryComponent implements OnInit, AfterViewInit {
       let x = Object.keys(currencies);
       for (let i = 0; i < x.length; i++) {
         let c = currencies[Object.keys(currencies)[i]];
-        this.currency.push(currencies[Object.keys(currencies)[i]]);
-        
-      } 
-       
+        this.currency.push(currencies[Object.keys(currencies)[i]]);        
+      }        
     });
 
     this.numOfDays = this.getDays().toString();
   }
 
   ngOnInit(): void {
-    this.data.getCountry(this.country.name).subscribe(cdata=>{
-      this.countryinfo = cdata[0];    
-      
-      console.log(this.countryinfo.currencies);
-      // this.dataservice.getPOI(this.countryinfo.latlng).subscribe(c=>{
 
-      // });
-    }); 
   }
 
   //Update every city other than the drop city. 

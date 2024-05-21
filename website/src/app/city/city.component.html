@@ -1,13 +1,14 @@
 <div class="city-item" cdkDrag [cdkDragData]="city" [cdkDragStartDelay]="500">
   <div class="row">
     <div class="col-8">
-      <p (click)="openInfoDialog()">{{city?.name}}</p>
+      <p *ngIf="(data.isAdmin$| async)" (click)="openInfoDialog()">{{city?.name}}</p>
+      <p *ngIf="!(data.isAdmin$| async)">{{city?.name}}</p>
     </div>
     <div class="col-4">
       <!-- <button mat-mini-fab color="primary" aria-label="Add ToDo Item">
         <mat-icon>add</mat-icon> <mat-icon>more_vert</mat-icon>
       </button> -->
-      <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+      <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" *ngIf="(data.isAdmin$| async)">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">

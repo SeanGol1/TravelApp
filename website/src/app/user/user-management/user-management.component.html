@@ -1,13 +1,14 @@
 <div class="userplan">
     <h4>Share the link with your friends to join the plan, then manage their access below.</h4>
-    
+
     <p>
-        <input class="form-control" type="text" value="https://backpackererapp.web.app/joinplan/{{plan.id}}" [(ngModel)]="copycode" >
+        <input class="form-control" type="text" value="https://backpackererapp.web.app/joinplan/{{plan.id}}"
+            [(ngModel)]="copycode">
         <button mat-flat-button color="primary" (click)="copyText()">Copy</button>
     </p>
-    
 
-    <hr/>
+
+    <hr />
 
     <h4>Add User Manually to the Plan</h4>
     <div class="nb-3">
@@ -15,12 +16,12 @@
     </div>
     <button mat-flat-button color="primary" (click)="AddUser()">Add User</button>
 
-    <hr/>
+    <hr />
 
     <div>
         <h4>Current User List</h4>
-    <div *ngFor="let u of userList">
-        <h3>{{u.userName}}</h3>
+        <div *ngFor="let u of userList">            
+            <h3>{{u.userName}}  <b *ngIf="u.isadmin">(Admin)</b>   </h3>
+        </div>
     </div>
-</div>
 </div>
