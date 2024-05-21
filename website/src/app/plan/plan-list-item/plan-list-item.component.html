@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-8" routerLink="/plan/{{plan.id}}">
+      <h3>{{plan.planName}}</h3>
+    </div>
+    <div class="col-4">
+      <button mat-flat-button color="warn" (click)="leavePlan(plan)">Leave</button>
+      <ng-container *ngIf="isadmin">
+      <hr/>
+      <button mat-flat-button color="warn" (click)="deletePlan(plan)" >Delete</button>
+    </ng-container>
+    </div>
+  </div>

@@ -68,6 +68,7 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BoatAnimationComponent } from './travel/animations/boat-animation/boat-animation.component';
 import { TaxiAnimationComponent } from './travel/animations/taxi-animation/taxi-animation.component';
+import { PlanListItemComponent } from './plan/plan-list-item/plan-list-item.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { TaxiAnimationComponent } from './travel/animations/taxi-animation/taxi-
     ChecklistDialogComponent,
     ChecklistItemComponent,
     BoatAnimationComponent,
-    TaxiAnimationComponent
+    TaxiAnimationComponent,
+    PlanListItemComponent
   ],
   imports: [
     BrowserModule,
