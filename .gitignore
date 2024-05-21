@@ -3,5 +3,6 @@
 ################################################################################
 
 /Api/TravelPlannerAppContext-b92c459d-4a09-42f2-83af-48841da9d3f1.db
+website/src/environments/
 website/src/environments/environment.ts
 website/src/environments/environment.development.ts
