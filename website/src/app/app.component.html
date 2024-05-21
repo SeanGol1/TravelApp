@@ -1,4 +1,10 @@
 <app-navbar></app-navbar>
+
 <div class="app-div">
+    <ngx-spinner
+    bdColor= "rgba(255,255,255,0)"
+    template="<img style='width:100%' src='https://media.giphy.com/media/mNUpB54ixeEIa4jMBn/giphy.gif' /><h3>Loading...</h3>"
+  >
+  </ngx-spinner> 
     <router-outlet ></router-outlet>
 </div>

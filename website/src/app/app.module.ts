@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -64,6 +64,8 @@ import { DeletePlanConfirmationComponent } from './plan/delete-plan-confirmation
 import { ChecklistDialogComponent } from './country/checklist-dialog/checklist-dialog.component';
 import { ChecklistItemComponent } from './country/checklist-item/checklist-item.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -128,16 +130,18 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatToolbarModule,
     MatListModule,
     AppRoutingModule,
-    MatCheckboxModule
-
+    MatCheckboxModule,
+    NgxSpinnerModule
   ],
   providers: [  
     provideAnimationsAsync(),
     MatDatepickerModule,
     MarkerServiceService,
-    [{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}],
+    {provide: HTTP_INTERCEPTORS,useClass:LoadingInterceptor, multi:true} ,
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
 
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
