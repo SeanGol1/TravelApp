@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelplannerapp\\api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelplannerapp\\api\\data\\repo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:data\\repo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelplannerapp\\api\\controllers\\citiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:controllers\\citiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelplannerapp\\api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelplannerapp\\api\\controllers\\planscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelplannerapp\\api\\models\\checklistitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:models\\checklistitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelplannerapp\\api\\controllers\\citiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:controllers\\citiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -75,19 +75,31 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Repo.cs",
+              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Data\\Repo.cs",
+              "RelativeDocumentMoniker": "Data\\Repo.cs",
+              "ToolTip": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Data\\Repo.cs",
+              "RelativeToolTip": "Data\\Repo.cs",
+              "ViewState": "AQIAAPoAAAAAAAAAAAAuwAMBAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T01:45:42.839Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "UsersController.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
               "ToolTip": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Controllers\\UsersController.cs",
               "RelativeToolTip": "Controllers\\UsersController.cs",
-              "ViewState": "AQIAACYAAAAAAAAAAAAtwDYAAAAlAAAA",
+              "ViewState": "AQIAACYAAAAAAAAAAAAtwDIAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-20T18:26:16.428Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-20T18:26:16.428Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "UserPlanDto.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Dto\\UserPlanDto.cs",
               "RelativeDocumentMoniker": "Dto\\UserPlanDto.cs",
@@ -99,7 +111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "PlansController.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Controllers\\PlansController.cs",
               "RelativeDocumentMoniker": "Controllers\\PlansController.cs",
@@ -111,7 +123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "UserPlan.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Models\\UserPlan.cs",
               "RelativeDocumentMoniker": "Models\\UserPlan.cs",
@@ -123,7 +135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -135,7 +147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "ChecklistItem.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Models\\ChecklistItem.cs",
               "RelativeDocumentMoniker": "Models\\ChecklistItem.cs",
@@ -147,20 +159,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Repo.cs",
-              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Data\\Repo.cs",
-              "RelativeDocumentMoniker": "Data\\Repo.cs",
-              "ToolTip": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Data\\Repo.cs",
-              "RelativeToolTip": "Data\\Repo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEwAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-25T01:45:42.839Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "IRepo.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Data\\IRepo.cs",
               "RelativeDocumentMoniker": "Data\\IRepo.cs",
@@ -172,13 +171,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
               "Title": "CitiesController.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Controllers\\CitiesController.cs",
               "RelativeDocumentMoniker": "Controllers\\CitiesController.cs",
               "ToolTip": "D:\\Visual Studio Projects\\TravelPlannerApp\\Api\\Controllers\\CitiesController.cs",
               "RelativeToolTip": "Controllers\\CitiesController.cs",
-              "ViewState": "AQIAAEsAAAAAAAAAAAAAAAQAAAAdAAAA",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAlwH4AAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-15T22:49:50.68Z",
               "EditorCaption": ""

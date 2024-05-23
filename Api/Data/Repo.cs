@@ -279,7 +279,7 @@ namespace TravelPlannerApp.Data
 
         public async Task<IEnumerable<City>> GetCitiesByPlan(int id)
         {
-            return await context.City.Where(c => c.Country.Plan.Id == id).ToListAsync();
+            return await context.City.Where(c => c.Country.Plan.Id == id).OrderBy(c=> c.Country.StartDate).ThenBy(c=>c.SortOrder).ToListAsync();
         }
 
         public async Task<IEnumerable<RefCity>> GetRefCityListByPlanIdAsync(int id)
@@ -296,6 +296,7 @@ namespace TravelPlannerApp.Data
                         list.Add(refCity);
                     else
                     {
+                        
                         //refCity = await GetRefCityByName(city.Name, city.Country.Name);
                         //if (refCity != null)
                         //{

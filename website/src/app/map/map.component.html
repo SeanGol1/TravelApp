@@ -1,5 +1,15 @@
+
 <div class="map-container">
+  <div>
+    <h1> Map </h1>
+    <mat-button-toggle-group [(ngModel)]="allMarker" name="MarkerOption" aria-label="Marker Options">
+      <mat-button-toggle value="all">All Cities</mat-button-toggle>
+      <mat-button-toggle value="prev">Previous Cities</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
     <div class="map-frame">
       <div id="map"></div>
     </div>
   </div>
+
+  

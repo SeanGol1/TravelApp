@@ -69,6 +69,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { BoatAnimationComponent } from './travel/animations/boat-animation/boat-animation.component';
 import { TaxiAnimationComponent } from './travel/animations/taxi-animation/taxi-animation.component';
 import { PlanListItemComponent } from './plan/plan-list-item/plan-list-item.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -137,7 +138,8 @@ import { PlanListItemComponent } from './plan/plan-list-item/plan-list-item.comp
     MatListModule,
     AppRoutingModule,
     MatCheckboxModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatButtonToggleModule
   ],
   providers: [  
     provideAnimationsAsync(),
