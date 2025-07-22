@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Nancy.Json;
 using NuGet.Protocol;
 using System;
@@ -249,9 +250,20 @@ namespace TravelPlannerApp.Data
         public async Task<RefCity> GetRefCityByName(string city, string country)
         {
             ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = config["Python"];
+            var python_path = Environment.GetEnvironmentVariable("python_path");
+            var python_script = Environment.GetEnvironmentVariable("python_script");
+            if (string.IsNullOrEmpty(python_path))
+            {
+                throw new InvalidOperationException("python_path environment variable is not set.");
+            }
+            if (string.IsNullOrEmpty(python_script))
+            {
+                throw new InvalidOperationException("python_script environment variable is not set.");
+            }
+
+            start.FileName = python_path;
             //var obj = new { city=city, country=country};
-            start.Arguments = string.Format("{0} \"{1}\" \"{2}\"  ", config["PythonScript"], city, country);
+            start.Arguments = string.Format("{0} \"{1}\" \"{2}\"  ", python_script, city, country);
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))

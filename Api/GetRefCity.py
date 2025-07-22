@@ -1,5 +1,4 @@
-﻿import requests
-import sys
+﻿import requests, sys , os
 
 def get_countrycode(country_name):
     url = f"https://restcountries.com/v3.1/name/{country_name}?fullText=true"
@@ -17,8 +16,8 @@ def get_place(city_name, country_name):
     querystring = {"countryIds": get_countrycode(country_name), "namePrefix": city_name, "sort":"-population"}
 
     headers = {
-        "X-RapidAPI-Key": "6a0f4da48bmsh24e225ae46f362cp19cd13jsnb7acb49186b8",
-        "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com"
+        "X-RapidAPI-Key": os.environ.get("RAPIDAPI_KEY"),
+        "X-RapidAPI-Host": os.environ.get("RAPIDAPI_HOST")
     }
 
     response = requests.get(url, headers=headers, params=querystring)

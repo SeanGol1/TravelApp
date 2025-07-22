@@ -9,3 +9,8 @@ website/src/environments/environment.development.ts
 /Api/TravelPlannerAppContext-b92c459d-4a09-42f2-83af-48841da9d3f1_test.db
 /Api/TravelPlannerAppContext-b92c459d-4a09-42f2-83af-48841da9d3f1.db-shm
 /Api/TravelPlannerAppContext-b92c459d-4a09-42f2-83af-48841da9d3f1.db-wal
+/Api/.vs
+/Api/bin
+/Api/obj
+Api/appsettings.Development.json
+Api/appsettings.json
