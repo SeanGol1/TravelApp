@@ -14,3 +14,7 @@ website/src/environments/environment.development.ts
 /Api/obj
 Api/appsettings.Development.json
 Api/appsettings.json
+website/.firebase
+website/firebase.json
+website/.firebaserc
+
