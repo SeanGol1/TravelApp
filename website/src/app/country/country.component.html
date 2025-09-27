@@ -33,81 +33,92 @@
             <div class="example-accordion-item-body" role="region"
                 [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + country.id"
                 [attr.aria-labelledby]="'accordion-header-' + country.id">
-                <div class="row">
-                    <div class="col-8">
-                        <p *ngIf="country.startDate">{{getDate(country?.startDate)}} ( {{numOfDays}} days ) </p>
-                    </div>
-                    <div class="col-4">
-                        <!-- <button mat-mini-fab color="primary" (click)="openDialog()"
+
+            
+                <mat-tab-group preserveContent>
+                    <mat-tab label="Details">
+
+                        <div class="row">
+                            <div class="col-8">
+                                <p *ngIf="country.startDate">{{getDate(country?.startDate)}} ( {{numOfDays}} days ) </p>
+                            </div>
+                            <div class="col-4">
+                                <!-- <button mat-mini-fab color="primary" (click)="openDialog()"
                             aria-label="Add City Item">
                             <mat-icon>add</mat-icon>
                         </button> -->
-                        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" *ngIf="(data.isAdmin$| async)">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="openDialog()">Add City</button>
-                            <button mat-menu-item (click)="openInfoDialog()">View/Edit Country</button>
-                            <button mat-menu-item (click)="deleteCountry()">Delete Country</button>
-                            <button mat-menu-item (click)="openChecklistDialog()">View Checklist</button>
+                                <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu"
+                                    *ngIf="(data.isAdmin$| async)">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="openDialog()">Add City</button>
+                                    <button mat-menu-item (click)="openInfoDialog()">View/Edit Country</button>
+                                    <button mat-menu-item (click)="deleteCountry()">Delete Country</button>
+                                    <button mat-menu-item (click)="openChecklistDialog()">View Checklist</button>
 
-                        </mat-menu>
-                    </div>
-                </div>
-                <div class="row country-info">
-                    <div class="row">
-                        <div class="col-6">
-                            <p>Currency: </p>
+                                </mat-menu>
+                            </div>
                         </div>
-                        <div class="col-6">                            
-                            <p *ngFor="let c of currency">{{'('}}{{c?.symbol}}{{')'}} {{c?.name}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>Time Zone: </p>
-                        </div>
-                        <div class="col-6">
-                            <p>{{countryinfo?.timezones}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>Capital City: </p>
-                        </div>
-                        <div class="col-6">
-                            <p>{{countryinfo?.capital}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>Region: </p>
-                        </div>
-                        <div class="col-6">
-                            <p>{{countryinfo?.subregion}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>Google Maps Link:</p>
-                        </div>
-                        <div class="col-6">
-                            <a href="{{countryinfo?.maps.googleMaps}}">Google Maps</a>
-                        </div>
-                    </div>
-
-
-
+                        <div class="row country-info">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Currency: </p>
+                                </div>
+                                <div class="col-6">
+                                    <p *ngFor="let c of currency">{{'('}}{{c?.symbol}}{{')'}} {{c?.name}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Time Zone: </p>
+                                </div>
+                                <div class="col-6">
+                                    <p>{{countryinfo?.timezones}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Capital City: </p>
+                                </div>
+                                <div class="col-6">
+                                    <p>{{countryinfo?.capital}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Region: </p>
+                                </div>
+                                <div class="col-6">
+                                    <p>{{countryinfo?.subregion}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Google Maps Link:</p>
+                                </div>
+                                <div class="col-6">
+                                    <a href="{{countryinfo?.maps.googleMaps}}">Google Maps</a>
+                                </div>
+                            </div>
 
 
-                </div>
 
-                <div cdkDropList [cdkDropListData]="country?.cities" (cdkDropListDropped)="drop($event)"
-                    class="citydroplist">
-                    <div *ngFor="let city of country?.cities">
-                        <app-city [city]="city"></app-city>
-                    </div>
-                </div>
+
+
+                        </div>
+
+                    </mat-tab>
+                    <mat-tab label="City List">
+                        <div cdkDropList [cdkDropListData]="country?.cities" (cdkDropListDropped)="drop($event)"
+                            class="citydroplist">
+                            <div *ngFor="let city of country?.cities">
+                                <app-city [city]="city"></app-city>
+                            </div>
+                        </div>
+
+                    </mat-tab>
+                </mat-tab-group>
             </div>
         </cdk-accordion-item>
     </cdk-accordion>

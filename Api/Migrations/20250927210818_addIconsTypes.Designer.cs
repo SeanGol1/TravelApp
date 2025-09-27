@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelPlannerApp.Data;
 
@@ -11,9 +12,11 @@ using TravelPlannerApp.Data;
 namespace TravelPlannerApp.Migrations
 {
     [DbContext(typeof(TravelPlannerAppContext))]
-    partial class TravelPlannerAppContextModelSnapshot : ModelSnapshot
+    [Migration("20250927210818_addIconsTypes")]
+    partial class addIconsTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,12 +243,15 @@ namespace TravelPlannerApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Icon")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IconBackgroundColor")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IconMaskBaseUri")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("LastUpdateDate")

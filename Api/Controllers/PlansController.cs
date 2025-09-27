@@ -37,6 +37,10 @@ namespace TravelPlannerApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Plan>> GetPlan(int id)
         {
+            if (!await _context.Database.CanConnectAsync())
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database unavailable");
+            }
             Plan plan;
             try
             {

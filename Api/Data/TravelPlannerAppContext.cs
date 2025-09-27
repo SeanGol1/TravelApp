@@ -23,6 +23,11 @@ namespace TravelPlannerApp.Data
         public DbSet<UserPlan> UserPlan { get; set; }
         public DbSet<RefCity> RefCity { get; set; }
         public DbSet<ChecklistItem> ChecklistItem { get; set; }
+        public DbSet<RefCityAttractions> refCityAttractions { get; set; }
+        public DbSet<Geometry> Geometry { get; set; }
+        public DbSet<Location> Location { get; set; }
+        //public DbSet<OpeningHours> OpeningHours { get; set; }
+        public DbSet<Photo> AttractionPhoto { get; set; }
 
 
     }

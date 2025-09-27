@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { City } from '../models/city';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../data.service';
-import { AddTodoDialogComponent } from '../todo/add-todo-dialog/add-todo-dialog.component';
+import { AddTodoDialogComponent, TodoDialogData } from '../todo/add-todo-dialog/add-todo-dialog.component';
 // import {
 //   CdkDragDrop,
 //   moveItemInArray,
@@ -15,6 +15,8 @@ import { ToDo, ToDoUpdate } from '../models/todo';
 import { Travel, TravelType } from '../models/travel';
 import { CityInfoDialogComponent } from './city-info-dialog/city-info-dialog.component';
 import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel-dialog.component';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Observable, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-city',
@@ -27,6 +29,7 @@ export class CityComponent implements AfterViewInit {
   todo: ToDoUpdate | undefined;
   travel: Travel | undefined;
   enum: typeof TravelType = TravelType;
+  attractions: any[];
 
   constructor(public dialog: MatDialog, public data: DataService) {
   }
@@ -41,6 +44,49 @@ export class CityComponent implements AfterViewInit {
       this.plan = p;
     })
   }
+
+
+  onTabChange(event: MatTabChangeEvent) {
+  if (event.tab.textLabel === 'Details' && !this.attractions  ) { //
+    // this.data.getCityAttractions(this.city.name).subscribe({
+    //   next: (atts) => this.attractions = atts,
+    //   error: (e) => console.log(e)
+    //});
+
+
+
+    //this.getCityAttractions(this.city.name);
+
+    this.data.getCityAttractions(this.city.name)
+      .then(atts => this.attractions = atts)
+      .catch(err => console.log(err));
+  }
+}
+
+addAttraction(name:string){
+  var todo: TodoDialogData = {
+    cityId:  this.city.id,
+    countryId: this.city.countryId,
+    name: name
+  };
+
+  // todo.cityId = this.city.id;
+  // todo.countryId = this.city.countryId;
+  // todo.name = name;
+  this.data.createTodo(todo).subscribe({
+    next: resp => console.log(resp)
+  });
+}
+
+// getCityAttractions(cityName: string): Observable<any> {
+//   if (this.attractionsCache.has(cityName)) {
+//     return of(this.attractionsCache.get(cityName)); // return cached data
+//   }
+
+//   return this.data.getCityAttractions(this.city.name).pipe(
+//     tap(atts => this.attractionsCache.set(cityName, atts))
+//   );
+// }
 
   // drop(event: CdkDragDrop<ToDo[]>) {
   //   if (event.previousContainer === event.container) {

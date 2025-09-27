@@ -10,15 +10,15 @@
       </button> -->
       <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" *ngIf="(data.isAdmin$| async)">
         <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
+      </button>
+      <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="openAddTodoDialog()">Add To Do</button>
         <button mat-menu-item (click)="openInfoDialog()">View/Edit City</button>
         <button mat-menu-item (click)="deleteCity()">Delete City</button>
         <button mat-menu-item (click)="openTravelDialog()">Add Travel</button>
         <button mat-menu-item (click)="deleteTravel()">Delete Travel</button>
 
-    </mat-menu>
+      </mat-menu>
     </div>
     <!-- <div class="col-4">
       <button mat-raised-button (click)="openDialog()">Add To-Do</button>
@@ -30,11 +30,51 @@
     }
   </div> -->
 
-  <div>
-    @for (todo of city?.toDos; track todo) {
-    <app-todo [todo]="todo"></app-todo>
-    }
-  </div>
+  <mat-tab-group preserveContent (selectedTabChange)="onTabChange($event)">
+
+    <mat-tab label="My ToDos">
+      <div>
+        @for (todo of city?.toDos; track todo) {
+        <app-todo [todo]="todo"></app-todo>
+        }
+      </div>
+    </mat-tab>
+    <mat-tab label="Details">
+
+<div class="attractions-grid">
+      <mat-card *ngFor="let a of attractions" class="attraction-card">
+        <mat-card-header>
+          <mat-card-title-group>
+          <mat-card-title>{{ a.name }}</mat-card-title>
+          <mat-card-subtitle *ngIf="a.rating">⭐ {{ a.rating }}</mat-card-subtitle>
+          <p>{{a.types}}</p>
+          <img mat-card-md-image height="400"
+             [src]="'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' + a.photos[0].photo_Reference + '&key='"
+             alt="{{a.name}}" />
+</mat-card-title-group>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>{{ a.formatted_Address }}</p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div class="row">
+            <div class="col-sm-6">
+              <a *ngIf="a.website" mat-button color="primary" href="{{a.website}}" target="_blank">
+            Visit Website
+          </a>
+        </div>
+            <div class="col-sm-6">
+              <button (click)="addAttraction(a.name)">Add to My List</button>
+            </div>
+          </div>
+          
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <div *ngIf="travel" class="travel-item">
@@ -52,7 +92,7 @@
       <app-train-animation></app-train-animation>
       }
       @case (3) {
-        <app-boat-animation></app-boat-animation>
+      <app-boat-animation></app-boat-animation>
       }
       @case (4) {
       <app-scooter-animation></app-scooter-animation>
@@ -61,7 +101,7 @@
       <app-walk-animation></app-walk-animation>
       }
       @case (6) {
-        <app-taxi-animation></app-taxi-animation>
+      <app-taxi-animation></app-taxi-animation>
       }
       }
       <!-- <p>{{enum[travel.travelType]}}</p>

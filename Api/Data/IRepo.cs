@@ -43,6 +43,8 @@ namespace TravelPlannerApp.Data
         Task<bool> DeleteCity(int id);
         Task<RefCity> GetRefCityByName(string city,string country);
         Task<IEnumerable<RefCity>> GetRefCityListByPlanIdAsync(int id);
+        Task<IEnumerable<RefCityAttractions>> GetCityAttractionsAsync(string city);
+        Task<RefCityAttractions> GetPlaceDetailsAsync(string placeId,string city);
 
         #endregion
 

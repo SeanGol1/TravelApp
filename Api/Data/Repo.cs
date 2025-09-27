@@ -2,14 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Nancy.Json;
+using Newtonsoft.Json.Linq;
 using NuGet.Protocol;
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Net;
+using System.Net.Http;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
 using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
 using static System.Net.Mime.MediaTypeNames;
@@ -21,18 +25,93 @@ namespace TravelPlannerApp.Data
         private readonly TravelPlannerAppContext context;
         private readonly IUserRepo userRepo;
         private readonly IConfiguration config;
+        private readonly HttpClient httpClient;
 
-        public Repo(TravelPlannerAppContext _DbContext, IUserRepo _userRepo, IConfiguration _config)
+        public Repo(TravelPlannerAppContext _DbContext, IUserRepo _userRepo, IConfiguration _config,HttpClient _httpClient)
         {
             this.context = _DbContext;
             userRepo = _userRepo;
             config = _config;
+            httpClient = _httpClient;
         }
 
         public async Task<IEnumerable<City>> GetCityAsync()
         {
             return await context.City.ToListAsync();
         }
+
+        public async Task<IEnumerable<RefCityAttractions>> GetCityAttractionsAsync(string city)
+        {
+            //Check DB cache for attractions. 
+            List<RefCityAttractions> attractions = await context.refCityAttractions.Where(x=>x.CityName.ToLower() == city.ToLower()).Include(x=>x.Photos).ToListAsync();
+            if (attractions.Count() > 0)
+            {
+                return attractions;
+            }
+
+            var refCity = await context.RefCity.Where(x=>x.Name == city).FirstAsync();
+            //string query = string.Format("GET https://maps.googleapis.com/maps/api/place/textsearch/json?query=attractions&location={0},{1}&radius=5000&fields=place_id&key={2}", refCity.Lat, refCity.Lng, config.GetValue<string>("GoogleMapsApi"));
+            //GET https://maps.googleapis.com/maps/api/place/textsearch/json?query=attractions&location=41.3851,2.1734&radius=5000&fields=place_id&key=YOUR_API_KEY
+
+            string apiKey = config.GetValue<string>("GoogleMapsApi");
+
+            // Build the request URL
+            string url = $"https://maps.googleapis.com/maps/api/place/textsearch/json?" +
+                         $"query=attractions&location={refCity.Lat},{refCity.Lng}&radius=5000&fields=place_id&key={apiKey}";
+
+            // Send GET request
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            string json = await response.Content.ReadAsStringAsync();
+
+            // (Optional) parse the JSON to extract only place_ids
+            var placeIds = JObject.Parse(json)["results"]
+                .Select(r => r["place_id"]?.ToString())
+                .Where(id => id != null)
+                .ToArray();
+
+            // return placeIds!;
+            var detailsList = new List<RefCityAttractions>();
+            foreach (var placeId in placeIds)
+            {
+                detailsList.Add(await GetPlaceDetailsAsync(placeId, city));
+            }
+            return detailsList;
+        }
+
+        public async Task<RefCityAttractions> GetPlaceDetailsAsync(string placeId, string city)
+        {
+            var apiKey = config.GetValue<string>("GoogleMapsApi");
+            var url = $"https://maps.googleapis.com/maps/api/place/details/json?place_id={placeId}&fields=name,formatted_address,geometry,photos,rating,types,icon,website&key={apiKey}";
+
+            var response = await httpClient.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Google Places API error: {response.StatusCode}");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            // Deserialize JSON into your model
+            var result = JsonSerializer.Deserialize<PlaceDetailsResponse>(json, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            RefCityAttractions refCityAttractions = new RefCityAttractions();
+            refCityAttractions = result.Result;
+            refCityAttractions.PlaceId = placeId;
+            refCityAttractions.CityName = city;
+            refCityAttractions.LastUpdateDate = DateTimeOffset.Now;
+
+            context.refCityAttractions.Add(refCityAttractions);
+            await context.SaveChangesAsync();
+            
+            return refCityAttractions;
+        }
+
 
         public async Task<City> GetCitybyIdAsync(int? id)
         {

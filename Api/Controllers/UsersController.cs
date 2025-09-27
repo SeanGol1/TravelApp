@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using TravelPlannerApp.Data;
 using TravelPlannerApp.Dto;
@@ -55,6 +57,11 @@ namespace TravelPlannerApp.Controllers
         [HttpPost("register")] //Post
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDTO)
         {
+            if (!await _context.Database.CanConnectAsync())
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database unavailable");
+            }
+
             if (await UserExists(registerDTO.Username)) return BadRequest("Username is Taken");
 
             using var hmac = new HMACSHA512();
@@ -79,8 +86,20 @@ namespace TravelPlannerApp.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.User.SingleOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Username.ToLower());
+            if (!await _context.Database.CanConnectAsync())
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database unavailable");
+            }
 
+            var user = new User(); 
+            try
+            {
+                user = await _context.User.SingleOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Username.ToLower());
+            }
+            catch(Exception ex)
+            {
+                return NotFound(ex.Message); // Issue connecting to DB
+            }
 
             if (user == null) return Unauthorized("Invalid Username");
 
@@ -117,7 +136,9 @@ namespace TravelPlannerApp.Controllers
 
         private async Task<bool> UserExists(string username)
         {
-            return await _context.User.AnyAsync(x => x.UserName.ToLower() == username.ToLower());
+
+                return await _context.User.AnyAsync(x => x.UserName.ToLower() == username.ToLower());
+
         }
     }
 }

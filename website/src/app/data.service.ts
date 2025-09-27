@@ -7,7 +7,7 @@ import { City, CityDialogData, UpdateCityDialogData } from './models/city';
 import { TodoDialogData } from './todo/add-todo-dialog/add-todo-dialog.component';
 import { ToDo, ToDoUpdate } from './models/todo';
 import { HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom, map, switchMap } from 'rxjs';
 import { Travel } from './models/travel';
 import { TravelDialogData } from './travel/add-travel-dialog/add-travel-dialog.component';
 import { environment } from 'src/environments/environment';
@@ -31,6 +31,7 @@ export class DataService {
     baseUrl = environment.apiUrl;
     headers = new HttpHeaders()
         .set('content-type', 'application/json');
+    private attractionsCache = new Map<string, any>();
 
 
     constructor(private http: HttpClient) {
@@ -56,24 +57,24 @@ export class DataService {
 
     }
 
-    getPlanByUser(username: string){
+    getPlanByUser(username: string) {
         this.headers.set('Access-Control-Allow-Origin', '*');
         return this.http.get<Plan[]>(this.baseUrl + 'plans/userplanlist/' + username, { 'headers': this.headers });
     }
 
-    addUserToPlan(data:any){
+    addUserToPlan(data: any) {
         return this.http.post<Plan>(this.baseUrl + 'plans/adduser', data, { 'headers': this.headers });
     }
 
-    getUserByPlanId(id:number){
+    getUserByPlanId(id: number) {
         return this.http.get<any[]>(this.baseUrl + 'plans/userlist/' + id, { 'headers': this.headers })
     }
 
-    isAdminCheck(planid:number, username:string){
-        return this.http.post<boolean>(this.baseUrl + 'plans/isadmin', {planId: planid, username:username}, { 'headers': this.headers })
+    isAdminCheck(planid: number, username: string) {
+        return this.http.post<boolean>(this.baseUrl + 'plans/isadmin', { planId: planid, username: username }, { 'headers': this.headers })
     }
 
-    setLocalIsAdmin(isadmin:boolean){
+    setLocalIsAdmin(isadmin: boolean) {
         this.isAdminSource.next(isadmin);
     }
 
@@ -91,8 +92,8 @@ export class DataService {
     joinPlan(data: any) {
         this.headers.set('Access-Control-Allow-Origin', '*');
         let plan = this.http.post<Plan>(this.baseUrl + 'plans/joinplan', data, { 'headers': this.headers });
-        let p:Plan = undefined; 
-        plan.subscribe(plan=>p=plan);
+        let p: Plan = undefined;
+        plan.subscribe(plan => p = plan);
         //this.updateLocalPlan(p);
         return plan;
     }
@@ -147,8 +148,24 @@ export class DataService {
         // return city;
     }
 
-    getRefCityList(id: number){
-        return this.http.get<any[]>(this.baseUrl + 'cities/cityref/' + id,{ 'headers': this.headers });
+    getRefCityList(id: number) {
+        return this.http.get<any[]>(this.baseUrl + 'cities/cityref/' + id, { 'headers': this.headers });
+    }
+
+    // getCityAttractions(name:string){
+    //     return this.http.get<any[]>(this.baseUrl + 'cities/cityattractions/' + name,{ 'headers': this.headers });
+    // }
+
+    async getCityAttractions(cityName: string): Promise<any> {
+        if (this.attractionsCache.has(cityName)) {
+            return this.attractionsCache.get(cityName);
+        }
+
+        const atts = await firstValueFrom(
+            this.http.get(`${this.baseUrl}cities/cityattractions/${cityName}`)
+        );
+        this.attractionsCache.set(cityName, atts);
+        return atts;
     }
 
     updateCity(data: UpdateCityDialogData) {
@@ -180,8 +197,8 @@ export class DataService {
     createTodo(data: TodoDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
         return this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });
-        
-       // return this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });
+
+        // return this.http.post<ToDo>(this.baseUrl + 'todos/', data, { 'headers': this.headers });
     }
 
     updateTodo(data: ToDoUpdate) {
@@ -195,7 +212,7 @@ export class DataService {
             this.plan$.subscribe(plan => {
                 plan.countries.forEach(c => {
                     c.cities.forEach(ct => {
-                        ct.toDos.forEach(todo=>{
+                        ct.toDos.forEach(todo => {
                             if (todo.id == id) {
                                 ct.toDos.splice(ct.toDos.indexOf(todo), 1);
                             }
@@ -261,11 +278,11 @@ export class DataService {
         return this.http.post<ChecklistItem>(this.baseUrl + 'checklistitems/', data, { 'headers': this.headers });
     }
 
-    getChecklistItemByCountry(id:number){
-        return this.http.get<ChecklistItem[]>(this.baseUrl + 'checklistitems/list/' + id,{ 'headers': this.headers });
+    getChecklistItemByCountry(id: number) {
+        return this.http.get<ChecklistItem[]>(this.baseUrl + 'checklistitems/list/' + id, { 'headers': this.headers });
     }
 
-    updateChecklistItem(data:UpdateChecklistItemDialogData){
+    updateChecklistItem(data: UpdateChecklistItemDialogData) {
         return this.http.post<ChecklistItem>(this.baseUrl + 'checklistitems/update', data, { 'headers': this.headers });
     }
 

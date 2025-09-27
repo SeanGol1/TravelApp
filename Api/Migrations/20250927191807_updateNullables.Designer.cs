@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelPlannerApp.Data;
 
@@ -11,9 +12,11 @@ using TravelPlannerApp.Data;
 namespace TravelPlannerApp.Migrations
 {
     [DbContext(typeof(TravelPlannerAppContext))]
-    partial class TravelPlannerAppContextModelSnapshot : ModelSnapshot
+    [Migration("20250927191807_updateNullables")]
+    partial class updateNullables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,6 +149,22 @@ namespace TravelPlannerApp.Migrations
                     b.ToTable("Location");
                 });
 
+            modelBuilder.Entity("TravelPlannerApp.Models.OpeningHours", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("OpenNow")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OpeningHours");
+                });
+
             modelBuilder.Entity("TravelPlannerApp.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -239,21 +258,15 @@ namespace TravelPlannerApp.Migrations
                     b.Property<int>("GeometryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IconBackgroundColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IconMaskBaseUri")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTimeOffset>("LastUpdateDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Opening_HoursId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PlaceId")
                         .IsRequired()
@@ -262,16 +275,14 @@ namespace TravelPlannerApp.Migrations
                     b.Property<double?>("Rating")
                         .HasColumnType("float");
 
-                    b.Property<string>("Types")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GeometryId");
+
+                    b.HasIndex("Opening_HoursId");
 
                     b.ToTable("refCityAttractions");
                 });
@@ -445,7 +456,15 @@ namespace TravelPlannerApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TravelPlannerApp.Models.OpeningHours", "Opening_Hours")
+                        .WithMany()
+                        .HasForeignKey("Opening_HoursId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Geometry");
+
+                    b.Navigation("Opening_Hours");
                 });
 
             modelBuilder.Entity("TravelPlannerApp.Models.ToDo", b =>
