@@ -70,6 +70,7 @@ import { BoatAnimationComponent } from './travel/animations/boat-animation/boat-
 import { TaxiAnimationComponent } from './travel/animations/taxi-animation/taxi-animation.component';
 import { PlanListItemComponent } from './plan/plan-list-item/plan-list-item.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { ExpediaWidgetComponent } from "./expedia-widget/expedia-widget.component";
 
 @NgModule({
   declarations: [
@@ -109,8 +110,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
   imports: [
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule,     
-    FormsModule, 
+    BrowserAnimationsModule,
+    FormsModule,
     MatButtonModule,
     MatDialogModule,
     FormsModule,
@@ -119,7 +120,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    CdkDropList, 
+    CdkDropList,
     CdkDrag,
     CdkDropListGroup,
     MatDatepickerModule,
@@ -128,7 +129,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatIconModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatFormFieldModule, 
+    MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     CdkAccordionModule,
@@ -139,8 +140,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     AppRoutingModule,
     MatCheckboxModule,
     NgxSpinnerModule,
-    MatButtonToggleModule
-  ],
+    MatButtonToggleModule,
+    ExpediaWidgetComponent
+],
   providers: [  
     provideAnimationsAsync(),
     MatDatepickerModule,
