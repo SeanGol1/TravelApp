@@ -18,4 +18,10 @@
         public int SortOrder { get; set; }
 
     }
+
+    public class GooglePhotoResult
+    {
+        public Stream Stream { get; set; }
+        public string ContentType { get; set; }
+    }
 }

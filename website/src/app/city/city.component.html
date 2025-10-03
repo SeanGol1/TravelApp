@@ -40,39 +40,37 @@
       </div>
     </mat-tab>
     <mat-tab label="Details">
-
-<div class="attractions-grid">
-      <mat-card *ngFor="let a of attractions" class="attraction-card">
-        <mat-card-header>
-          <mat-card-title-group>
-          <mat-card-title><h4>{{ a.name }}</h4></mat-card-title>
-          <mat-card-subtitle *ngIf="a.rating">⭐ {{ a.rating }}</mat-card-subtitle>
-          <p>{{a.types}}</p>
-          <img mat-card-md-image height="400"
-             [src]="'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' + a.photos[0].photo_Reference + '&key='"
-             alt="{{a.name}}" />
-</mat-card-title-group>
-        </mat-card-header>
-
-        <mat-card-content>
-          <p><i>{{ a.formatted_Address }}</i></p>
-        </mat-card-content>
-
-        <mat-card-actions>
-          <div class="row">
-            <div class="col-sm-6">
-              <a *ngIf="a.website" mat-button color="primary" href="{{a.website}}" target="_blank">
-            Visit Website
-          </a>
-        </div>
-            <div class="col-sm-6">
-              <button (click)="addAttraction(a.name)">Add to My List</button>
+      <h4>Top Attractions in the Area:</h4>
+      <div id="attractionsCarousel" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item" *ngFor="let a of attractions; let i = index" [ngClass]="{ 'active': i === 0 }">
+            <img [src]=" baseUrl + 'cities/googlephoto/' + a.photos[0].photo_Reference" alt="{{a.name}}"
+              class="carousel-img" />
+            <div class="">
+              <h5>{{a.name}}</h5>
+              <p>⭐ {{ a.rating }}</p>
+              <div class="row">
+                <div class="col-6">
+                  <a *ngIf="a.website" mat-flat-button color="primary" href="{{a.website}}" target="_blank">
+                    Visit Website
+                  </a>
+                </div>
+                <div class="col-6">
+                  <button mat-flat-button color="primary" (click)="addAttraction(a.name)">Add to My List</button>
+                </div>
+              </div>
             </div>
           </div>
-          
-        </mat-card-actions>
-      </mat-card>
-    </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#attractionsCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#attractionsCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>
@@ -109,6 +107,3 @@
     </div>
   </div>
 </div>
-
-
-<!-- cdkDropList [cdkDropListData]="city?.toDos" class="example-list" (cdkDropListDropped)="drop($event)" -->

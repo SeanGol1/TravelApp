@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Humanizer;
+﻿using Humanizer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using TravelPlannerApp.Data;
 using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
@@ -58,6 +59,16 @@ namespace TravelPlannerApp.Controllers
         public async Task<IEnumerable<RefCityAttractions>> GetCityAttractions(string name)
         {
             return await _repo.GetCityAttractionsAsync(name);
+        }
+
+        [HttpGet("googlephoto/{photoReference}")]
+        public async Task<IActionResult> GetGooglePhoto(string photoReference)
+        {
+            var photo = await _repo.GetGooglePhotoAsync(photoReference);
+            if (photo == null)
+                return BadRequest("Unable to fetch photo.");
+
+            return File(photo.Stream, photo.ContentType);
         }
 
 

@@ -17,6 +17,7 @@ import { CityInfoDialogComponent } from './city-info-dialog/city-info-dialog.com
 import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel-dialog.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Observable, of, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-city',
@@ -30,6 +31,9 @@ export class CityComponent implements AfterViewInit {
   travel: Travel | undefined;
   enum: typeof TravelType = TravelType;
   attractions: any[];
+
+  baseUrl = environment.apiUrl;
+
 
   constructor(public dialog: MatDialog, public data: DataService) {
   }

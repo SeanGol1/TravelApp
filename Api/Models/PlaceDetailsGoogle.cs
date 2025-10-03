@@ -59,4 +59,13 @@
         public string Photo_Reference { get; set; }
         public List<string> Html_Attributions { get; set; }
     }
+
+    public class CachedGooglePhoto
+    {
+        public int Id { get; set; }
+        public string PhotoReference { get; set; }
+        public string ContentType { get; set; }
+        public byte[] Data { get; set; }
+        public DateTimeOffset LastFetched { get; set; }
+    }
 }

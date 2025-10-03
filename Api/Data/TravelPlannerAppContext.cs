@@ -28,6 +28,7 @@ namespace TravelPlannerApp.Data
         public DbSet<Location> Location { get; set; }
         //public DbSet<OpeningHours> OpeningHours { get; set; }
         public DbSet<Photo> AttractionPhoto { get; set; }
+        public DbSet<CachedGooglePhoto> cachedGooglePhotos { get; set; }
 
 
     }

@@ -113,6 +113,52 @@ namespace TravelPlannerApp.Data
         }
 
 
+        public async Task<GooglePhotoResult?> GetGooglePhotoAsync(string photoReference)
+        {
+            // 1. Check if already cached
+            var cached = await context.cachedGooglePhotos
+                .FirstOrDefaultAsync(p => p.PhotoReference == photoReference);
+
+            if (cached != null)
+            {
+                return new GooglePhotoResult
+                {
+                    Stream = new MemoryStream(cached.Data),
+                    ContentType = cached.ContentType
+                };
+            }
+
+            // 2. If not cached, fetch from Google
+            var apiKey = config["GoogleMapsApi"];
+            var url = $"https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference={photoReference}&key={apiKey}";
+
+            var response = await httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var contentType = response.Content.Headers.ContentType?.ToString() ?? "image/jpeg";
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+
+            // 3. Save in cache (DB)
+            var newPhoto = new CachedGooglePhoto
+            {
+                PhotoReference = photoReference,
+                ContentType = contentType,
+                Data = bytes,
+                LastFetched = DateTimeOffset.UtcNow
+            };
+
+            context.cachedGooglePhotos.Add(newPhoto);
+            await context.SaveChangesAsync();
+
+            return new GooglePhotoResult
+            {
+                Stream = new MemoryStream(bytes),
+                ContentType = contentType
+            };
+        }
+
+
         public async Task<City> GetCitybyIdAsync(int? id)
         {
             return await context.City.FindAsync(id);

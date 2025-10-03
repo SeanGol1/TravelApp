@@ -1,4 +1,4 @@
-.attractions-grid {
+/* .attractions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
@@ -8,4 +8,37 @@
 .attraction-card {
   border-radius: 12px;
   overflow: hidden;
+} */
+
+.carousel{
+  margin: 10px;
+}
+
+
+/* Make images scale nicely */
+.carousel-img {
+  max-height: 400px;
+  object-fit: cover;
+  margin: 0 auto;       /* centers the image */
+  border-radius: 10px;  /* smooth rounded corners */
+  display: block;
+}
+
+/* Keep carousel centered */
+.carousel-inner {
+  text-align: center;
+}
+
+/* Caption styling */
+.carousel-caption {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 80%;
+}
+
+/* Ensure controls are visible over images */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1); /* makes arrows white */
 }

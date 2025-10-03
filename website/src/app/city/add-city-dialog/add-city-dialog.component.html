@@ -13,7 +13,8 @@
     </mat-autocomplete>
   </mat-form-field> -->
 
-  <mat-form-field>
+  <div class="row">
+  <mat-form-field class="col-12">
     <mat-label>Select Country</mat-label>
     <mat-select [(ngModel)]="city.countryId" name="country">
       @for (country of data.plan.countries; track country) {
@@ -22,10 +23,11 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="col-12">
     <mat-label>City Name</mat-label>
     <input matInput [(ngModel)]="city.name">
   </mat-form-field>
+  </div>
 
 </mat-dialog-content>
 <mat-dialog-actions>

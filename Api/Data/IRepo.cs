@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
 
@@ -45,6 +46,7 @@ namespace TravelPlannerApp.Data
         Task<IEnumerable<RefCity>> GetRefCityListByPlanIdAsync(int id);
         Task<IEnumerable<RefCityAttractions>> GetCityAttractionsAsync(string city);
         Task<RefCityAttractions> GetPlaceDetailsAsync(string placeId,string city);
+        Task<GooglePhotoResult?> GetGooglePhotoAsync(string photoReference);
 
         #endregion
 

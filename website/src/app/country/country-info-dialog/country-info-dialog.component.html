@@ -1,34 +1,23 @@
 <h2 mat-dialog-title>Edit Country</h2>
 <mat-dialog-content>
-    <!-- <mat-tab-group>
-        <mat-tab label="Info">
-            <img width="20%" height="20%" class="imgFlag" src="{{countryinfo?.flags.png}}" />
-            <p>Currency: {{countryinfo?.currencies[0]}}</p>
-            <p>Time Zone: {{countryinfo?.timezones}}</p>
-            <p>Capital City: {{countryinfo?.capital}} </p>
-            <p>Region: {{countryinfo?.subregion}}</p>
-            <a href="{{countryinfo?.maps.googleMaps}}">Google Maps</a>    
-        </mat-tab>
-        <mat-tab label="Update">  -->
-            <mat-form-field>
-                <mat-label>Name</mat-label>
-                <input matInput [(ngModel)]="data.name" placeholder="{{data.name}}">
-            </mat-form-field>
-        
-            <mat-form-field>
-                <mat-label>Date Entering the Country</mat-label>
-                <input matInput [(ngModel)]="data.startDate" [matDatepicker]="picker">
-                <!-- <mat-date-range-input [rangePicker]="picker">
+    <div class="row">
+        <mat-form-field class="col-12">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="data.name" placeholder="{{data.name}}">
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+            <mat-label>Date Entering the Country</mat-label>
+            <input matInput [(ngModel)]="data.startDate" [matDatepicker]="picker">
+            <!-- <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate [(ngModel)]="data.startDate" placeholder="Start date">
                     <input matEndDate [(ngModel)]="data.endDate" placeholder="End date">
                 </mat-date-range-input> -->
-                <mat-hint>DD/MM/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        <!-- </mat-tab> 
-       </mat-tab-group> -->
-
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
 
 </mat-dialog-content>
 <mat-dialog-actions>

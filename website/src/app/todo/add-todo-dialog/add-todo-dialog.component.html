@@ -1,7 +1,8 @@
 <h2 mat-dialog-title>Add ToDo</h2>
 <mat-dialog-content>
   <p></p>
-  <mat-form-field>
+  <div class="row">
+  <mat-form-field class="col-12">
     <mat-label>Select Country</mat-label>
     <mat-select [(ngModel)]="todo.countryId" name="country" (selectionChange)="filterCity()">
       @for (country of data.plan.countries; track country) {
@@ -10,7 +11,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+    <mat-form-field class="col-12">
     <mat-label>Select City</mat-label>
     <mat-select [(ngModel)]="todo.cityId" name="city" >
       @for (city of cityList; track city) {
@@ -19,10 +20,11 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+    <mat-form-field class="col-12">
     <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="todo.name">
   </mat-form-field>
+</div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
