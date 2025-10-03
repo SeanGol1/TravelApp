@@ -3,7 +3,20 @@
     <div class="row">
         <mat-form-field class="col-12">
             <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="data.name" placeholder="{{data.name}}">
+            <!-- <input matInput [(ngModel)]="data.name" placeholder="{{data.name}}"> -->
+              <input #input
+           type="text"
+           placeholder="{{data.name}}"
+           matInput
+           [(ngModel)]="data.name"
+           [matAutocomplete]="auto"
+           (input)="filter()"
+           (focus)="filter()">
+    <mat-autocomplete requireSelection #auto="matAutocomplete">
+      @for (option of filteredOptions; track option) {
+        <mat-option [value]="option">{{option}}</mat-option>
+      }
+    </mat-autocomplete>
         </mat-form-field>
 
         <mat-form-field class="col-12">

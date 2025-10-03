@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using TravelPlannerApp.Dto;
+using TravelPlannerApp.Migrations;
 using TravelPlannerApp.Models;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -167,6 +168,62 @@ namespace TravelPlannerApp.Data
         public async Task<IEnumerable<Country>> GetCountryAsync()
         {
             return await context.Country.Include(c => c.Cities).ToListAsync();
+        }
+
+        public async Task<IEnumerable<RefCountry>> GetRefCountryAsync()
+        {
+            return await context.RefCountry.ToListAsync();
+        }
+
+        public async Task<RefCountry> GetRefCountryByIdAsync(int id)
+        {
+            return await context.RefCountry.FindAsync(id);
+        }
+
+        public async Task<RefCountry> GetRefCountryByNameAsync(string name)
+        {
+            RefCountry country = await context.RefCountry
+        .Where(x => x.Name.ToLower() == name.ToLower())
+        .FirstOrDefaultAsync();
+
+            if (country == null)
+                return null;//throw new Exception("Not Found");
+
+            if (country.CurrencyName == null || country.Capital == null)
+            {
+                var response = await httpClient.GetAsync($"https://restcountries.com/v3.1/name/{name}?fullText=true");
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception("Not Found");
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                // Parse the JSON array
+                var result = JsonDocument.Parse(json).RootElement;
+
+                // Example: get the first country object
+                var countryObj = result[0];
+
+                // Now you can extract fields, e.g.:
+                country.Capital = countryObj.GetProperty("capital")[0].GetString();
+                var currencies = countryObj.GetProperty("currencies");
+                foreach (var currency in currencies.EnumerateObject())
+                {
+                    country.CurrencyName = currency.Value.GetProperty("name").GetString();
+                    country.CurrencySymbol = currency.Value.GetProperty("symbol").GetString();
+                    break; // Only take the first currency
+                }
+                country.Region = countryObj.GetProperty("region").GetString();
+                country.Subregion = countryObj.GetProperty("subregion").GetString();
+                country.Timezones = string.Join(",", countryObj.GetProperty("timezones").EnumerateArray().Select(tz => tz.GetString()));
+                country.GoogleMapsLink = countryObj.GetProperty("maps").GetProperty("googleMaps").GetString();
+                country.Lat = countryObj.GetProperty("latlng")[0].GetDouble();
+                country.Lng = countryObj.GetProperty("latlng")[1].GetDouble();
+
+                context.Entry(country).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+            }
+
+            return country;
         }
 
         public async Task<Country> GetCountrybyIdAsync(int id)

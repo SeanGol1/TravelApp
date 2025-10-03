@@ -8,12 +8,12 @@
                 <div class="row">
                     <div class="col-10" *ngIf="(data.isAdmin$| async)">
                         <p (click)="openInfoDialog()"><b>{{country?.name}} </b>
-                            <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" />
+                            <img width="10%" height="10%" *ngIf="countryinfo" [src]="'/assets/flags/' + (countryinfo?.code?.toLowerCase() || '') + '.png'" />
                         </p>
                     </div>
                     <div class="col-10" *ngIf="!(data.isAdmin$| async)">
                         <p><b>{{country?.name}} </b>
-                            <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" />
+                            <img width="10%" height="10%" *ngIf="countryinfo" [src]="'/assets/flags/' + (countryinfo?.code?.toLowerCase() || '') + '.png'" />
                         </p>
                     </div>
                     <!-- <div class="col-5">
@@ -67,6 +67,7 @@
                                 </div>
                                 <div class="col-6">
                                     <p *ngFor="let c of currency">{{'('}}{{c?.symbol}}{{')'}} {{c?.name}}</p>
+                                    <p>{{'('}}{{countryinfo?.currencySymbol}}{{')'}} {{countryinfo?.currencyName}}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -90,7 +91,7 @@
                                     <p>Region: </p>
                                 </div>
                                 <div class="col-6">
-                                    <p>{{countryinfo?.subregion}}</p>
+                                    <p>{{countryinfo?.region}}  <span *ngIf="countryinfo?.subregion"> / {{countryinfo?.subregion}}</span></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -98,7 +99,7 @@
                                     <p>Google Maps Link:</p>
                                 </div>
                                 <div class="col-6">
-                                    <a href="{{countryinfo?.maps.googleMaps}}">Google Maps</a>
+                                    <a href="{{countryinfo?.googleMapsLink}}">Google Maps</a>
                                 </div>
                             </div>
 

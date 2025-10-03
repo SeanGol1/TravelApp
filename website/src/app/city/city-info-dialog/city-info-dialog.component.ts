@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 import { UpdateCityDialogData } from 'src/app/models/city';
 import { Plan } from 'src/app/models/plan';
@@ -19,7 +20,7 @@ export class CityInfoDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CityInfoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: UpdateCityDialogData,
-    private dataservice: DataService
+    private dataservice: DataService, private toastr: ToastrService
   ) {
 
   }
@@ -356,6 +357,7 @@ export class CityInfoDialogComponent implements OnInit {
     const i = this.data
     this.dataservice.deleteCity(i.id).subscribe({
       next: city => {
+        this.toastr.success('City deleted');
         //remove from plan? 
         this.dialogRef.close();
       }

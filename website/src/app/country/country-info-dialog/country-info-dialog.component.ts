@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, input } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnInit, ViewChild, input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
@@ -15,14 +15,21 @@ import { LOCALE_ID } from '@angular/core';
 ]
 })
 export class CountryInfoDialogComponent implements OnInit {
+  @ViewChild('input') input: ElementRef<HTMLInputElement>;
   countryinfo: any | undefined;
-  
+  options: string[] = [];
+  filteredOptions: string[];
 
   constructor(
     public dialogRef: MatDialogRef<CountryInfoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: UpdateCountryDialogData, private dataservice: DataService
   ) {
-
+      this.dataservice.getRefCountryList().subscribe({
+      next: countries => {
+        this.options = countries.map(c => c.name);
+        this.filteredOptions = this.options.slice();
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -44,6 +51,11 @@ export class CountryInfoDialogComponent implements OnInit {
   }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+    filter(): void {
+    const filterValue = this.input.nativeElement.value.toLowerCase();
+    this.filteredOptions = this.options.filter(o => o.toLowerCase().includes(filterValue));
   }
 }
 

@@ -6,6 +6,7 @@ import { Plan } from '../models/plan';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel-dialog.component';
 import { MapDialogComponent } from '../map/map-dialog/map-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sidenav',
@@ -16,7 +17,7 @@ export class SidenavComponent implements AfterContentInit{
   plan:Plan;
 
 
-constructor(public data:DataService, public userService: AccountService,public dialog: MatDialog){}
+constructor(public data:DataService, public userService: AccountService,public dialog: MatDialog,private toastr: ToastrService){}
 
   ngAfterContentInit(): void {
     this.data.plan$.subscribe(p=>this.plan=p);
@@ -36,7 +37,11 @@ openCountryDialog(): void {
     data.planId = this.plan?.id;
     this.data.createCountry(data).subscribe({
       next: country => {
+        this.toastr.success('Country added successfully');
         this.plan?.countries.push(country);
+      },
+      error: e => {
+        this.toastr.error(e.error);
       }
     });
   });

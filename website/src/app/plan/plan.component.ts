@@ -195,7 +195,10 @@ toggleNav(){
       if(data){
       this.data.createTravel(data).subscribe({
         next: travel => {
-          
+          this.toastr.success('Travel added successfully');
+        },
+        error: e => {
+          this.toastr.error(e.error);
         }
       });}
     });

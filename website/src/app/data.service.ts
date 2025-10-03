@@ -127,6 +127,13 @@ export class DataService {
         return this.http.delete(this.baseUrl + 'countries/' + id, { 'headers': this.headers });
     }
 
+    getRefCountryList() {
+        return this.http.get<any[]>(this.baseUrl + 'countries/refcountries/', { 'headers': this.headers });
+    }
+
+    getRefCountryById(id: number) {
+        return this.http.get<any[]>(this.baseUrl + 'countries/refcountries/' + id, { 'headers': this.headers });
+    }
     // City
 
     createCity(data: CityDialogData) {
@@ -249,7 +256,7 @@ export class DataService {
     getTravelByCityId(id: number) {
         this.headers.set('Access-Control-Allow-Origin', '*');
 
-        return this.http.get<Travel>(this.baseUrl + 'travels/' + id, { 'headers': this.headers });
+        //return this.http.get<Travel>(this.baseUrl + 'travels/' + id, { 'headers': this.headers });
 
     }
 
@@ -292,7 +299,8 @@ export class DataService {
 
 
     getCountry(name: string) {
-        return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
+        return this.http.get(this.baseUrl + 'countries/refcountriesname/' + name, { 'headers': this.headers });
+        //return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
     }
 
     getCountryByCityId(id: number) {

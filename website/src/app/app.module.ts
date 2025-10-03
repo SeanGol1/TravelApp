@@ -48,7 +48,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { CountdownTimerComponent } from './countdown-timer/countdown-timer.component';
 import { MapComponent } from './map/map.component';
-import * as L from 'leaflet';
 import { MapDialogComponent } from './map/map-dialog/map-dialog.component';
 import { MarkerServiceService } from './map/marker-service.service';
 import { UserManagementComponent } from './user/user-management/user-management.component';
@@ -71,7 +70,6 @@ import { TaxiAnimationComponent } from './travel/animations/taxi-animation/taxi-
 import { PlanListItemComponent } from './plan/plan-list-item/plan-list-item.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { ExpediaWidgetComponent } from "./expedia-widget/expedia-widget.component";
-import { ToastService } from './toast.service';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 

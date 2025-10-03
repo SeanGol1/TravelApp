@@ -27,6 +27,9 @@ namespace TravelPlannerApp.Data
 
         Task<Country> GetCountrybyIdAsync(int id);
         Task<IEnumerable<Country>> GetCountryAsync();
+        Task<IEnumerable<RefCountry>> GetRefCountryAsync();
+        Task<RefCountry> GetRefCountryByIdAsync(int id);
+        Task<RefCountry> GetRefCountryByNameAsync(string name);
         Task<Country> PostCountryAsync(Country country);
         Task<Country> UpdateCountryAsync(Country country);
         Task<bool> CountryExists(int id);

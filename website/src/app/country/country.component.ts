@@ -17,6 +17,7 @@ import {
 import { Plan } from '../models/plan';
 import { ChecklistDialogComponent } from './checklist-dialog/checklist-dialog.component';
 import { findIndex } from 'rxjs';
+import {ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-country',
@@ -33,17 +34,18 @@ export class CountryComponent implements OnInit, AfterViewInit {
   currency:any = [];
 
 
-  constructor(public dialog: MatDialog, public data: DataService) {
+  constructor(public dialog: MatDialog, public data: DataService, private toastr: ToastrService) {
   }
   ngAfterViewInit(): void {
     this.data.getCountry(this.country.name).subscribe(data => {
-      this.countryinfo = data[0];
-      let currencies = this.countryinfo.currencies;
-      let x = Object.keys(currencies);
-      for (let i = 0; i < x.length; i++) {
-        let c = currencies[Object.keys(currencies)[i]];
-        this.currency.push(currencies[Object.keys(currencies)[i]]);        
-      }        
+      // this.countryinfo = data[0];
+      // let currencies = this.countryinfo.currencies;
+      // let x = Object.keys(currencies);
+      // for (let i = 0; i < x.length; i++) {
+      //   let c = currencies[Object.keys(currencies)[i]];
+      //   this.currency.push(currencies[Object.keys(currencies)[i]]);        
+      // }        
+      this.countryinfo = data;
     });
 
     this.numOfDays = this.getDays().toString();
@@ -79,6 +81,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
 
 
         this.data.updateCitySort(this.country.cities).subscribe(city => {
+          this.toastr.success('Order updated');
           moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         });
       }
@@ -140,7 +143,11 @@ export class CountryComponent implements OnInit, AfterViewInit {
         //data.countryId = this.country.id;
         this.data.updateCountry(c).subscribe({
           next: country => {
+            this.toastr.success('Country updated');
             //this.country = country //TODO: Update Plan
+          },
+          error: e => {
+            this.toastr.error(e.error);
           }
         });
       }
@@ -159,7 +166,11 @@ export class CountryComponent implements OnInit, AfterViewInit {
         data.countryId = this.country.id;
         this.data.createCity(data).subscribe({
           next: city => {
+            this.toastr.success('City added successfully');
             this.country?.cities.push(city);
+          },
+          error: e => {
+            this.toastr.error(e.error);
           }
         });
       },

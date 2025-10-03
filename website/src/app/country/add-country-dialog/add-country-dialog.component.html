@@ -3,7 +3,20 @@
   <p></p>
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.name">
+    <!-- <input matInput [(ngModel)]="data.name"> -->
+    <input #input
+           type="text"
+           placeholder="Type Country to Search"
+           matInput
+           [(ngModel)]="data.name"
+           [matAutocomplete]="auto"
+           (input)="filter()"
+           (focus)="filter()">
+    <mat-autocomplete requireSelection #auto="matAutocomplete">
+      @for (option of filteredOptions; track option) {
+        <mat-option [value]="option">{{option}}</mat-option>
+      }
+    </mat-autocomplete>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>

@@ -40,10 +40,10 @@ export class CityComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.data.getTravelByCityId(this.city.id).subscribe({
-      next: (data) => this.travel = data,
-      error: (e) => console.log(e)
-    })
+    // this.data.getTravelByCityId(this.city.id).subscribe({
+    //   next: (data) => this.travel = data,
+    //   error: (e) => console.log(e)
+    // })
 
     this.data.plan$.subscribe(p=>{
       this.plan = p;

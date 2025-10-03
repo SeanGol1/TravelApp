@@ -11,8 +11,8 @@
 
 
         <div class="dropdown" *ngIf="(accountService.currentUser$| async) as user" dropdown>
-          <a [matMenuTriggerFor]="menu" class="">
-            <h6>Welcome <i>{{user.username}}</i><i class="fa fa-chevron-down pull-right"></i></h6>
+          <a [matMenuTriggerFor]="menu" class="userlink">
+            <h6>Welcome <i>{{user.username.charAt(0).toUpperCase()+user.username.slice(1)}}</i><i class="fa fa-chevron-down pull-right"></i></h6>
             
           </a>
        
