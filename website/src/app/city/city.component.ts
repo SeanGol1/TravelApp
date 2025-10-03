@@ -18,6 +18,7 @@ import { AddTravelDialogComponent } from '../travel/add-travel-dialog/add-travel
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-city',
@@ -35,7 +36,7 @@ export class CityComponent implements AfterViewInit {
   baseUrl = environment.apiUrl;
 
 
-  constructor(public dialog: MatDialog, public data: DataService) {
+  constructor(public dialog: MatDialog, public data: DataService,private toastr: ToastrService) {
   }
 
   ngAfterViewInit(): void {
@@ -74,11 +75,22 @@ addAttraction(name:string){
     name: name
   };
 
-  // todo.cityId = this.city.id;
-  // todo.countryId = this.city.countryId;
-  // todo.name = name;
   this.data.createTodo(todo).subscribe({
-    next: resp => console.log(resp)
+    next: todo => {
+      this.toastr.success('Item added to ToDo list');
+      this.data.plan$.subscribe(plan => {
+                  plan.countries.forEach(c => {
+                      c.cities.forEach(ct => {
+                          if(ct.id == this.city.id){
+                              ct.toDos.push(todo);   
+                      }
+                      })
+                  })
+              });
+    },
+    error: e => {
+      this.toastr.error(e.error);
+    }
   });
 }
 
@@ -163,6 +175,7 @@ addAttraction(name:string){
         this.data.createTodo(data).subscribe({
           next: todo => {
             if (todo) {
+              this.toastr.success('Item added to ToDo List');
               this.data.plan$.subscribe(plan => {
                   plan.countries.forEach(c => {
                       c.cities.forEach(ct => {
@@ -191,8 +204,12 @@ addAttraction(name:string){
 
         this.data.updateCity(c).subscribe({
           next: city => {
+            this.toastr.success('City updated successfully');
             //this.country = country
             //TODO: fix list.
+          },
+          error: e => {
+            this.toastr.error(e.error);
           }
         });
       }
@@ -202,6 +219,10 @@ addAttraction(name:string){
   deleteCity() {
     this.data.deleteCity(this.city.id).subscribe({
       next: city => {
+        this.toastr.success('City deleted successfully');
+      },
+      error: e => {
+        this.toastr.error(e.error);
       }
     });
   }

@@ -6,6 +6,7 @@ import { DataService } from 'src/app/data.service';
 import { Plan } from 'src/app/models/plan';
 import { DeletePlanConfirmationComponent } from '../delete-plan-confirmation/delete-plan-confirmation.component';
 import { User } from 'src/app/models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-plan-list-item',
@@ -18,7 +19,7 @@ export class PlanListItemComponent implements OnInit {
   isadmin:boolean;
   user: User | undefined;
 
-  constructor(public data: DataService, public accountService: AccountService, private router: Router, public dialog: MatDialog){
+  constructor(public data: DataService, public accountService: AccountService, private router: Router, public dialog: MatDialog,private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +32,7 @@ export class PlanListItemComponent implements OnInit {
   }
 
   leavePlan(plan:Plan){
-    
+    //TODO: Leave Plan
   }
 
   deletePlan(plan: Plan) {
@@ -42,8 +43,12 @@ export class PlanListItemComponent implements OnInit {
       if (_plan) {
         this.data.deletePlan(_plan.id).subscribe({
           next: plan => {
+            this.toastr.success('Plan deleted successfully');
             //TODO: remove from list
             //this.planList.splice(this.planList.indexOf(plan), 1);
+          },
+          error: e => {
+            this.toastr.error(e.error);
           }
         })
       }

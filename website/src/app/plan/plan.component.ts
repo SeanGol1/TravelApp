@@ -25,6 +25,7 @@ import { AccountService } from '../account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
 import { DeletePlanConfirmationComponent } from './delete-plan-confirmation/delete-plan-confirmation.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -37,7 +38,7 @@ export class PlanComponent implements OnInit{
   isadmin:boolean = false;
 
 
-  constructor(public dialog: MatDialog, public data: DataService,public account:AccountService,private route:ActivatedRoute, private router:Router) {
+  constructor(public dialog: MatDialog, public data: DataService,public account:AccountService,private route:ActivatedRoute, private router:Router,private toastr: ToastrService) {
   }
   
   ngOnInit(): void {
@@ -83,7 +84,11 @@ toggleNav(){
       // data.name = data.name.trim();
       this.data.createCountry(data).subscribe({
         next: country => {
+          this.toastr.success('Country added successfully');
           this.plan?.countries.push(country);
+        },
+        error: e => {
+          this.toastr.error(e.error);
         }
       });
     });
@@ -98,7 +103,11 @@ toggleNav(){
       // data.name = data.name.trim();
       this.data.createCountry(data).subscribe({
         next: country => {
+          this.toastr.success('Country removed successfully');
           this.plan?.countries.push(country);
+        },
+        error: e => {
+          this.toastr.error(e.error);
         }
       });
     });
@@ -116,10 +125,14 @@ toggleNav(){
       if (data) {
         this.data.createCity(data).subscribe({
           next: city => {
+            this.toastr.success('City added successfully');
             this.plan.countries.forEach(c => {
               if (c.id == data.countryId)
                 c.cities.push(city);
             });
+          },
+          error: e => {
+            this.toastr.error(e.error);
           }
         });
       }

@@ -71,6 +71,9 @@ import { TaxiAnimationComponent } from './travel/animations/taxi-animation/taxi-
 import { PlanListItemComponent } from './plan/plan-list-item/plan-list-item.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { ExpediaWidgetComponent } from "./expedia-widget/expedia-widget.component";
+import { ToastService } from './toast.service';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -105,7 +108,8 @@ import { ExpediaWidgetComponent } from "./expedia-widget/expedia-widget.componen
     ChecklistItemComponent,
     BoatAnimationComponent,
     TaxiAnimationComponent,
-    PlanListItemComponent
+    PlanListItemComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -141,13 +145,15 @@ import { ExpediaWidgetComponent } from "./expedia-widget/expedia-widget.componen
     MatCheckboxModule,
     NgxSpinnerModule,
     MatButtonToggleModule,
-    ExpediaWidgetComponent
+    ExpediaWidgetComponent,
+    ToastrModule.forRoot()
 ],
   providers: [  
     provideAnimationsAsync(),
     MatDatepickerModule,
     MarkerServiceService,
     {provide: HTTP_INTERCEPTORS,useClass:LoadingInterceptor, multi:true} ,
+    {provide: HTTP_INTERCEPTORS,useClass:JwtInterceptor, multi:true} ,
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
 
   ],
