@@ -32,11 +32,15 @@
 
   <mat-tab-group preserveContent (selectedTabChange)="onTabChange($event)">
 
-    <mat-tab label="My ToDos">
+    <mat-tab label="ToDo List">
       <div>
         @for (todo of city?.toDos; track todo) {
         <app-todo [todo]="todo"></app-todo>
         }
+      </div>
+      <div *ngIf="city.toDos.length == 0 && data.isAdmin$| async">
+        <p>Click the details tab above to view popular attractions <br/><b>OR</b><br/> Click below to add your first ToDo item </p>
+        <button mat-flat-button color="primary" (click)="openAddTodoDialog()">Add ToDo</button>
       </div>
     </mat-tab>
     <mat-tab label="Details">
@@ -44,8 +48,10 @@
       <div id="attractionsCarousel" class="carousel slide">
         <div class="carousel-inner">
           <div class="carousel-item" *ngFor="let a of attractions; let i = index" [ngClass]="{ 'active': i === 0 }">
-            <img [src]=" baseUrl + 'cities/googlephoto/' + a.photos[0].photo_Reference" alt="{{a.name}}"
+            <img *ngIf="a.photos[0]?.photo_Reference"
+              [src]=" baseUrl + 'cities/googlephoto/' + a.photos[0].photo_Reference" alt="{{a.name}}"
               class="carousel-img" />
+            <!-- TODO: placeholder image if none available. -->
             <div class="">
               <h5>{{a.name}}</h5>
               <p>⭐ {{ a.rating }}</p>

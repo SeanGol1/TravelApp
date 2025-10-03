@@ -8,12 +8,14 @@
                 <div class="row">
                     <div class="col-10" *ngIf="(data.isAdmin$| async)">
                         <p (click)="openInfoDialog()"><b>{{country?.name}} </b>
-                            <img width="10%" height="10%" *ngIf="countryinfo" [src]="'/assets/flags/' + (countryinfo?.code?.toLowerCase() || '') + '.png'" />
+                            <img width="10%" height="10%" *ngIf="countryinfo"
+                                [src]="'/assets/flags/' + (countryinfo?.code?.toLowerCase() || '') + '.png'" />
                         </p>
                     </div>
                     <div class="col-10" *ngIf="!(data.isAdmin$| async)">
                         <p><b>{{country?.name}} </b>
-                            <img width="10%" height="10%" *ngIf="countryinfo" [src]="'/assets/flags/' + (countryinfo?.code?.toLowerCase() || '') + '.png'" />
+                            <img width="10%" height="10%" *ngIf="countryinfo"
+                                [src]="'/assets/flags/' + (countryinfo?.code?.toLowerCase() || '') + '.png'" />
                         </p>
                     </div>
                     <!-- <div class="col-5">
@@ -35,31 +37,44 @@
                 [attr.aria-labelledby]="'accordion-header-' + country.id">
 
 
-                <mat-tab-group preserveContent>
-                    <mat-tab label="Details">
 
-                        <div class="row">
-                            <div class="col-8">
-                                <p *ngIf="country.startDate">{{getDate(country?.startDate)}} ( {{numOfDays}} days ) </p>
-                            </div>
-                            <div class="col-4">
-                                <!-- <button mat-mini-fab color="primary" (click)="openDialog()"
+
+                <div class="row">
+                    <div class="col-8">
+                        <p *ngIf="country.startDate">{{getDate(country?.startDate)}} ( {{numOfDays}} days ) </p>
+                    </div>
+                    <div class="col-4">
+                        <!-- <button mat-mini-fab color="primary" (click)="openDialog()"
                             aria-label="Add City Item">
                             <mat-icon>add</mat-icon>
                         </button> -->
-                                <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu"
-                                    *ngIf="(data.isAdmin$| async)">
-                                    <mat-icon>more_vert</mat-icon>
-                                </button>
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item (click)="openDialog()">Add City</button>
-                                    <button mat-menu-item (click)="openInfoDialog()">View/Edit Country</button>
-                                    <button mat-menu-item (click)="deleteCountry()">Delete Country</button>
-                                    <button mat-menu-item (click)="openChecklistDialog()">View Checklist</button>
+                        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" *ngIf="(data.isAdmin$| async)">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openCityDialog()">Add City</button>
+                            <button mat-menu-item (click)="openInfoDialog()">View/Edit Country</button>
+                            <button mat-menu-item (click)="deleteCountry()">Delete Country</button>
+                            <button mat-menu-item (click)="openChecklistDialog()">View Checklist</button>
 
-                                </mat-menu>
+                        </mat-menu>
+                    </div>
+                </div>
+                <mat-tab-group preserveContent>
+                    <mat-tab label="City List">
+                        <div cdkDropList [cdkDropListData]="country?.cities" (cdkDropListDropped)="drop($event)"
+                            class="citydroplist">
+                            <div *ngFor="let city of country?.cities">
+                                <app-city [city]="city"></app-city>
                             </div>
                         </div>
+                        <div *ngIf="country.cities.length == 0 && data.isAdmin$| async">
+                            <p>Click here to add your first city</p>
+                            <button mat-flat-button color="primary" (click)="openCityDialog()">Add City</button>
+                        </div>
+
+                    </mat-tab>
+                    <mat-tab label="Details">
                         <div class="row country-info">
                             <div class="row">
                                 <div class="col-6">
@@ -91,7 +106,8 @@
                                     <p>Region: </p>
                                 </div>
                                 <div class="col-6">
-                                    <p>{{countryinfo?.region}}  <span *ngIf="countryinfo?.subregion"> / {{countryinfo?.subregion}}</span></p>
+                                    <p>{{countryinfo?.region}} <span *ngIf="countryinfo?.subregion"> /
+                                            {{countryinfo?.subregion}}</span></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -110,36 +126,9 @@
                         </div>
 
                     </mat-tab>
-                    <mat-tab label="City List">
-                        <div cdkDropList [cdkDropListData]="country?.cities" (cdkDropListDropped)="drop($event)"
-                            class="citydroplist">
-                            <div *ngFor="let city of country?.cities">
-                                <app-city [city]="city"></app-city>
-                            </div>
-                        </div>
 
-                    </mat-tab>
                 </mat-tab-group>
             </div>
         </cdk-accordion-item>
     </cdk-accordion>
-
-
-
-    <!-- 
-    <div class="row">
-        <div class="col-6">
-            <p (click)="openInfoDialog()"><b>{{country?.name}} </b>
-            <img width="10%" height="10%" src="{{countryinfo?.flags.png}}" /></p>           
-        </div>
-        <div class="col-6">
-            <p *ngIf="country.startDate">{{getDate(country?.startDate)}} => {{getDate(country?.endDate)}}</p>
-        </div>
-    </div>
-    <div>
-        <div *ngFor="let city of country?.cities">
-            <app-city [city]="city"></app-city>
-            
-        </div>
-    </div> -->
 </div>

@@ -156,7 +156,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openDialog(): void {
+  openCityDialog(): void {
     const dialogRef = this.dialog.open(AddCityDialogComponent, {
       data: { country: this.country },
     });
