@@ -20,3 +20,19 @@ margin-bottom: 25%;
   .country-info{
     display: inline;
   }
+
+  /* .country-item {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 2% 5%;
+    padding: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+} */
+
+/* .country-accordion-item-header {
+    background-color: #A4B8E5;
+}
+
+.country-accordion-item-body {
+    background-color: #A4B8E5;
+} */

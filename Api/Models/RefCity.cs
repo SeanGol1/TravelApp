@@ -11,7 +11,7 @@ namespace TravelPlannerApp.Models
         public double Lat { get; set; }
         public double Lng { get; set; }
         public int CountryId { get; set; }
-        public RefCountry Country { get; set; }
+        //public RefCountry Country { get; set; }
 
         public RefCity() { }
 

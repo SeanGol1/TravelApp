@@ -1,9 +1,87 @@
+.poi-item {
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.main-content {
+    max-height: 100%;
+    background-color: rgba(227, 242, 253, 0.8);
+    margin:5% 2%;
+    padding:2% 0;
+    border-radius: 10px;
+}
+
+.plan-list-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #A4B8E5;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin: 2% 0 2% 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.country-item {
+    /* background-color: #A4B8E5; */
+    background-color: rgba(227, 242, 253, 0.8);
+    border: 2px solid black;
+    /* opacity: 0.8; */
+    border-radius: 5px;
+    margin: 2% 5%;
+    padding: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.city-item {
+    background-color: rgba(164, 184, 229, 0.8);
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 2% 5%;
+    padding: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.todo-item {
+    background-color: #47aaaf;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 2% 5%;
+    padding: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.travel-item {
+    height: 120px;
+}
+
+.citydroplist {
+    min-height: 50px;
+}
+
+.mat-mdc-tab-body-content {
+    overflow: hidden !important;
+}
+
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    /* font-family: "Style Script", cursive; */
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    color: #242c39;
+    background-color: #2a3e5c;
+    height: 100%;
+    background-image: url('assets/images/water-background.jpg');
+}
+
 /* You can add global styles to this file, and also import other style files */
 @media only screen and (min-device-width: 481px) {
-body {
-    background-color: #f2f2f2;
-    background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996');
-    height: 100%;
+    body {
+
+        /* background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996'); */
+
         /* Create the parallax scrolling effect */
         background-attachment: fixed;
         background-position: center;
@@ -14,71 +92,11 @@ body {
 }
 
 @media only screen and (max-device-width: 480px) {
-body {
-    background-color: #ffffff;
-    background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996');
-    /* Full height */
-    height: 100%;
+    body {
+    /* background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996'); */
+            background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
-}
-
-.poi-item{
-    border: 2px solid black;
-    border-radius: 5px;
-}
-
-.plan-item{
-    max-height: 100%;
-}
-
-.country-item {
-    background-color: #afdde5;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin: 2% 5%;
-    padding: 5px;
-}
-
-.city-item {
-    background-color: #0fa4af;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin: 2% 5%;
-    padding: 5px;
-}
-
-.todo-item {
-    background-color: #964734;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin: 2% 5%;
-    padding: 5px;
-}
-
-.travel-item{
-    height: 120px;    
-}
-
-.citydroplist{
-    min-height: 50px;
-}
-
-
-
-html,
-body {
-    height: 100%;
-}
-
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    /* font-family: "Style Script", cursive; */
-  font-weight: 400;
-  font-style: normal;
-    text-align: center;
-}
-
-.mat-mdc-tab-body-content {
-  overflow: hidden !important;
 }

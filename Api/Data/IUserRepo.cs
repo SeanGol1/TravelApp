@@ -1,4 +1,5 @@
-﻿using TravelPlannerApp.Models;
+﻿using TravelPlannerApp.Dto;
+using TravelPlannerApp.Models;
 
 namespace TravelPlannerApp.Data
 {
@@ -10,5 +11,7 @@ namespace TravelPlannerApp.Data
         Task<IEnumerable<User>> GetUserAsync();
         Task<User> GetUserByIdAsync(int id);
         Task<User> GetUserByUsernameAsync(string username);
+        Task<User> Register(RegisterDto registerDTO);
+        Task<Plan> CreateDemoPlan(User user);
     }
 }

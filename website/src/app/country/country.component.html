@@ -1,10 +1,10 @@
 <div class="country-item">
 
-    <cdk-accordion class="example-accordion">
+    <cdk-accordion class="country-accordion">
         <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button" tabindex="0"
             [attr.id]="'accordion-header-' + country.id" [attr.aria-expanded]="accordionItem.expanded"
             [attr.aria-controls]="'accordion-body-' + country.id">
-            <div class="example-accordion-item-header">
+            <div class="country-accordion-item-header">
                 <div class="row">
                     <div class="col-10" *ngIf="(data.isAdmin$| async)">
                         <p (click)="openInfoDialog()"><b>{{country?.name}} </b>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="example-accordion-item-body" role="region"
+            <div class="country-accordion-item-body" role="region"
                 [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + country.id"
                 [attr.aria-labelledby]="'accordion-header-' + country.id">
 
@@ -55,7 +55,7 @@
                             <button mat-menu-item (click)="openCityDialog()">Add City</button>
                             <button mat-menu-item (click)="openInfoDialog()">View/Edit Country</button>
                             <button mat-menu-item (click)="deleteCountry()">Delete Country</button>
-                            <button mat-menu-item (click)="openChecklistDialog()">View Checklist</button>
+                            <!-- <button mat-menu-item (click)="openChecklistDialog()">View Checklist</button> -->
 
                         </mat-menu>
                     </div>
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
 
-                            <app-expedia-widget></app-expedia-widget>
+                           
 
 
 

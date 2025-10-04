@@ -1,38 +1,44 @@
-<div>
+<div class="main-content">
   <!-- <app-login *ngIf="!(accountService.currentUser$| async)"></app-login> -->
 
   <div *ngIf="(accountService.currentUser$| async)">
     <div class="container">
-      <h2>Create Plan</h2>
-      <div class="nb-3">
-        <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.name" placeholder="Plan Name">
-      </div>
-      <button mat-flat-button color="primary" (click)="createPlan()">Create</button>
-      <hr />
-      <h2>Join Plan</h2>
-      <div class="nb-3">
-        <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.joinCode" placeholder="Plan Code">
-      </div>
-      <div class="nb-3">
-        <input type="password" class="form-control" name="password" [(ngModel)]="modelPlan.password"
-          placeholder="Plan Password">
-        <i>Password only needed if you are admin.</i>
-      </div>
-      <button mat-flat-button color="primary" (click)="joinPlan()">Join</button>
-      <div>
+      <div class="row">
+        <div class="col-6">
+          <h2>Create Plan</h2>
+          <div class="nb-3">
+            <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.name" placeholder="Plan Name">
+          </div>
+          <button mat-flat-button color="primary" (click)="createPlan()">Create</button>
+        </div>
+        <div class="col-6">
+          <h2>Join Plan</h2>
+          <div class="nb-3">
+            <input type="text" class="form-control" name="name" [(ngModel)]="modelPlan.joinCode"
+              placeholder="Plan Code">
+          </div>
+          <div class="nb-3">
+            <input type="password" class="form-control" name="password" [(ngModel)]="modelPlan.password"
+              placeholder="Plan Password">
+            <i>Password only needed if you are admin.</i>
+          </div>
+          <button mat-flat-button color="primary" (click)="joinPlan()">Join</button>
+        </div>
+        <!-- <hr /> -->
+
         <hr />
         <h2>My Plans</h2>
-        <div *ngFor="let p of planList" class="plan-list-item">
+        <div *ngFor="let p of planList" class="plan-list-container">
           <app-plan-list-item [plan]="p"></app-plan-list-item>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- <ng-container *ngIf="(data.plan$| async)">
+<!-- <ng-container *ngIf="(data.plan$| async)">
       <div class="col-12">
         <app-plan ></app-plan>
       </div>
     </ng-container>
    -->
-</div>

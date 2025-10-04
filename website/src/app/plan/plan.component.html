@@ -1,10 +1,13 @@
-<div class="plan-item" *ngIf="plan"  cdkDropListGroup>
+<div class="main-content" *ngIf="plan"  cdkDropListGroup>
     <mat-tab-group preserveContent>
         <mat-tab label="Plan">
             <div class="row plan-content">
-                <div class="col-9 plan-header">
-                    <h4>{{plan?.planName}}</h4>
-                    <h4>Join Code: {{plan?.joinCode}}</h4>                    
+                 <app-expedia-widget></app-expedia-widget>
+                <div class="col-9">
+                    <div class="plan-header">
+                        <h4>{{plan?.planName}}</h4>
+                        <h4>Join Code: {{plan?.joinCode}}</h4>
+                    </div>                    
                 </div>
 
                 <div class="col-3">
@@ -28,7 +31,7 @@
                 </ng-container>
             </div>
             <div *ngFor="let country of plan?.countries">
-                <app-country [country]="country"></app-country>
+                    <app-country [country]="country"></app-country>
             </div>
             <div *ngIf="plan.countries.length == 0 && data.isAdmin$| async"  >
                 <p>Click here to add your first country</p>

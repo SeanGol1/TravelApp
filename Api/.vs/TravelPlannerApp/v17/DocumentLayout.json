@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "D:\\Visual Studio Projects\\TravelApp\\Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\models\\refcity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:models\\refcity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\models\\refcountry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:models\\refcountry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\data\\userrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:data\\userrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\getrefcity.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:getrefcity.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\models\\plan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:models\\plan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\data\\iuserrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:data\\iuserrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\models\\userplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:models\\userplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\data\\repo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,12 +43,16 @@
       "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:controllers\\countriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\models\\refcity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:models\\refcity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\data\\irepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:data\\irepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\models\\refcountry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:models\\refcountry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\getrefcity.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|solutionrelative:getrefcity.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{54ACCD54-9A72-4A32-A9E9-537DDC0098CB}|TravelPlannerApp.csproj|d:\\visual studio projects\\travelapp\\api\\data\\travelplannerappcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -54,11 +74,105 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 8,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1176428733:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1688982836:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T01:07:43.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IUserRepo.cs",
+              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\IUserRepo.cs",
+              "RelativeDocumentMoniker": "Data\\IUserRepo.cs",
+              "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\IUserRepo.cs",
+              "RelativeToolTip": "Data\\IUserRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T01:04:20.36Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserPlan.cs",
+              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\UserPlan.cs",
+              "RelativeDocumentMoniker": "Models\\UserPlan.cs",
+              "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\UserPlan.cs",
+              "RelativeToolTip": "Models\\UserPlan.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T00:59:21.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Plan.cs",
+              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\Plan.cs",
+              "RelativeDocumentMoniker": "Models\\Plan.cs",
+              "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\Plan.cs",
+              "RelativeToolTip": "Models\\Plan.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T00:59:03.763Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAQwEAAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-03T18:46:53.648Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "UserRepo.cs",
+              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\UserRepo.cs",
+              "RelativeDocumentMoniker": "Data\\UserRepo.cs",
+              "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\UserRepo.cs",
+              "RelativeToolTip": "Data\\UserRepo.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAA1wC0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T00:49:33.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "RefCountry.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\RefCountry.cs",
               "RelativeDocumentMoniker": "Models\\RefCountry.cs",
@@ -71,13 +185,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
               "Title": "RefCity.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\RefCity.cs",
               "RelativeDocumentMoniker": "Models\\RefCity.cs",
               "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Models\\RefCity.cs",
               "RelativeToolTip": "Models\\RefCity.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-03T17:48:50.198Z",
               "EditorCaption": ""
@@ -85,45 +199,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "IRepo.cs",
-              "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\IRepo.cs",
-              "RelativeDocumentMoniker": "Data\\IRepo.cs",
-              "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\IRepo.cs",
-              "RelativeToolTip": "Data\\IRepo.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAA5wB4AAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T18:38:07.038Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Repo.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\Repo.cs",
               "RelativeDocumentMoniker": "Data\\Repo.cs",
               "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\Repo.cs",
               "RelativeToolTip": "Data\\Repo.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAADsAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-03T06:44:29.647Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "CountriesController.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Controllers\\CountriesController.cs",
               "RelativeDocumentMoniker": "Controllers\\CountriesController.cs",
               "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Controllers\\CountriesController.cs",
               "RelativeToolTip": "Controllers\\CountriesController.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAgwEkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAgwFcAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-03T18:34:57.313Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "TravelPlannerAppContext.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Data\\TravelPlannerAppContext.cs",
               "RelativeDocumentMoniker": "Data\\TravelPlannerAppContext.cs",
@@ -136,7 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "GetRefCity.py",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\GetRefCity.py",
               "RelativeDocumentMoniker": "GetRefCity.py",
@@ -149,20 +250,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "CitiesController.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Controllers\\CitiesController.cs",
               "RelativeDocumentMoniker": "Controllers\\CitiesController.cs",
               "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Controllers\\CitiesController.cs",
               "RelativeToolTip": "Controllers\\CitiesController.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAwwEkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-03T06:43:58.837Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -174,7 +275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "ClaimsPrincipalExtensions.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Extensions\\ClaimsPrincipalExtensions.cs",
               "RelativeDocumentMoniker": "Extensions\\ClaimsPrincipalExtensions.cs",
@@ -187,13 +288,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Visual Studio Projects\\TravelApp\\Api\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\Visual Studio Projects\\TravelApp\\Api\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAgwB0AAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-03T04:26:46.747Z",
               "EditorCaption": ""

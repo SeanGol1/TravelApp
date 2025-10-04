@@ -1,5 +1,7 @@
 .plan-header{
-    background-color: white;
-    opacity: 0.8;
+    /* background-color: rgba(87, 146, 234, 0.8); */
+    width: 80%;
+    margin: 5px auto;
+    padding: 10px;
 }
 

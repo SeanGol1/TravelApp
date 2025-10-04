@@ -64,17 +64,8 @@ namespace TravelPlannerApp.Controllers
 
             if (await UserExists(registerDTO.Username)) return BadRequest("Username is Taken");
 
-            using var hmac = new HMACSHA512();
+            User user = await _userRepo.Register(registerDTO);
 
-            var user = new User
-            {
-                UserName = registerDTO.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
-                PasswordSalt = hmac.Key
-            };
-
-            _context.User.Add(user);
-            await _context.SaveChangesAsync();
             return new UserDto
             {
                 Username = user.UserName,
