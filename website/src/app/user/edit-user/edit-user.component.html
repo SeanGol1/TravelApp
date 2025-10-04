@@ -1,0 +1,15 @@
+<div *ngIf="(accountService.currentUser$| async)" class="accountData">
+    <h2 class="text-center">Login/Register</h2>
+    <div class="nb-3">
+        <input type="text" class="form-control" name="username" [(ngModel)]="usermodel.username" placeholder="Username">
+        <h5>{{usermodel.username}}</h5>
+    </div>
+    <div class="nb-3">
+        <h5>Reset Password</h5>
+        <input type="password" class="form-control" name="oldpassword" [(ngModel)]="usermodel.oldpassword" placeholder="Old Password">
+        <input type="password" class="form-control" name="newpassword" [(ngModel)]="usermodel.newpassword" placeholder="New Password">
+    </div>
+        <div class="text-center">
+      <button class="btn btn-primary me-2" type="submit" (click)="resetPW()">Reset Password</button>
+    </div>
+</div>

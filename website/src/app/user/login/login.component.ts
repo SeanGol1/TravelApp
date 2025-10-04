@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
   errorMessage:string = "";
   modelUser: any = {} 
   plan: Plan| undefined;
-  user:User| undefined;;
+  user:User| undefined;
   //private toast = inject(ToastrService);
 
   constructor(public data: DataService, public accountService: AccountService,private route:ActivatedRoute,private router:Router,private toast: ToastrService) {

@@ -1,6 +1,6 @@
 <div class="container">
-<div *ngIf="!(accountService.currentUser$| async)" class="accountData">
-    <h2 class="text-center text-primary">Sign Up/Login</h2>
+  <div *ngIf="!(accountService.currentUser$| async)" class="accountData">
+    <h2 class="text-center">Login/Register</h2>
     <div class="nb-3">
       <input type="text" class="form-control" name="username" [(ngModel)]="modelUser.username" placeholder="Username">
     </div>
@@ -12,5 +12,24 @@
       <button class="btn btn-primary me-2" type="submit" (click)="login()">Login</button>
       <button class="btn btn-primary me-2" type="submit" (click)="register()">Register</button>
     </div>
+    <div class="welcome-content">
+      <h1>Welcome to Backpackerer!</h1>
+      <p>
+        Backpackerer is your all-in-one travel planning companion. Organize your trips, manage your itinerary, and
+        collaborate with friends on shared travel plans.
+        Discover new destinations, track your progress, and keep all your travel details in one place.
+      </p>
+      <ul style="text-align:left; max-width:600px; margin: 0 auto;">
+        <li><strong>Create and join travel plans</strong> with ease</li>
+        <li><strong>Explore cities and countries</strong> with helpful info and checklists</li>
+        <li><strong>Collaborate</strong> with friends and fellow travelers</li>
+        <li><strong>Track your to-dos</strong> and attractions for every destination</li>
+        <li><strong>Stay organized</strong> with a simple, beautiful interface</li>
+      </ul>
+      <div style="margin-top:2em;">
+        <h3>Get started by logging in or registering above!</h3>
+      </div>
+    </div>
   </div>
+
 </div>

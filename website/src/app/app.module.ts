@@ -72,6 +72,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { ExpediaWidgetComponent } from "./expedia-widget/expedia-widget.component";
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { EditUserComponent } from './user/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { ToastrModule } from 'ngx-toastr';
     BoatAnimationComponent,
     TaxiAnimationComponent,
     PlanListItemComponent,
+    EditUserComponent
   
   ],
   imports: [

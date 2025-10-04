@@ -20,4 +20,8 @@ export class NavbarComponent implements OnInit {
     this.accountService.logout(); 
     this.router.navigate(['/login']);
   }
+
+  editUser(username:string){
+    this.router.navigate(['/edituser/'+username]);
+  }
 }

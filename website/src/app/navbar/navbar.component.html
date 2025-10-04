@@ -17,7 +17,7 @@
           </a>
        
         <mat-menu #menu="matMenu">
-            <button mat-menu-item >Edit User</button>
+            <button mat-menu-item (click)="editUser(user.username)">Edit User</button>
             <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
 

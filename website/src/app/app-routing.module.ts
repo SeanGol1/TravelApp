@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { AddUserPlanComponent } from './plan/add-user-plan/add-user-plan.component';
 import { LoginComponent } from './user/login/login.component';
 import { MapComponent } from './map/map.component';
+import { EditUserComponent } from './user/edit-user/edit-user.component';
 
 const routes: Routes = [
   { path: '',  component:HomeComponent},
@@ -13,7 +14,9 @@ const routes: Routes = [
   { path: 'joinplan/:id', component: AddUserPlanComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/:id', component: LoginComponent },
-  { path: 'map/:id', component: MapComponent }
+  { path: 'map/:id', component: MapComponent },
+  { path: 'edituser/:username', component: EditUserComponent }
+  
 ];
 
 @NgModule({
