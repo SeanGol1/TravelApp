@@ -50,7 +50,16 @@ namespace TravelPlannerApp.Data
                 return attractions;
             }
 
-            var refCity = await context.RefCity.Where(x=>x.Name == city).FirstAsync();
+            var refCity = new RefCity();
+            try
+            {
+                refCity = await context.RefCity.Where(x => x.Name == city).FirstAsync();
+            }
+            catch(Exception e)
+            {
+                throw new Exception("City not found!");
+            }
+            
             //string query = string.Format("GET https://maps.googleapis.com/maps/api/place/textsearch/json?query=attractions&location={0},{1}&radius=5000&fields=place_id&key={2}", refCity.Lat, refCity.Lng, config.GetValue<string>("GoogleMapsApi"));
             //GET https://maps.googleapis.com/maps/api/place/textsearch/json?query=attractions&location=41.3851,2.1734&radius=5000&fields=place_id&key=YOUR_API_KEY
 

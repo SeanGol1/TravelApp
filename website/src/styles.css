@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @media only screen and (min-device-width: 481px) {
 body {
-    background-color: #afdde5;
+    background-color: #f2f2f2;
     background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996');
     height: 100%;
         /* Create the parallax scrolling effect */
@@ -15,7 +15,7 @@ body {
 
 @media only screen and (max-device-width: 480px) {
 body {
-    background-color: #afdde5;
+    background-color: #ffffff;
     background-image: url('https://img.freepik.com/premium-vector/seascape-with-waves-seagulls_600765-1305.jpg?w=996');
     /* Full height */
     height: 100%;
