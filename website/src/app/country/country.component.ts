@@ -27,7 +27,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 })
 export class CountryComponent implements OnInit, AfterViewInit {
   @Input() country: Country | undefined;
-  countryinfo: any | undefined;
+  @Input() countryinfo: any | undefined;
   travel: Travel | undefined;
   city: City | undefined;
   plan: Plan | undefined;
@@ -38,9 +38,11 @@ export class CountryComponent implements OnInit, AfterViewInit {
   constructor(public dialog: MatDialog, public data: DataService, private toastr: ToastrService) {
   }
   ngAfterViewInit(): void {
-    this.data.getCountry(this.country.name).subscribe(data => {
-      this.countryinfo = data;
-    });
+
+    //Change so it calls all
+    // this.data.getCountry(this.country.name).subscribe(data => {
+    //   this.countryinfo = data;
+    // });
 
     this.numOfDays = this.getDays().toString();
   }

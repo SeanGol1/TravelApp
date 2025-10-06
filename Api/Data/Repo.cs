@@ -236,6 +236,18 @@ namespace TravelPlannerApp.Data
             return country;
         }
 
+        public async Task<IEnumerable<RefCountry>> GetRefCountryByPlanAsync(int id)
+        {
+            List<RefCountry> list = new List<RefCountry>();
+            Plan plan = await GetPlanbyIdAsync(id);
+            var countrylist = context.Country.Where(c => c.Plan.Id == id).ToList();
+            foreach (var country in countrylist) { 
+                list.Add(await GetRefCountryByNameAsync(country.Name)!);
+            }
+            
+            return list;
+        }
+
         public async Task<Country> GetCountrybyIdAsync(int id)
         {
             return await context.Country.FindAsync(id);

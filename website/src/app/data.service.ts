@@ -308,7 +308,10 @@ export class DataService {
 
     getCountry(name: string) {
         return this.http.get(this.baseUrl + 'countries/refcountriesname/' + name, { 'headers': this.headers });
-        //return this.http.get('https://restcountries.com/v3.1/name/' + name + '?fullText=true')
+    }
+
+    getRefCountryByPlan(id: number) {
+        return this.http.get<any[]>(this.baseUrl + 'countries/refcountriesbyplan/' + id, { 'headers': this.headers });
     }
 
     getCountryByCityId(id: number) {

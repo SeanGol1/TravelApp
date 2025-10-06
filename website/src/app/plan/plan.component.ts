@@ -36,6 +36,7 @@ export class PlanComponent implements OnInit{
   plan: Plan | undefined;
   user: User | undefined;
   isadmin:boolean = false;
+  countryinfoList:any = [];
 
 
   constructor(public dialog: MatDialog, public data: DataService,public account:AccountService,private route:ActivatedRoute, private router:Router,private toastr: ToastrService) {
@@ -54,6 +55,12 @@ export class PlanComponent implements OnInit{
         }
       });
 
+      this.data.getRefCountryByPlan(planid).subscribe({
+        next: countries=>{  
+          this.countryinfoList = countries;
+        }
+      })
+
       //Check if user is admin
       this.data.isAdminCheck(planid,this.user.username).subscribe({
         next:isadmin=>{
@@ -70,6 +77,11 @@ export class PlanComponent implements OnInit{
 
 toggleNav(){
   this.data.updateNav();
+}
+
+getCountryinfoFromList(name:string){
+  if(this.countryinfoList.length > 0)
+    return this.countryinfoList.find((c:any) => c.name == name);
 }
 
 

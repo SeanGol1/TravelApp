@@ -62,6 +62,12 @@ namespace TravelPlannerApp.Controllers
             return Ok(await _repo.GetRefCountryByNameAsync(name));
         }
 
+        [HttpGet("refcountriesbyplan/{id}")]
+        public async Task<ActionResult<IEnumerable<RefCountry>>> GetRefCountriesByPlan(int id)
+        {
+            return Ok(await _repo.GetRefCountryByPlanAsync(id));
+        }
+
         // PUT: api/Countries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
