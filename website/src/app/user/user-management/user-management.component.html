@@ -22,12 +22,12 @@
         <h4>Current User List</h4>
         <div *ngFor="let u of userList" class="row userList-item">
             <div class="col-8">
-                <h3>{{u.userName}} <b *ngIf="u.isadmin">(Admin)</b> </h3>
+                <h3>{{u.username}} <b *ngIf="u.isAdmin">(Admin)</b> </h3>
             </div>
             <div class="col-4">
                 <button mat-flat-button color="accent" (click)="setAdmin(u)">
-                    <span *ngIf="u.isadmin">Revoke Admin</span><!--TODO: cannot revoke admin of own user-->
-                    <span *ngIf="!u.isadmin">Make Admin</span>
+                    <span *ngIf="u.isAdmin">Revoke Admin</span><!--TODO: cannot revoke admin of own user-->
+                    <span *ngIf="!u.isAdmin">Make Admin</span>
                 </button>
                 <ng-container>
                     <hr />

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/account.service';
 import { DataService } from 'src/app/data.service';
@@ -31,21 +31,10 @@ export class UserManagementComponent {
   GetUserList() {
     this.userList = [];
     this.data.getUserByPlanId(this.plan.id).subscribe(userlist => {
-      //this.userList = userlist;
-      userlist.forEach(user => {
-        this.data.isAdminCheck(this.plan.id, user.userName).subscribe({
-          next: isadmin => {
-            user.isadmin = isadmin;
-            this.userList.push(user);
-          }
-        });
-      });
+      this.userList = userlist;
     })
   }
 
-  GetAllUser(){
-
-  }
 
   AddUser() {
     let data = { planId: this.plan.id, username: this.model.username }
@@ -74,8 +63,8 @@ export class UserManagementComponent {
   }
 
   removeUser(user: any) {
-    if (confirm("Are you sure to remove user " + user.userName + "?")) {
-      this.data.removeUserFromPlan(this.plan.id, user.userName).subscribe({
+    if (confirm("Are you sure to remove user " + user.username + "?")) {
+      this.data.removeUserFromPlan(this.plan.id, user.username).subscribe({
         next: () => {
           this.toastr.success('User removed successfully!');
           this.GetUserList();
@@ -88,9 +77,9 @@ export class UserManagementComponent {
   }
 
   setAdmin(user: any) {
-    this.data.setAdmin(this.plan.id, user.userName).subscribe({
+    this.data.setAdmin(this.plan.id, user.username).subscribe({
       next: () => {
-        this.toastr.success( user.userName + ' admin settings updated!');
+        this.toastr.success( user.username + ' admin settings updated!');
         this.GetUserList();
       }, error: e => {
         console.log(e);
