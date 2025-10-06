@@ -270,16 +270,17 @@ namespace TravelPlannerApp.Data
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<User>> GetUserbyPlanAsync(int id)
+        public async Task<IEnumerable<AddUserPlanDto>> GetUserbyPlanAsync(int id)
         {
-            //Get all Campaign info by user id
-            var query = from p in context.Plan
-                        join up in context.UserPlan on p.Id equals up.Plan.Id
-                        join u in context.User on up.User.Id equals u.Id
-                        where p.Id == id
-                        select u;
-
-            return await query.ToListAsync();
+            return await context.UserPlan
+                .Where(up => up.Plan.Id == id)
+                .Select(up => new AddUserPlanDto
+                {
+                    PlanId = up.Plan.Id,
+                    Username = up.User.UserName,
+                    IsAdmin = up.IsAdmin
+                })
+                .ToListAsync();
         }
 
         public async Task<bool> IsAdminCheck(int planId, string username)

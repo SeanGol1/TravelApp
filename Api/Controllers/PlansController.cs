@@ -35,27 +35,32 @@ namespace TravelPlannerApp.Controllers
 
         // GET: api/Plans/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Plan>> GetPlan(int id)
+        public async Task<ActionResult<object>> GetPlan(int id)
         {
             if (!await _context.Database.CanConnectAsync())
             {
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database unavailable");
             }
-            Plan plan;
+            Plan p;
             try
             {
-                plan = await _repo.GetPlanbyIdAsync(id);
+                p = await _repo.GetPlanbyIdAsync(id);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            if (plan == null)
+            if (p == null)
             {
                 return NotFound();
             }
 
-            return plan;
+            var obj = new 
+            {
+                plan = p,
+                userlist = await _repo.GetUserbyPlanAsync(p.Id)
+            };
+            return obj;
         }
 
 
@@ -73,12 +78,12 @@ namespace TravelPlannerApp.Controllers
         }
 
         [HttpGet("userlist/{id}")]
-        public async Task<ActionResult<IEnumerable<Plan>>> GetUserByPlan(int id)
+        public async Task<ActionResult<IEnumerable<AddUserPlanDto>>> GetUserByPlan(int id)
         {
             List<User> userlist = new List<User>();
             try
             {
-                return Ok(await _repo.GetUserbyPlanAsync(id));
+                return Ok(await _repo.GetUserbyPlanAsync(id)); // i want to make sure this only returns userplandto (username) 
             }
             catch (Exception ex)
             {

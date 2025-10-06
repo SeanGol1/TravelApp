@@ -37,6 +37,7 @@ export class PlanComponent implements OnInit{
   user: User | undefined;
   isadmin:boolean = false;
   countryinfoList:any = [];
+  userlist:any = [];
 
 
   constructor(public dialog: MatDialog, public data: DataService,public account:AccountService,private route:ActivatedRoute, private router:Router,private toastr: ToastrService) {
@@ -49,22 +50,21 @@ export class PlanComponent implements OnInit{
       
       //Get and Save Plan
       this.data.getPlanById(planid).subscribe({
-        next: plan => {
-          this.plan = plan
-          this.data.updateLocalPlan(plan);
+        next: (obj:any) => {
+          this.plan = obj.plan
+          this.data.updateLocalPlan(obj.plan);
+
+          this.userlist = obj.userlist;
+
+          const currentUser = this.userlist.find((u: any) => u.username === this.user?.username);
+          this.isadmin = !!(currentUser && currentUser.isAdmin);
+          this.data.setLocalIsAdmin(this.isadmin);
         }
       });
 
       this.data.getRefCountryByPlan(planid).subscribe({
         next: countries=>{  
           this.countryinfoList = countries;
-        }
-      })
-
-      //Check if user is admin
-      this.data.isAdminCheck(planid,this.user.username).subscribe({
-        next:isadmin=>{
-          this.data.setLocalIsAdmin(isadmin);
         }
       })
 

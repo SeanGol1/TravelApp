@@ -44,16 +44,8 @@ export class DataService {
     getPlanById(id: number): Observable<Plan> {
         this.headers.set('Access-Control-Allow-Origin', '*');
 
-        // return this.http.post<Plan>(this.baseUrl + 'plans/' + id, {'headers': this.headers}).pipe(
-        //   map((response:Plan) => {
-        //     const plan = response;
-        //     if(plan){
-        //       localStorage.setItem('plan',JSON.stringify(plan));
-        //       this.planSource.next(plan);
-        //     }
-        //   })
-        // )
-        return this.http.get<Plan>(this.baseUrl + 'plans/' + id, { 'headers': this.headers });
+
+        return this.http.get<any>(this.baseUrl + 'plans/' + id, { 'headers': this.headers });
 
     }
 
