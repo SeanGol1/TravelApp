@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Nancy.Json;
@@ -367,6 +368,8 @@ namespace TravelPlannerApp.Data
 
         }
 
+
+
         private bool PlanCodeExists(int id)
         {
             Plan plan = context.Plan.Where(p => p.JoinCode == id).FirstOrDefault();
@@ -406,9 +409,30 @@ namespace TravelPlannerApp.Data
             {
                 string m = ex.Message;
             }
-            if (ups == null)
+            if (ups != null)
             {
                 context.UserPlan.Add(up);
+                await context.SaveChangesAsync();
+                return HttpStatusCode.OK;
+            }
+            else
+                return HttpStatusCode.BadRequest;
+        }
+
+        public async Task<HttpStatusCode> RemoveUserPlanAsync(int planid, string userName)
+        {;
+            UserPlan up;
+            try
+            {
+                up = await context.UserPlan.Where(u => u.Plan.Id == planid && u.User.UserName == userName).FirstAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            if (up != null)
+            {
+                context.UserPlan.Remove(up);
                 await context.SaveChangesAsync();
                 return HttpStatusCode.OK;
             }

@@ -66,6 +66,10 @@ export class DataService {
         return this.http.post<Plan>(this.baseUrl + 'plans/adduser', data, { 'headers': this.headers });
     }
 
+    removeUserFromPlan(planid : number ,username:string) {
+        return this.http.post<Plan>(this.baseUrl + 'plans/removeuser', {planId:planid, username:username}, { 'headers': this.headers });
+    }
+
     getUserByPlanId(id: number) {
         return this.http.get<any[]>(this.baseUrl + 'plans/userlist/' + id, { 'headers': this.headers })
     }

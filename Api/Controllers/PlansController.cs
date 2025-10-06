@@ -175,6 +175,18 @@ namespace TravelPlannerApp.Controllers
 
         }
 
+        [Route("removeuser")]
+        [HttpPost]
+        public async Task<ActionResult<HttpStatusCode>> RemoverUserFromPlan(UserPlanDto dto)
+        {
+            if (PlanExists(dto.PlanId))
+            {
+                return await _repo.RemoveUserPlanAsync(dto.PlanId,dto.Username);
+            }
+            else { return BadRequest("No Plan Exists"); }
+
+        }
+
         [Route("joinplan")]
         [HttpPost]
         public async Task<ActionResult<Plan>> JoinPlanByCode(JoinByCodeDto dto)

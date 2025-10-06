@@ -52,7 +52,7 @@ export class CityComponent implements AfterViewInit {
 
 
   onTabChange(event: MatTabChangeEvent) {
-  if (event.tab.textLabel === 'Details' && !this.attractions  ) { //
+  if (event.tab.textLabel === 'Explore' && !this.attractions  ) { //
     // this.data.getCityAttractions(this.city.name).subscribe({
     //   next: (atts) => this.attractions = atts,
     //   error: (e) => console.log(e)

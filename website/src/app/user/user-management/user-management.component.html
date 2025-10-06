@@ -20,8 +20,13 @@
 
     <div>
         <h4>Current User List</h4>
-        <div *ngFor="let u of userList">            
+        <div *ngFor="let u of userList" class="row">
+            <div class="col-10">            
             <h3>{{u.userName}}  <b *ngIf="u.isadmin">(Admin)</b>   </h3>
+            </div>
+            <div class="col-2">
+                <button mat-flat-button color="warn" (click)="removeUser(u)" >Delete</button>
+            </div>
         </div>
     </div>
 </div>

@@ -40,13 +40,15 @@
         }
       </div>
       <div *ngIf="city.toDos.length == 0 && data.isAdmin$| async">
-        <p>Click the details tab above to view popular attractions <br /><b>OR</b><br /> Click below to add your first
+        <p>Click the <b>Expore</b> tab above to view popular attractions <br /><b>OR</b><br /> Click below to add your first
           ToDo item </p>
         <button mat-flat-button color="primary" (click)="openAddTodoDialog()">Add ToDo</button>
       </div>
     </mat-tab>
-    <mat-tab label="Details">
+    <mat-tab label="Explore">
       <br/>
+
+<!--  -->
 
       <div *ngIf="!attractions">
         <p>No attractions to show. Check that the city entered is correct.</p>
@@ -71,7 +73,7 @@
                     </a>
                   </div>
                   <div class="col-6">
-                    <button mat-flat-button color="primary" (click)="addAttraction(a.name)">Add to My List</button>
+                    <button *ngIf="(data.isAdmin$| async)" mat-flat-button color="primary" (click)="addAttraction(a.name)">Add to My List</button>
                   </div>
                 </div>
               </div>

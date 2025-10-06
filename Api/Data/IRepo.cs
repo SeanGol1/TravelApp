@@ -13,6 +13,7 @@ namespace TravelPlannerApp.Data
         Task<IEnumerable<Plan>> GetPlanAsync();
         Task<Plan> UpdatePlanAsync(Plan plan);
         Task<HttpStatusCode> AddUserPlanAsync(AddUserPlanDto userplan);
+        Task<HttpStatusCode> RemoveUserPlanAsync(int planid, string username);
         Task<Plan> CreatePlanAsync(CreatePlanDto dto);
         Task<HttpStatusCode> DeletePlanAsync(int id);
         Task<Plan> JoinPlanByCodeAsync(JoinByCodeDto dto);
