@@ -292,17 +292,24 @@ namespace TravelPlannerApp.Data
 
         public async Task<Plan> GetPlanbyIdAsync(int id)
         {
-            Plan plan = await context.Plan.FindAsync(id);
-            plan.Countries = await context.Country.Where(c => c.Plan.Id == id).OrderByDescending(c => c.StartDate.HasValue).ThenBy(c => c.StartDate).ToListAsync();
-            foreach (var country in plan.Countries)
+            var plan = await context.Plan
+                .Include(p => p.Countries)
+                    .ThenInclude(c => c.Cities)
+                        .ThenInclude(city => city.ToDos)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (plan?.Countries != null)
             {
-                country.Name = country.Name.Trim();
-                var x = country.StartDate;
-                country.Cities = await context.City.Where(c => c.Country.Id == country.Id).OrderBy(c => c.SortOrder).ToListAsync();
-                foreach (var cities in country.Cities)
+                foreach (var country in plan.Countries)
                 {
-                    cities.Name = cities.Name.Trim();
-                    cities.ToDos = await context.ToDo.Where(c => c.City.Id == cities.Id).OrderBy(t => t.SortOrder).ToListAsync();
+                    country.Name = country.Name.Trim();
+                    if (country.Cities != null)
+                    {
+                        foreach (var city in country.Cities)
+                        {
+                            city.Name = city.Name.Trim();
+                        }
+                    }
                 }
             }
 

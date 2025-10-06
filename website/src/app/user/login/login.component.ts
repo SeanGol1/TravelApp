@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit{
   login() {
     this.accountService.login(this.modelUser).subscribe({
       next: user => {
-        this.toast.success('Login successful!');
+        //this.toast.success('Login successful!');
         this.accountService.currentUser$.subscribe(user => {
           if(!this.plan)
             this.router.navigate(['/']);
