@@ -11,30 +11,30 @@ import { PlanComponent } from 'src/app/plan/plan.component';
   styleUrl: './user-management.component.css'
 })
 export class UserManagementComponent {
-  plan:Plan | undefined;
-  model:any={};
-  userList:any = [];
-  copycode:string = "";
+  plan: Plan | undefined;
+  model: any = {};
+  userList: any = [];
+  copycode: string = "";
 
 
-  constructor(private data:DataService,private accountService:AccountService,private toastr:ToastrService) { 
-    this.data.plan$.subscribe(plan=>{
+  constructor(private data: DataService, private accountService: AccountService, private toastr: ToastrService) {
+    this.data.plan$.subscribe(plan => {
       this.plan = plan;
-      this.copycode = 'https://backpackererapp.web.app/joinplan/'+plan.id;
+      this.copycode = 'https://backpackererapp.web.app/joinplan/' + plan.id;
     })
 
-    if(this.plan)
+    if (this.plan)
       this.GetUserList();
 
   }
 
-  GetUserList(){
+  GetUserList() {
     this.userList = [];
-    this.data.getUserByPlanId(this.plan.id).subscribe(userlist=>{
+    this.data.getUserByPlanId(this.plan.id).subscribe(userlist => {
       //this.userList = userlist;
       userlist.forEach(user => {
         this.data.isAdminCheck(this.plan.id, user.userName).subscribe({
-          next:isadmin=>{
+          next: isadmin => {
             user.isadmin = isadmin;
             this.userList.push(user);
           }
@@ -43,40 +43,59 @@ export class UserManagementComponent {
     })
   }
 
-  AddUser(){
-    let data = {planId:this.plan.id, username:this.model.username}
+  GetAllUser(){
+
+  }
+
+  AddUser() {
+    let data = { planId: this.plan.id, username: this.model.username }
     this.data.addUserToPlan(data).subscribe({
-      next: ()=> {
+      next: (resp) => {
+        if(resp == 200){
         this.toastr.success('User added successfully!');
         this.GetUserList();
+        }
+        else{
+          this.toastr.error('User not found!');
+        }
       },
       error: e => {
         console.log(e);
-        this.toastr.error(e.error);
+        this.toastr.error(e.error.title||e.error||e.message );
       }
     });
   }
 
-  copyText(){
+  copyText() {
 
-   // Copy the text inside the text field
-  navigator.clipboard.writeText(this.copycode);
+    navigator.clipboard.writeText(this.copycode);
+    alert("Copied the text: " + this.copycode);
 
-  // Alert the copied text
-  alert("Copied the text: " + this.copycode);
   }
 
-  removeUser(user:any){
-    if(confirm("Are you sure to remove user "+user.userName+"?")){
-      this.data.removeUserFromPlan(this.plan.id,user.userName).subscribe({
-        next:()=>{
+  removeUser(user: any) {
+    if (confirm("Are you sure to remove user " + user.userName + "?")) {
+      this.data.removeUserFromPlan(this.plan.id, user.userName).subscribe({
+        next: () => {
           this.toastr.success('User removed successfully!');
           this.GetUserList();
-        },error:e=>{
+        }, error: e => {
           console.log(e);
-          this.toastr.error(e.error);
+          this.toastr.error(e.error.title||e.error||e.message);
         }
       });
     }
+  }
+
+  setAdmin(user: any) {
+    this.data.setAdmin(this.plan.id, user.userName).subscribe({
+      next: () => {
+        this.toastr.success( user.userName + ' admin settings updated!');
+        this.GetUserList();
+      }, error: e => {
+        console.log(e);
+        this.toastr.error(e.error.title||e.error||e.message);
+      }
+    });
   }
 }

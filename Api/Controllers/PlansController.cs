@@ -181,7 +181,19 @@ namespace TravelPlannerApp.Controllers
         {
             if (PlanExists(dto.PlanId))
             {
-                return await _repo.RemoveUserPlanAsync(dto.PlanId,dto.Username);
+                return await _repo.RemoveUserPlanAsync(dto);
+            }
+            else { return BadRequest("No Plan Exists"); }
+
+        }
+
+        [Route("setadmin")]
+        [HttpPost]
+        public async Task<ActionResult<HttpStatusCode>> SetAdminUserPlan(UserPlanDto dto)
+        {
+            if (PlanExists(dto.PlanId))
+            {
+                return await _repo.SetAdminUserPlanAsync(dto);
             }
             else { return BadRequest("No Plan Exists"); }
 

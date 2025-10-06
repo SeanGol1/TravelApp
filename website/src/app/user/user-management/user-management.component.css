@@ -5,3 +5,10 @@
     margin:5%;
     padding: 5%;
 }
+
+.userList-item{
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}

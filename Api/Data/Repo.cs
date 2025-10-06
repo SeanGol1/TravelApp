@@ -272,21 +272,10 @@ namespace TravelPlannerApp.Data
 
         public async Task<bool> IsAdminCheck(int planId, string username)
         {
-            //Get all Campaign info by user id
-            var query = from p in context.Plan
-                        join up in context.UserPlan on p.Id equals up.Plan.Id
-                        join u in context.User on up.User.Id equals u.Id
-                        where p.Id == planId && u.UserName.ToLower() == username.ToLower()
-                        select up.IsAdmin;
-            try
-            {
-                return Convert.ToBoolean(await query.FirstAsync());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Not Found");
-            }
-            
+            return await context.UserPlan
+                .Where(up => up.Plan.Id == planId && up.User.UserName.ToLower() == username.ToLower())
+                .Select(up => up.IsAdmin)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Plan> GetPlanbyIdAsync(int id)
@@ -368,8 +357,6 @@ namespace TravelPlannerApp.Data
 
         }
 
-
-
         private bool PlanCodeExists(int id)
         {
             Plan plan = context.Plan.Where(p => p.JoinCode == id).FirstOrDefault();
@@ -400,6 +387,8 @@ namespace TravelPlannerApp.Data
                 User = await userRepo.GetUserByUsernameAsync(dto.Username),
                 IsAdmin = dto.IsAdmin
             };
+            if (up.Plan == null || up.User == null)
+                return HttpStatusCode.BadRequest;
             UserPlan ups = null;
             try
             {
@@ -409,7 +398,7 @@ namespace TravelPlannerApp.Data
             {
                 string m = ex.Message;
             }
-            if (ups != null)
+            if (ups == null)
             {
                 context.UserPlan.Add(up);
                 await context.SaveChangesAsync();
@@ -419,12 +408,12 @@ namespace TravelPlannerApp.Data
                 return HttpStatusCode.BadRequest;
         }
 
-        public async Task<HttpStatusCode> RemoveUserPlanAsync(int planid, string userName)
-        {;
+        public async Task<HttpStatusCode> RemoveUserPlanAsync(UserPlanDto dto)
+        {
             UserPlan up;
             try
             {
-                up = await context.UserPlan.Where(u => u.Plan.Id == planid && u.User.UserName == userName).FirstAsync();
+                up = await context.UserPlan.Where(u => u.Plan.Id == dto.PlanId && u.User.UserName == dto.Username).FirstAsync();
             }
             catch (Exception ex)
             {
@@ -433,6 +422,28 @@ namespace TravelPlannerApp.Data
             if (up != null)
             {
                 context.UserPlan.Remove(up);
+                await context.SaveChangesAsync();
+                return HttpStatusCode.OK;
+            }
+            else
+                return HttpStatusCode.BadRequest;
+        }
+
+        public async Task<HttpStatusCode> SetAdminUserPlanAsync(UserPlanDto dto)
+        {
+            UserPlan up;
+            try
+            {
+                up = await context.UserPlan.Where(u => u.Plan.Id == dto.PlanId && u.User.UserName == dto.Username).FirstAsync();
+                up.IsAdmin = !up.IsAdmin;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            if (up != null)
+            {
+                context.UserPlan.Update(up);
                 await context.SaveChangesAsync();
                 return HttpStatusCode.OK;
             }

@@ -49,7 +49,7 @@
 
         <h2>My Plans</h2>
         <div *ngFor="let p of planList" class="plan-list-container">
-          <app-plan-list-item [plan]="p"></app-plan-list-item>
+          <app-plan-list-item (removed)="removePlanFromList($event)" [plan]="p"></app-plan-list-item>
         </div>
       </div>
     </div>

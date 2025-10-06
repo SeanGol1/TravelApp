@@ -18,6 +18,7 @@ import { Plan } from '../models/plan';
 import { ChecklistDialogComponent } from './checklist-dialog/checklist-dialog.component';
 import { findIndex } from 'rxjs';
 import {ToastrService } from 'ngx-toastr';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-country',
@@ -38,13 +39,6 @@ export class CountryComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.data.getCountry(this.country.name).subscribe(data => {
-      // this.countryinfo = data[0];
-      // let currencies = this.countryinfo.currencies;
-      // let x = Object.keys(currencies);
-      // for (let i = 0; i < x.length; i++) {
-      //   let c = currencies[Object.keys(currencies)[i]];
-      //   this.currency.push(currencies[Object.keys(currencies)[i]]);        
-      // }        
       this.countryinfo = data;
     });
 
@@ -54,6 +48,14 @@ export class CountryComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
   }
+
+  // onTabChange(event: MatTabChangeEvent) {
+  //   if (event.tab.textLabel === 'Details' ) { 
+  //   this.data.getCountry(this.country.name).subscribe(data => {
+  //     this.countryinfo = data;
+  //   });
+  //   }
+  // }
 
   //Update every city other than the drop city. 
   updateOrder(newIndex: number) {

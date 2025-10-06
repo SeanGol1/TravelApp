@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/account.service';
@@ -16,8 +16,10 @@ import { ToastrService } from 'ngx-toastr';
 
 export class PlanListItemComponent implements OnInit {
   @Input() plan:Plan;
+  @Output() removed = new EventEmitter<number>(); // plan id
   isadmin:boolean;
   user: User | undefined;
+
 
   constructor(public data: DataService, public accountService: AccountService, private router: Router, public dialog: MatDialog,private toastr: ToastrService) {
   }
@@ -31,8 +33,18 @@ export class PlanListItemComponent implements OnInit {
     })
   }
 
+
   leavePlan(plan:Plan){
-    //TODO: Leave Plan
+    this.data.removeUserFromPlan(plan.id,this.user.username).subscribe({
+      next: () => {
+        this.toastr.success('You have left the plan!');
+        this.removed.emit(plan.id); // Notify parent
+      },
+      error: e => {
+        console.log(e);
+        this.toastr.error(e.error);
+      }
+    });
   }
 
   deletePlan(plan: Plan) {
@@ -44,8 +56,7 @@ export class PlanListItemComponent implements OnInit {
         this.data.deletePlan(_plan.id).subscribe({
           next: plan => {
             this.toastr.success('Plan deleted successfully');
-            //TODO: remove from list
-            //this.planList.splice(this.planList.indexOf(plan), 1);
+            this.removed.emit(plan.id); // TODO: not working
           },
           error: e => {
             this.toastr.error(e.error);

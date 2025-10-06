@@ -63,11 +63,15 @@ export class DataService {
     }
 
     addUserToPlan(data: any) {
-        return this.http.post<Plan>(this.baseUrl + 'plans/adduser', data, { 'headers': this.headers });
+        return this.http.post<any>(this.baseUrl + 'plans/adduser', data, { 'headers': this.headers });
     }
 
     removeUserFromPlan(planid : number ,username:string) {
-        return this.http.post<Plan>(this.baseUrl + 'plans/removeuser', {planId:planid, username:username}, { 'headers': this.headers });
+        return this.http.post<any>(this.baseUrl + 'plans/removeuser', {planId:planid, username:username}, { 'headers': this.headers });
+    }
+
+    setAdmin(planid : number ,username:string) {
+        return this.http.post<any>(this.baseUrl + 'plans/setadmin', {planId:planid, username:username}, { 'headers': this.headers });
     }
 
     getUserByPlanId(id: number) {
