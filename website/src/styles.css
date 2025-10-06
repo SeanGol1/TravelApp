@@ -70,11 +70,16 @@
     overflow: hidden !important;
 }
 
+/* Added for dd in navbar */
+.navddmanu {
+  z-index: 5200 !important; 
+}
+
+
 
 body {
     margin: 0;
     font-family: 'Lato', sans-serif;
-    /* font-family: "Style Script", cursive; */
     font-weight: 400;
     font-style: normal;
     text-align: center;

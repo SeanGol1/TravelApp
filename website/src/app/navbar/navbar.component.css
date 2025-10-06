@@ -8,9 +8,23 @@
     left: 0;
     opacity: .8;
     color: white;
+    z-index: 1030 !important;
 }
 
 .userlink {
     text-decoration: none;
     color: white;
+}
+
+/* .navddmanu{
+    margin-top: 200px;
+} */
+
+.mat-menu-panel {
+  /* margin-top: 60px !important; Adjust as needed */
+  z-index: 1200 !important;
+}
+
+.dropdown{
+    margin-top: 20px;
 }
