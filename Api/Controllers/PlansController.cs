@@ -41,15 +41,8 @@ namespace TravelPlannerApp.Controllers
             {
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database unavailable");
             }
-            Plan p;
-            try
-            {
-                p = await _repo.GetPlanbyIdAsync(id);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            Plan p = await _repo.GetPlanbyIdAsync(id);
+
             if (p == null)
             {
                 return NotFound();

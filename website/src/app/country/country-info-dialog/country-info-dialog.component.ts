@@ -35,9 +35,6 @@ export class CountryInfoDialogComponent implements OnInit {
   ngOnInit(): void {
     this.dataservice.getCountry(this.data.name).subscribe(cdata=>{
       this.countryinfo = cdata[0];      
-      // this.dataservice.getPOI(this.countryinfo.latlng).subscribe(c=>{
-
-      // });
     });    
   }
 

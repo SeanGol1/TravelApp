@@ -295,12 +295,19 @@ namespace TravelPlannerApp.Data
 
         public async Task<Plan> GetPlanbyIdAsync(int id)
         {
-            var plan = await context.Plan
-                .Include(p => p.Countries)
-                    .ThenInclude(c => c.Cities)
-                        .ThenInclude(city => city.ToDos)
-                .FirstOrDefaultAsync(p => p.Id == id);
-
+            var plan = new Plan();
+            try
+            {
+                plan = await context.Plan
+                    .Include(p => p.Countries)
+                        .ThenInclude(c => c.Cities)
+                            .ThenInclude(city => city.ToDos)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
             if (plan?.Countries != null)
             {
                 foreach (var country in plan.Countries)

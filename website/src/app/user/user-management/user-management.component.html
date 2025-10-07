@@ -1,39 +1,51 @@
 <div class="userplan">
-    <h4>Share the link with your friends to join the plan, then manage their access below.</h4>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
 
-    <p>
-        <input class="form-control" type="text" value="https://backpackererapp.web.app/joinplan/{{plan.id}}"
-            [(ngModel)]="copycode">
-        <button mat-flat-button color="primary" (click)="copyText()">Copy</button>
-    </p>
+            <div class="user-info-container">
+                <h4>Share the link with your friends to join the plan, then manage their access below.</h4>
+                <br />
+                <h4>Join Code: <b>{{plan?.joinCode}}</b></h4>
+                <br />
+                <p>
+                    <input class="form-control" type="text" value="https://backpackererapp.web.app/joinplan/{{plan.id}}"
+                        [(ngModel)]="copycode">
+                    <button mat-flat-button color="primary" (click)="copyText()">Copy</button>
+                </p>
 
 
-    <hr />
+                <hr />
 
-    <h4>Add User Manually to the Plan</h4>
-    <div class="nb-3">
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Username">
-    </div>
-    <button mat-flat-button color="primary" (click)="AddUser()">Add User</button>
-
-    <hr />
-
-    <div>
-        <h4>Current User List</h4>
-        <div *ngFor="let u of userList" class="row userList-item">
-            <div class="col-8">
-                <h3>{{u.username.charAt(0).toUpperCase()+u.username.slice(1)}} <b *ngIf="u.isAdmin">(Admin)</b> </h3>
+                <h4>Add User Manually to the Plan</h4>
+                <div class="nb-3">
+                    <input type="text" class="form-control" name="username" [(ngModel)]="model.username"
+                        placeholder="Username">
+                </div>
+                <button mat-flat-button color="primary" (click)="AddUser()">Add User</button>
             </div>
-            <div class="col-4">
-                <button mat-flat-button color="accent" (click)="setAdmin(u)">
-                    <span *ngIf="u.isAdmin">Revoke Admin</span><!--TODO: cannot revoke admin of own user-->
-                    <span *ngIf="!u.isAdmin">Make Admin</span>
-                </button>
-                <ng-container>
-                    <hr />
-                    <button mat-flat-button color="warn" (click)="removeUser(u)">Remove</button>
-                </ng-container>
+        </div>
+        <div class="col-md-3"></div>
+        <br/>
+        <hr />
+
+        <div>
+            <h4>Current User List</h4>
+            <div *ngFor="let u of userList" class="row userList-item">
+                <div class="col-8">
+                    <h3>{{u.username.charAt(0).toUpperCase()+u.username.slice(1)}} <b *ngIf="u.isAdmin">(Admin)</b>
+                    </h3>
+                </div>
+                <div class="col-4">
+                    <button mat-flat-button color="accent" (click)="setAdmin(u)">
+                        <span *ngIf="u.isAdmin">Revoke Admin</span><!--TODO: cannot revoke admin of own user-->
+                        <span *ngIf="!u.isAdmin">Make Admin</span>
+                    </button>
+                    <ng-container>
+                        <hr />
+                        <button mat-flat-button color="warn" (click)="removeUser(u)">Remove</button>
+                    </ng-container>
+                </div>
             </div>
         </div>
     </div>
-</div>

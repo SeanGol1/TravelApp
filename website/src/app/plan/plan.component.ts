@@ -59,6 +59,10 @@ export class PlanComponent implements OnInit{
           const currentUser = this.userlist.find((u: any) => u.username === this.user?.username);
           this.isadmin = !!(currentUser && currentUser.isAdmin);
           this.data.setLocalIsAdmin(this.isadmin);
+        },
+        error: e => {
+          this.toastr.error('Error retrieving plan');
+          this.router.navigate(['/']);
         }
       });
 

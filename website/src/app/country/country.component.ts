@@ -33,7 +33,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
   plan: Plan | undefined;
   numOfDays: string | '';
   currency:any = [];
-
+  
 
   constructor(public dialog: MatDialog, public data: DataService, private toastr: ToastrService) {
   }
@@ -110,7 +110,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
 
   getDate(date: Date) {
     if (date)
-      return formatDate(date, 'dd MMM', 'en-GB')
+      return formatDate(date, 'dd MMM', 'en-US')
     else
       return ''
   }
@@ -137,25 +137,25 @@ export class CountryComponent implements OnInit, AfterViewInit {
   }
 
   openInfoDialog(): void {
+    // Convert to string before passing to dialog
+    const dialogData = { ...this.country, startDate: this.country.startDate ? formatDate(this.country.startDate, 'yyyy-MM-dd', 'en-US') : '' };
     const dialogRef = this.dialog.open(CountryInfoDialogComponent, {
-      data: this.country,
+      data: dialogData,
     });
 
     dialogRef.afterClosed().subscribe({
       next: c => {
-        if(c){
-        //data.countryId = this.country.id;
-        c.startdate = formatDate(c.startDate, 'yyyy-MM-dd', 'en-US');
-        this.data.updateCountry(c).subscribe({
-          next: country => {
-            this.toastr.success('Country updated');
-            //this.country = country //TODO: Update Plan
-          },
-          error: e => {
-            this.toastr.error(e.error);
-          }
-        });
-      }
+        if (c) {
+          // c.startDate is a string "yyyy-MM-dd"
+          this.data.updateCountry(c).subscribe({
+            next: country => {
+              this.toastr.success('Country updated');
+            },
+            error: e => {
+              this.toastr.error(e.error);
+            }
+          });
+        }
       },
       error: e => console.log(e)
     });
