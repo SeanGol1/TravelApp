@@ -31,14 +31,22 @@ namespace TravelPlannerApp.Data
 
         public async Task<User> Register(RegisterDto registerDTO)
         {
-            using var hmac = new HMACSHA512();
 
-            var user = new User
+            var user = new User();
+            if (registerDTO.Password == null)
             {
-                UserName = registerDTO.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
-                PasswordSalt = hmac.Key
-            };
+                user.Email = registerDTO.Email;
+                user.UserName = registerDTO.Username;
+            }
+            else
+            {
+                using var hmac = new HMACSHA512();
+
+
+                user.UserName = registerDTO.Username;
+                    user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password));
+                    user.PasswordSalt = hmac.Key;
+            }
 
             context.User.Add(user);
             await context.SaveChangesAsync();

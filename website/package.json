@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^17.3.1",
     "@angular/platform-browser-dynamic": "^17.3.1",
     "@angular/router": "^17.3.1",
+    "@react-oauth/google": "^0.12.2",
     "bootstrap": "^5.3.3",
     "leaflet": "^1.9.4",
     "mat-select-search": "^1.2.21",

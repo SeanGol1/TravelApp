@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Google.Apis.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using TravelPlannerApp.Data;
 using TravelPlannerApp.Dto;
 using TravelPlannerApp.Models;
@@ -108,6 +109,42 @@ namespace TravelPlannerApp.Controllers
                 Token = _tokenService.CreateToken(user)
             };
         }
+
+        [HttpPost("google")]
+        public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginRequest request)
+        {
+            try
+            {
+                var payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken);
+
+                // Check if user exists in DB
+                var user = new User { };
+                //var user = await _userRepo.GetUserByEmailAsync(payload.Email);
+                if (user == null)
+                {
+                    // Create new user
+                    user = new User
+                    {
+                        Email = payload.Email,
+                        UserName = payload.Name,
+                    };
+                    //await _userRepo.Register(user);
+                }
+
+                // Generate your own JWT for your app
+                return Ok(new { token = _tokenService.CreateToken(user), user });
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { error = "Invalid Google token", details = ex.Message });
+            }
+        }
+    
+
+    public class GoogleLoginRequest
+    {
+        public string IdToken { get; set; } = string.Empty;
+}
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]

@@ -8,3 +8,8 @@ export interface UserLogin{
     username: string;
     password:string;
 }
+
+export interface GoogleLogin{
+    username: string;
+    email:string;
+}

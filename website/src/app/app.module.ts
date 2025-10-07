@@ -73,6 +73,7 @@ import { ExpediaWidgetComponent } from "./expedia-widget/expedia-widget.componen
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
+import { GoogleRedirectComponent } from './google-redirect/google-redirect.component';
 
 @NgModule({
   declarations: [
@@ -108,8 +109,9 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
     BoatAnimationComponent,
     TaxiAnimationComponent,
     PlanListItemComponent,
-    EditUserComponent
-  
+    EditUserComponent,
+    GoogleRedirectComponent,
+    // ExpediaWidgetComponent,
   ],
   imports: [
     BrowserModule,
@@ -146,7 +148,8 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
     NgxSpinnerModule,
     MatButtonToggleModule,
     ExpediaWidgetComponent,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    
 ],
   providers: [  
     provideAnimationsAsync(),

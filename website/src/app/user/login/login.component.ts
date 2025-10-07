@@ -6,6 +6,9 @@ import { DataService } from 'src/app/data.service';
 import { Plan } from 'src/app/models/plan';
 import { User } from 'src/app/models/user';
 import { ToastService } from 'src/app/toast.service';
+import { environment } from 'src/environments/environment';
+
+//declare const google: any;
 
 @Component({
   selector: 'app-login',
@@ -17,7 +20,7 @@ export class LoginComponent implements OnInit{
   modelUser: any = {} 
   plan: Plan| undefined;
   user:User| undefined;
-  //private toast = inject(ToastrService);
+  baseUrl = environment.apiUrl + 'google';
 
   constructor(public data: DataService, public accountService: AccountService,private route:ActivatedRoute,private router:Router,private toast: ToastrService) {
   }
@@ -38,7 +41,42 @@ export class LoginComponent implements OnInit{
         }
       });
     }
-  }
+
+  //   google.accounts.id.initialize({
+  //     client_id: 'YOUR_GOOGLE_CLIENT_ID',
+  //     callback: this.handleCredentialResponse.bind(this),
+  //   });
+
+  //   google.accounts.id.renderButton(
+  //     document.getElementById('googleButton')!,
+  //     { theme: 'outline', size: 'large' }
+  //   );
+   }
+
+  // handleCredentialResponse(response: any) {
+  //   const token = response.credential;
+  //   // Send this token to your backend API
+  //   fetch('https://yourapi.azurewebsites.net/api/auth/google', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ idToken: token })
+  //   })
+  //   .then(res => res.json())
+  //   .then(user => {
+  //     console.log('User logged in:', user);
+  //   });
+ // }
+
+//   onSignIn(googleUser) {
+//   var profile = googleUser.getBasicProfile();
+//   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+//   console.log('Name: ' + profile.getName());
+//   console.log('Image URL: ' + profile.getImageUrl());
+//   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+//   this.modelUser.email = profile.getEmail();
+//   this.modelUser.password = profile.getId();
+//   this.register();
+// }
 
   login() {
     this.accountService.login(this.modelUser).subscribe({

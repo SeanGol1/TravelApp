@@ -4,6 +4,8 @@ import * as L from 'leaflet';
 import { Icon } from 'leaflet'
 import { Plan } from '../models/plan';
 import { DataService } from '../data.service';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-map',
@@ -17,8 +19,30 @@ export class MapComponent implements AfterViewInit {
   pastMarkerList: any = [];
   allMarker: boolean = true; 
   refCityList: any = [];
+  isFullScreen = false;
 
   private map;
+
+  constructor(private data: DataService, private route: ActivatedRoute,private toastr: ToastrService ) {
+    
+   }
+
+  ngAfterViewInit(): void {
+    if(!this.plan){
+      var planid = Number(this.route.snapshot.paramMap.get('id')); 
+      this.data.getPlanById(planid).subscribe({
+        next: plan => {
+          this.plan = plan
+        },
+        error: err => {
+          console.log(err);
+          this.toastr.error("Error loading Map");
+        }
+      });
+    }
+    this.initMarkers();
+  }
+
 
   private initMap(lat:number,lng:number ): void {
     this.map = L.map('map', {
@@ -42,7 +66,10 @@ export class MapComponent implements AfterViewInit {
   private initMarkers(){
 
     const myIcon = L.icon({
-      iconUrl: 'assets/images/marker-icon.png'
+      iconUrl: 'assets/images/marker-icon.png',
+      iconSize:     [25, 41], // size of the icon
+      iconAnchor:   [12.5, 41], // point of the icon which will correspond to marker's location
+      popupAnchor:  [0, -40] // point from which the popup should open relative to the iconAnchor
     });
 
     this.data.plan$.subscribe(p => this.plan = p)
@@ -70,11 +97,16 @@ export class MapComponent implements AfterViewInit {
 
 
   }
-
-  constructor(private data: DataService) { }
-
-  ngAfterViewInit(): void {
-    this.initMarkers();
+toggleFullScreen() {
+  this.isFullScreen = !this.isFullScreen;
+  const container = document.querySelector('.map-container');
+  if (container) {
+    if (this.isFullScreen) {
+      container.classList.add('fullscreen');
+    } else {
+      container.classList.remove('fullscreen');
+    }
   }
+}
 
 }

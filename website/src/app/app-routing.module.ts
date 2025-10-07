@@ -7,6 +7,7 @@ import { AddUserPlanComponent } from './plan/add-user-plan/add-user-plan.compone
 import { LoginComponent } from './user/login/login.component';
 import { MapComponent } from './map/map.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
+import { GoogleRedirectComponent } from './google-redirect/google-redirect.component';
 
 const routes: Routes = [
   { path: '',  component:HomeComponent},
@@ -15,7 +16,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/:id', component: LoginComponent },
   { path: 'map/:id', component: MapComponent },
-  { path: 'edituser/:username', component: EditUserComponent }
+  { path: 'edituser/:username', component: EditUserComponent },
+  { path: 'google', component: GoogleRedirectComponent }
+
   
 ];
 

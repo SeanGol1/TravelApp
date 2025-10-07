@@ -37,6 +37,11 @@ export class AccountService {
     )
   }
 
+  loginWithGoogle(credentials:any){
+    console.log(credentials);
+    return null;
+  }
+
   setCurrentUser(user: User){
     this.currentUserSource.next(user);
   }
