@@ -11,7 +11,6 @@ namespace TravelPlannerApp.Models
         public List<City> Cities { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DefaultValue(0)]
         public int SortOrder { get; set; } = 0;
     }

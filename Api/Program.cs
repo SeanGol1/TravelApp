@@ -5,24 +5,30 @@ using Microsoft.Extensions.Options;
 using TravelPlannerApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddDbContext<TravelPlannerAppContext>(options =>
-//    //options.UseSqlServer(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
-//    options.UseSqlite(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found.")));
 
 builder.Services.AddDbContext<TravelPlannerAppContext>(options =>
 {
     //var connectionString = Environment.GetEnvironmentVariable("TRAVEL_PLANNER_AZ_CONNECTION");
-    //var connectionString = builder.Configuration.GetConnectionString("TravelPlannerAppContext");
-    var connectionString = "Server=tcp:travelplannerapp.database.windows.net,1433;Initial Catalog=TravelPlannerDB;Persist Security Info=False;User ID=seangol1;Password=KitkatChunky!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
-    //var connectionString = "Data Source=TravelPlannerAppContext-b92c459d-4a09-42f2-83af-48841da9d3f1.db";
-    //if (string.IsNullOrEmpty(connectionString))
-    //{
-    //    throw new InvalidOperationException("Connection string is not set.");
-    //}
+    var connectionString = builder.Configuration.GetConnectionString("TravelPlannerAppContext");
+    options.UseSqlServer(connectionString ?? throw new InvalidOperationException("Connection string not found."));
 
-    //options.UseSqlite(connectionString);
-    options.UseSqlServer(connectionString ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found."));
+});
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCors", policy =>
+    {
+        policy.AllowAnyOrigin()//.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+
+    options.AddPolicy("ProdCors", policy =>
+    {
+        policy.WithOrigins("https://backpackererapp.web.app")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
 
 //builder.Services.AddHealthChecks().AddDbContextCheck<TravelPlannerAppContext>();
@@ -49,25 +55,30 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());//.WithOrigins("https://localhost:4200", "http://localhost:4200", "http://192.168.15.216:4200", "http://85.134.166.37:4200")
+//app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());//.WithOrigins("https://localhost:4200", "http://localhost:4200", "http://192.168.15.216:4200", "http://85.134.166.37:4200")
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("DevCors");
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+else
+{
+    app.UseCors("ProdCors");
+}
 
 //app.MapHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-//using (var scope = app.Services.CreateScope())
+//if (app.Environment.IsDevelopment())
 //{
-//    var db = scope.ServiceProvider.GetRequiredService<TravelPlannerAppContext>();
-//    db.Database.Migrate();
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
 //}
 
 app.UseHttpsRedirection();
 
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

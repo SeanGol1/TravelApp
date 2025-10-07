@@ -55,9 +55,11 @@ namespace TravelPlannerApp.Data
             try
             {
                 refCity = await context.RefCity.Where(x => x.Name == city).FirstAsync();
+                //If refCity doesnt exist add. 
             }
             catch(Exception e)
             {
+                refCity = await GetRefCityByName(city,"");
                 throw new Exception("City not found!");
             }
             

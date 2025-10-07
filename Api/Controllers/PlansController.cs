@@ -67,6 +67,10 @@ namespace TravelPlannerApp.Controllers
         [HttpGet("userplanlist/{username}")]
         public async Task<ActionResult<IEnumerable<Plan>>> GetPlanByUser(string username)
         {
+            if (!await _context.Database.CanConnectAsync())
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database unavailable");
+            }
             try
             {
                 return Ok(await _repo.GetPlansbyUserAsync(username));
