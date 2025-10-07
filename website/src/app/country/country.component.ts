@@ -145,6 +145,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
       next: c => {
         if(c){
         //data.countryId = this.country.id;
+        c.startdate = formatDate(c.startDate, 'yyyy-MM-dd', 'en-US');
         this.data.updateCountry(c).subscribe({
           next: country => {
             this.toastr.success('Country updated');
@@ -185,6 +186,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
   deleteCountry(){
     this.data.deleteCountry(this.country.id).subscribe({
       next: country => {
+        //TODO: remove country from plan
       }
     });
   }

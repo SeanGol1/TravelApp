@@ -9,8 +9,8 @@ namespace TravelPlannerApp.Models
         public string Name { get; set; } = string.Empty;
         public Plan Plan { get; set; }
         public List<City> Cities { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public DateOnly? StartDate { get; set; }
+        public DateOnly? EndDate { get; set; }
         [DefaultValue(0)]
         public int SortOrder { get; set; } = 0;
     }
