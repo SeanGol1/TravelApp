@@ -108,6 +108,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  aiGenPlan() {
+    this.router.navigate(['/aigenplan']);
+  }
+
 
 
 }

@@ -78,6 +78,11 @@ export class DataService {
         this.isAdminSource.next(isadmin);
     }
 
+    aiGenPlan(data: any) {
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.post<any>(this.baseUrl + 'plans/aigenplan', data , { 'headers': this.headers });
+    }
+
     createPlan(data: any) {
         this.headers.set('Access-Control-Allow-Origin', '*');
         const plan = this.http.post<Plan>(this.baseUrl + 'plans/', data, { 'headers': this.headers });

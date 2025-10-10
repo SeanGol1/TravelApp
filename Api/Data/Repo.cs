@@ -1,8 +1,10 @@
-﻿using Humanizer;
+﻿using Azure.Core;
+using Humanizer;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Nancy.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NuGet.Protocol;
 using System;
@@ -11,6 +13,7 @@ using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -35,6 +38,323 @@ namespace TravelPlannerApp.Data
             userRepo = _userRepo;
             config = _config;
             httpClient = _httpClient;
+        }
+
+        public async Task<Plan> GenerateAiPlan(AiPlanDto dto)
+        {
+            string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+            string strCountry = "";
+            foreach (var country in dto.Countries)
+            {
+                strCountry += country + ", ";
+            }
+            string prompt = $$"""
+                                Act as a travel planner AI. Create a detailed travel itinerary for a trip to the following countries: {{strCountry}}, 
+                                including must-see attractions and local experiences. 
+
+                Return a complete and realistic json object initializer for the plan in the following format:
+
+                Plan: {
+                    Countries: List of Country objects, each with:
+                        { Name: (string name),
+                        Cities: List of City objects, each with:
+                            { Name: (string name),
+                            ToDos: List of ToDo objects, each with:
+                                { Name: (string name)} }
+                            }
+                        }
+                     }
+                Ensure the itinerary is well-structured, culturally rich, and provides a balance of activities.
+                Do not include any special characters if possible. 
+                Keep the full response within 400 tokens.
+                Use double quotes around all property names and values.
+                No trailing commas.
+                No comments, markdown, or explanation text.
+                Ensure JSON is syntactically complete and valid.
+
+
+                                
+                
+                """;
+            var body = new
+            {
+                model = "gpt-3.5-turbo",
+                messages = new[]
+               {
+                    new { role = "user", content = prompt }
+                },
+                max_tokens = 400,
+                temperature = 0.7
+            };
+
+            var requestContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+            try
+            {
+                var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", requestContent);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                // Step 1: Verify HTTP success
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception($"OpenAI API returned error: {response.StatusCode} - {responseContent}");
+                }
+
+                dynamic result;
+                try
+                {
+                    result = JsonConvert.DeserializeObject(responseContent);
+                }
+                catch (System.Text.Json.JsonException jsonEx)
+                {
+                    throw new Exception($"Failed to parse OpenAI API response JSON: {jsonEx.Message}\nResponseContent:\n{responseContent}");
+                }
+
+                string responseText = result.choices?[0]?.message?.content?.ToString();
+                if (string.IsNullOrWhiteSpace(responseText))
+                    throw new Exception("OpenAI returned an empty response or no choices.");
+
+                // Step 2: Extract raw JSON
+                string json;
+                try
+                {
+                    json = ExtractPlanJsonFromResponse(responseText);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Failed to extract JSON from OpenAI response:\n{responseText}\nError: {ex.Message}");
+                }
+
+                // Step 3: Parse JSON safely
+                JObject parsed;
+                try
+                {
+                    parsed = JObject.Parse(json);
+                }
+                catch (JsonReaderException readerEx)
+                {
+                    throw new Exception($"Malformed JSON while parsing OpenAI plan:\n{json}\nError: {readerEx.Message}");
+                }
+
+                // Step 4: Map to Plan object
+                Plan plan;
+                try
+                {
+                    JToken planToken = parsed["Plan"] ?? parsed;
+                    plan = planToken.ToObject<Plan>();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Failed to map JSON to Plan object:\n{json}\nError: {ex.Message}");
+                }
+
+                // Step 5: Validate structure
+                if (plan?.Countries == null || plan.Countries.Count == 0)
+                    throw new Exception($"Plan has no countries. JSON:\n{json}");
+
+                plan.PlanName = dto.Name ?? "My Plan";
+
+                // Ensure lists are non-null
+                foreach (var c in plan.Countries)
+                {
+                    c.Cities ??= new List<City>();
+                    foreach (var ct in c.Cities)
+                    {
+                        ct.ToDos ??= new List<ToDo>();
+                    }
+                }
+
+                // Optional: log clean JSON for debugging
+                Console.WriteLine("Clean JSON successfully parsed:\n" + json);
+
+                // Step 6: Save to DB
+                Plan newPlan = await CreatePlanAsync(new CreatePlanDto(plan.PlanName, dto.Username));
+
+                foreach (var c in plan.Countries)
+                {
+                    Country newCountry = await PostCountryAsync(new Country
+                    {
+                        Name = c.Name,
+                        Plan = newPlan
+                    });
+
+                    foreach (var ct in c.Cities)
+                    {
+                        City newCity = await PostCityAsync(new City
+                        {
+                            Name = ct.Name,
+                            Country = newCountry
+                        });
+
+                        foreach (var td in ct.ToDos)
+                        {
+                            await PostToDoAsync(new ToDo
+                            {
+                                Name = td.Name,
+                                City = newCity,
+                                Country = newCountry
+                            });
+                        }
+                    }
+                }
+
+                return newPlan;
+            }
+            catch (Exception ex)
+            {
+                // 👇 Deep diagnostic info for debugging
+                Console.WriteLine("----- ERROR OCCURRED -----");
+                Console.WriteLine($"Timestamp: {DateTime.UtcNow}");
+                Console.WriteLine($"Message: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner: {ex.InnerException.Message}");
+                }
+
+                throw new Exception($"Error creating travel plan: {ex.Message}");
+            }
+
+        }
+        /*
+        public async Task<Plan> GenerateAiPlan(AiPlanDto dto)
+        {
+            string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+            string strCountry = "";
+            foreach (var country in dto.Countries)
+            {
+                strCountry += country + ", ";
+            }
+            string prompt = $$"""
+                                Act as a travel planner AI. Create a detailed travel itinerary for a trip to the following countries: {{strCountry}}, 
+                                including must-see attractions and local experiences. 
+
+                Return a complete and realistic json object initializer for the plan in the following format:
+
+                Plan: {
+                    Countries: List of Country objects, each with:
+                        { Name: (string name),
+                        Cities: List of City objects, each with:
+                            { Name: (string name),
+                            ToDos: List of ToDo objects, each with:
+                                { Name: (string name)} }
+                            }
+                        }
+                     }
+                Ensure the itinerary is well-structured, culturally rich, and provides a balance of activities.
+                Do not include any special characters if possible. 
+
+
+                                
+                
+                """;
+            var body = new
+            {
+                model = "gpt-3.5-turbo",
+                messages = new[]
+               {
+                    new { role = "user", content = prompt }
+                },
+                max_tokens = 400,
+                temperature = 0.7
+            };
+
+            var requestContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+            try
+            {
+                var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", requestContent);
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                dynamic result = JsonConvert.DeserializeObject(responseContent);
+                string responseText = result.choices[0].message.content;
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception($"OpenAI API returned error: {response.StatusCode} - {responseContent}");
+                }
+
+                string json = ExtractPlanJsonFromResponse(responseText);
+
+                // Some OpenAI responses wrap the plan like { "Plan": { ... } }
+                JObject parsed = JObject.Parse(json);
+                JToken planToken = parsed["Plan"] ?? parsed; // if not nested
+
+                Plan plan = planToken.ToObject<Plan>();
+                plan.PlanName = dto.Name ?? "My Plan";
+
+                // optional: ensure list properties are never null
+                plan.Countries ??= new List<Country>();
+                foreach (var country in plan.Countries)
+                {
+                    country.Cities ??= new List<City>();
+                    foreach (var city in country.Cities)
+                    {
+                        city.ToDos ??= new List<ToDo>();
+                    }
+                }
+
+                Plan newPlan = await CreatePlanAsync(new CreatePlanDto(plan.PlanName, dto.Username));
+
+                foreach(var c in plan.Countries)
+                {
+                    Country newCountry = new Country()
+                    {
+                        Name = c.Name,
+                        Plan = newPlan
+                    };
+
+                    newCountry = await PostCountryAsync(newCountry);
+
+                    foreach(var ct in c.Cities)
+                    {
+                        City newCity = new City()
+                        {
+                            Name = ct.Name,
+                            Country = newCountry
+                        };
+
+                        newCity = await PostCityAsync(newCity);
+
+                        foreach(var td in ct.ToDos)
+                        {
+                            ToDo newTodo = new ToDo()
+                            {
+                                Name = td.Name,
+                                City = newCity,
+                                Country = newCountry
+                            };
+
+                            newTodo = await PostToDoAsync(newTodo);
+                        }
+                    }
+                }
+
+                return plan;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            
+     
+        } */
+
+        private string ExtractPlanJsonFromResponse(string responseText)
+        {
+            // Find the first '{' and the last '}'
+            int startIndex = responseText.IndexOf('{');
+            int endIndex = responseText.LastIndexOf('}');
+
+            if (startIndex >= 0 && endIndex > startIndex)
+            {
+                return responseText.Substring(startIndex, endIndex - startIndex + 1);
+            }
+
+            throw new Exception("No valid JSON object found in response.");
         }
 
         public async Task<IEnumerable<City>> GetCityAsync()
@@ -108,7 +428,7 @@ namespace TravelPlannerApp.Data
             var json = await response.Content.ReadAsStringAsync();
 
             // Deserialize JSON into your model
-            var result = JsonSerializer.Deserialize<PlaceDetailsResponse>(json, new JsonSerializerOptions
+            var result = System.Text.Json.JsonSerializer.Deserialize<PlaceDetailsResponse>(json, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });

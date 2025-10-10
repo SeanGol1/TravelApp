@@ -21,6 +21,7 @@ namespace TravelPlannerApp.Data
         Task<IEnumerable<Plan>> GetPlansbyUserAsync(string username);
         Task<IEnumerable<AddUserPlanDto>> GetUserbyPlanAsync(int id);
         Task<bool> IsAdminCheck(int planId, string username);
+        Task<Plan> GenerateAiPlan(AiPlanDto dto);
         #endregion
 
 

@@ -74,6 +74,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { GoogleRedirectComponent } from './google-redirect/google-redirect.component';
+import { AiGenPlanComponent } from './plan/ai-gen-plan/ai-gen-plan.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,7 @@ import { GoogleRedirectComponent } from './google-redirect/google-redirect.compo
     PlanListItemComponent,
     EditUserComponent,
     GoogleRedirectComponent,
-    // ExpediaWidgetComponent,
+    AiGenPlanComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+<div class="ai-container">
+
+<h4>Enter Countries you want to visit</h4>
+<div class="nb-3 row">
+    <div class="col-6"><input type="text" class="form-control" name="name" [(ngModel)]="country" placeholder="Plan Name"></div>
+    <div class="col-6"><button mat-flat-button color="primary" (click)="addCountry()">Add Country</button></div>
+</div>
+<div>
+    <li class="temp-country-list">
+        <ul *ngFor="let c of countryList">
+            <h4>{{c}}</h4> 
+            <button (click)="removeCountry(c)">X</button>
+        </ul>
+    </li>
+</div>
+
+<br/>
+<button mat-flat-button color="primary" (click)="generatePlan()">Generate Plan</button>
+
+
+</div>

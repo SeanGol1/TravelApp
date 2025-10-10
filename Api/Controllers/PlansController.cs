@@ -102,6 +102,20 @@ namespace TravelPlannerApp.Controllers
             }
         }
 
+        [Route("aigenplan")]
+        [HttpPost]
+        public async Task<ActionResult<Plan>> AiGeneratePlan(AiPlanDto dto)
+        {
+            try
+            {
+                return await _repo.GenerateAiPlan(dto);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
 
         // PUT: api/Plans/5
