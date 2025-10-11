@@ -459,14 +459,26 @@ namespace TravelPlannerApp.Data
 
         public async Task<IEnumerable<Plan>> GetPlansbyUserAsync(string username)
         {
-            //Get all Campaign info by user id
-            var query = from p in context.Plan
-                        join up in context.UserPlan on p.Id equals up.Plan.Id
-                        join u in context.User on up.User.Id equals u.Id
-                        where u.UserName.ToLower() == username.ToLower()
-                        select p;
+            var query = context.Plan
+                .Join(context.UserPlan,
+                    p => p.Id,
+                    up => up.Plan.Id,
+                    (p, up) => new { p, up })
+                .Join(context.User,
+                    temp => temp.up.User.Id,
+                    u => u.Id,
+                    (temp, u) => new { temp.p, temp.up, u })
+                .Where(x => x.u.UserName.ToLower() == username.ToLower())
+                .Select(x => new Plan
+                {
+                    Id = x.p.Id,
+                    PlanName = x.p.PlanName,
+                    JoinCode = x.p.JoinCode,
+                    IsAdmin = x.up.IsAdmin
+                });
 
-            return await query.ToListAsync();
+            var result = await query.ToListAsync();
+            return result;
         }
 
         public async Task<IEnumerable<AddUserPlanDto>> GetUserbyPlanAsync(int id)

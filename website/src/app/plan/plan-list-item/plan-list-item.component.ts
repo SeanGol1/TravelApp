@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class PlanListItemComponent implements OnInit {
   @Input() plan:Plan;
   @Output() removed = new EventEmitter<number>(); // plan id
-  isadmin:boolean;
+  // isadmin:boolean;
   user: User | undefined;
 
 
@@ -26,11 +26,12 @@ export class PlanListItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountService.currentUser$.subscribe(user=>this.user=user);
-    this.data.isAdminCheck(this.plan.id, this.user.username).subscribe({
-      next:isadmin=>{
-        this.isadmin = isadmin;
-      }
-    })
+    console.log(this.plan);
+    // this.data.isAdminCheck(this.plan.id, this.user.username).subscribe({
+    //   next:isadmin=>{
+    //     this.isadmin = isadmin;
+    //   }
+    // })
   }
 
 

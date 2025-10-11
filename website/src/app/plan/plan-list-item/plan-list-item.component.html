@@ -4,7 +4,7 @@
     </div>
     <div class="col-4">
       <button mat-flat-button color="warn" (click)="leavePlan(plan)">Leave</button>
-      <ng-container *ngIf="isadmin">
+      <ng-container *ngIf="plan.isAdmin">
       <hr/>
       <button mat-flat-button color="warn" (click)="deletePlan(plan)" >Delete</button>
     </ng-container>

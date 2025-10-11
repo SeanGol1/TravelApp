@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   title = 'TravelPlanner';
   user: User | undefined;
   modelPlan: any = {}
-  planList: Plan[] = [];
+  planList: any[] = [];
 
 
   constructor(public data: DataService, public accountService: AccountService, private router: Router, public dialog: MatDialog,private toastr: ToastrService) {

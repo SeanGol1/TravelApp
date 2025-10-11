@@ -51,7 +51,7 @@ export class DataService {
 
     getPlanByUser(username: string) {
         this.headers.set('Access-Control-Allow-Origin', '*');
-        return this.http.get<Plan[]>(this.baseUrl + 'plans/userplanlist/' + username, { 'headers': this.headers });
+        return this.http.get<any[]>(this.baseUrl + 'plans/userplanlist/' + username, { 'headers': this.headers });
     }
 
     addUserToPlan(data: any) {

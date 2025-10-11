@@ -5,4 +5,5 @@ export interface Plan {
     planName : string;
     countries: Country[];
     joinCode: number;
+    isAdmin: boolean;
 }
