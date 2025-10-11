@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit{
   plan: Plan| undefined;
   user:User| undefined;
   baseUrl = environment.apiUrl + 'google';
+  isRegisterMode = false;
 
   constructor(public data: DataService, public accountService: AccountService,private route:ActivatedRoute,private router:Router,private toast: ToastrService) {
   }
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit{
         }
       });
     }
+    
 
   //   google.accounts.id.initialize({
   //     client_id: 'YOUR_GOOGLE_CLIENT_ID',
@@ -78,6 +80,17 @@ export class LoginComponent implements OnInit{
 //   this.register();
 // }
 
+submit() {
+  if (this.isRegisterMode) {
+    this.register();
+  } else {
+    this.login();
+  }
+}
+
+toggleMode() {
+  this.isRegisterMode = !this.isRegisterMode;
+}
   login() {
     this.accountService.login(this.modelUser).subscribe({
       next: user => {

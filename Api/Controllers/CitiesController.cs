@@ -49,6 +49,19 @@ namespace TravelPlannerApp.Controllers
             return city;
         }
 
+        [HttpGet("getcitybyname/{name}")]
+        public async Task<ActionResult<City>> GetCityByName(string name)
+        {
+            var city = await _context.City.Where(x=>x.Name.ToLower() == name.ToLower()).FirstOrDefaultAsync();
+
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            return city;
+        }
+
         [HttpGet("cityref/{id}")]
         public async Task<IEnumerable<RefCity>> GetRefCity(int id)
         {

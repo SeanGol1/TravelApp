@@ -75,6 +75,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { GoogleRedirectComponent } from './google-redirect/google-redirect.component';
 import { AiGenPlanComponent } from './plan/ai-gen-plan/ai-gen-plan.component';
+import { CountryDetailsComponent } from './country/country-details/country-details.component';
+import { CityDetailsComponent } from './city/city-details/city-details.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,9 @@ import { AiGenPlanComponent } from './plan/ai-gen-plan/ai-gen-plan.component';
     PlanListItemComponent,
     EditUserComponent,
     GoogleRedirectComponent,
-    AiGenPlanComponent
+    AiGenPlanComponent,
+    CountryDetailsComponent,
+    CityDetailsComponent
   ],
   imports: [
     BrowserModule,

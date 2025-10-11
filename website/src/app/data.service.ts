@@ -139,7 +139,12 @@ export class DataService {
     getRefCountryById(id: number) {
         return this.http.get<any[]>(this.baseUrl + 'countries/refcountries/' + id, { 'headers': this.headers });
     }
+
     // City
+    getCityByName(name:string) {
+        return this.http.get<City>(this.baseUrl + 'cities/getcitybyname/' + name, { 'headers': this.headers });
+    }
+
 
     createCity(data: CityDialogData) {
         this.headers.set('Access-Control-Allow-Origin', '*');
@@ -323,50 +328,32 @@ export class DataService {
         return country;
     }
 
-    getAmadeusKey() {
-        let xheaders = new HttpHeaders()
-            .set('content-type', 'application/x-www-form-urlencoded');
-        let body = new URLSearchParams();
-        body.set('grant_type', 'client_credentials');
-        body.set('client_id', environment.amadeus_client_id);
-        body.set('client_secret', environment.amadeus_client_secret);
-        return this.http.post(environment.amadeus_url + 'security/oauth2/token', body, { 'headers': xheaders });
-    }
+    // getAmadeusKey() {
+    //     let xheaders = new HttpHeaders()
+    //         .set('content-type', 'application/x-www-form-urlencoded');
+    //     let body = new URLSearchParams();
+    //     body.set('grant_type', 'client_credentials');
+    //     body.set('client_id', environment.amadeus_client_id);
+    //     body.set('client_secret', environment.amadeus_client_secret);
+    //     return this.http.post(environment.amadeus_url + 'security/oauth2/token', body, { 'headers': xheaders });
+    // }
 
-    getCity(name: string): Observable<any> {
-        // var accessToken
-        // try {
-        //   this.getAmadeusKey().subscribe({
-        //     next: (access) => {
-        //       accessToken = access;
-        //       let xheaders = new HttpHeaders()
-        //       xheaders.set('Authorization', 'Bearer ' + accessToken["access_token"]);
-        //       xheaders.set('content-type', 'application/vnd.amadeus+json');
-        //       return this.http.get('https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=' + name + '&max=1', { 'headers': xheaders })
-        //     },
-        //     error: (e) => {
-        //       console.log(e);
-        //     }
-        //   });
-        // }
-        // catch (e) {
-        //   console.log(e.message);
-        // }
+    // getCity(name: string): Observable<any> {
 
-        // return null
+    //     // return null
 
-        // TODO: Change this to read LATLNG from RefCity Table
-        return this.getAmadeusKey().pipe(
-            switchMap((accessToken) => {
-                const headers = new HttpHeaders()
-                    .set('Authorization', 'Bearer ' + accessToken["access_token"])
-                    .set('Content-Type', 'application/vnd.amadeus+json');
+    //     // // TODO: Change this to read LATLNG from RefCity Table
+    //     // return this.getAmadeusKey().pipe(
+    //     //     switchMap((accessToken) => {
+    //     //         const headers = new HttpHeaders()
+    //     //             .set('Authorization', 'Bearer ' + accessToken["access_token"])
+    //     //             .set('Content-Type', 'application/vnd.amadeus+json');
 
-                return this.http.get(environment.amadeus_url + 'reference-data/locations/cities?keyword=' + name + '&max=1', { headers });
-            })
-        );
+    //     //         return this.http.get(environment.amadeus_url + 'reference-data/locations/cities?keyword=' + name + '&max=1', { headers });
+    //     //     })
+    //     // );
 
-    }
+    // }
 
 
     // getPOI(latlng: number[]) {//: Observable<any>
