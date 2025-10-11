@@ -11,12 +11,13 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-.example-container {
+/* .example-container {
     width: 500px;
     height: 300px;
     border: 1px solid rgba(0, 0, 0, 0.5);
-  }
+  } */
 
   .temp-country-list{
     list-style-type: none;
+    margin-top:5%;
   }

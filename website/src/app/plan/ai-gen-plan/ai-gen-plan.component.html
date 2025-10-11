@@ -1,15 +1,41 @@
 <div class="ai-container">
 
 <h4>Enter Countries you want to visit</h4>
-<div class="nb-3 row">
-    <div class="col-6"><input type="text" class="form-control" name="name" [(ngModel)]="country" placeholder="Plan Name"></div>
-    <div class="col-6"><button mat-flat-button color="primary" (click)="addCountry()">Add Country</button></div>
+<br/>
+<div class="nb-3 ">
+    <input #input
+           type="text"
+           placeholder="Type Country to Search"
+           matInput
+           [(ngModel)]="country"
+           [matAutocomplete]="auto"
+           (input)="filter()"
+           (focus)="filter()">
+
+    <mat-autocomplete requireSelection #auto="matAutocomplete" (optionSelected)="addCountry($event.option.value)">
+  @for (option of filteredOptions; track option) {
+    <mat-option
+      [value]="option"
+      [disabled]="isInList(option)">
+      <span [class.selected]="isInList(option)">
+        {{ option }}
+        <!-- <mat-icon *ngIf="isInList(option)" style="float: right;">check</mat-icon> -->
+      </span>
+    </mat-option>
+  }
+</mat-autocomplete>
+
+
 </div>
 <div>
     <li class="temp-country-list">
         <ul *ngFor="let c of countryList">
-            <h4>{{c}}</h4> 
-            <button (click)="removeCountry(c)">X</button>
+            <div class="row">
+                <div class="col-5 mx-2"><h4>{{c}} </h4></div>
+                <div class="col-5  mx-2"><button mat-flat-button color="primary" (click)="removeCountry(c)">X</button></div> <!--warn-->
+            </div>
+            
+            <!-- <button (click)="removeCountry(c)">X</button> -->
         </ul>
     </li>
 </div>
