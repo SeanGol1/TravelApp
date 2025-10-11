@@ -18,9 +18,19 @@ user: User| undefined;
 
   ngOnInit(): void {
     const userString = localStorage.getItem('user');
-    if(userString != ''){
-      const user:User = JSON.parse(userString);    
-      this.account.setCurrentUser(user);
+    if(userString != '' && userString){
+      const user:any = JSON.parse(userString);
+      const now = new Date();
+      const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+      if (user.datestamp && new Date(user.datestamp) > twentyFourHoursAgo) {
+        this.account.setCurrentUser(user);
+      }
+      else{
+        this.account.logout();
+      }
+
+      
     }
   }
 
