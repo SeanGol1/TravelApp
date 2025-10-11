@@ -9,10 +9,11 @@ namespace TravelPlannerApp.Data
     public class UserRepo : IUserRepo
     {
         private readonly TravelPlannerAppContext context;
-
-        public UserRepo(TravelPlannerAppContext _DbContext)
+        private readonly IFunctionRepo _frepo;
+        public UserRepo(TravelPlannerAppContext _DbContext, IFunctionRepo frepo)
         {
             this.context = _DbContext;
+            _frepo = frepo;
         }
         public async Task<IEnumerable<User>> GetUserAsync()
         {
@@ -62,10 +63,15 @@ namespace TravelPlannerApp.Data
 
         public async Task<Plan> CreateDemoPlan(User user)
         {
+            int rndId = _frepo.GenerateId();
+            while (_frepo.PlanCodeExists(rndId))
+            {
+                rndId = _frepo.GenerateId();
+            }
             var plan = new Plan
             {
                 PlanName = "Demo Southeast Asia",
-                JoinCode = new Random().Next(100000, 999999),
+                JoinCode = rndId,
                 Countries = new List<Country>
         {
             new Country

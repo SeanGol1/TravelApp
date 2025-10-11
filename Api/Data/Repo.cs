@@ -29,15 +29,17 @@ namespace TravelPlannerApp.Data
     {
         private readonly TravelPlannerAppContext context;
         private readonly IUserRepo userRepo;
+        private readonly IFunctionRepo _frepo;
         private readonly IConfiguration config;
         private readonly HttpClient httpClient;
-
-        public Repo(TravelPlannerAppContext _DbContext, IUserRepo _userRepo, IConfiguration _config,HttpClient _httpClient)
+        
+        public Repo(TravelPlannerAppContext _DbContext, IUserRepo _userRepo, IFunctionRepo frepo, IConfiguration _config,HttpClient _httpClient)
         {
             this.context = _DbContext;
             userRepo = _userRepo;
             config = _config;
             httpClient = _httpClient;
+            _frepo = frepo;
         }
 
         public async Task<Plan> GenerateAiPlan(AiPlanDto dto)
@@ -523,10 +525,10 @@ namespace TravelPlannerApp.Data
 
         public async Task<Plan> CreatePlanAsync(CreatePlanDto dto)
         {
-            int id = GenerateId();
-            while (PlanCodeExists(id))
+            int id = _frepo.GenerateId();
+            while (_frepo.PlanCodeExists(id))
             {
-                id = GenerateId();
+                id = _frepo.GenerateId();
             }
             Plan plan = new Plan() { PlanName = dto.Name, JoinCode = id };
             plan = context.Plan.Add(plan).Entity;
@@ -563,7 +565,7 @@ namespace TravelPlannerApp.Data
 
         public async Task<Plan> JoinPlanByCodeAsync(JoinByCodeDto dto)
         {
-            if (PlanCodeExists(dto.JoinCode))
+            if (_frepo.PlanCodeExists(dto.JoinCode))
             {
                 Plan plan = await context.Plan.Where(p => p.JoinCode == dto.JoinCode).FirstOrDefaultAsync();
                 UserPlan userPlan = new UserPlan() { Plan = plan, User = await userRepo.GetUserByUsernameAsync(dto.Username), IsAdmin = false };
@@ -581,20 +583,20 @@ namespace TravelPlannerApp.Data
 
         }
 
-        private bool PlanCodeExists(int id)
-        {
-            Plan plan = context.Plan.Where(p => p.JoinCode == id).FirstOrDefault();
+        //public bool PlanCodeExists(int id)
+        //{
+        //    Plan plan = context.Plan.Where(p => p.JoinCode == id).FirstOrDefault();
 
-            return plan == null ? false : true;
-        }
+        //    return plan == null ? false : true;
+        //}
 
-        private int GenerateId()
-        {
-            int id = 0;
-            Random r = new Random();
-            id = r.Next(100000, 999999);
-            return id;
-        }
+        //public int GenerateId()
+        //{
+        //    int id = 0;
+        //    Random r = new Random();
+        //    id = r.Next(100000, 999999);
+        //    return id;
+        //}
 
         public async Task<Plan> UpdatePlanAsync(Plan plan)
         {

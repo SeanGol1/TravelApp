@@ -97,6 +97,12 @@ export class LoginComponent implements OnInit{
   }
 
   register() {
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[\d\W]).{8,}$/;
+
+  if (!passwordRegex.test(this.modelUser.password)) {
+    this.toast.error('Password must be at least 8 characters long, contain 1 uppercase letter, and 1 number or special character.');
+    return;
+  }
     this.accountService.register(this.modelUser).subscribe({
       next: user=>{
         this.toast.success('Registration successful!');

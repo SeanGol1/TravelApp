@@ -36,6 +36,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IRepo, Repo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IFunctionRepo, FunctionRepo>();
 
 
 // Add services to the container.
