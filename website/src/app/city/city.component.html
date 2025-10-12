@@ -30,10 +30,14 @@
     }
   </div> -->
 
-  <mat-tab-group preserveContent (selectedTabChange)="onTabChange($event)">
+  <!-- <mat-tab-group preserveContent (selectedTabChange)="onTabChange($event)">
 
-    <mat-tab label="ToDo List">
+    <mat-tab label="ToDo List"> -->
       <br/>
+
+      <button mat-flat-button color="primary" (click)="exploreRedirect(city.name)">Explore</button>
+      <br/>
+
       <div>
         @for (todo of city?.toDos; track todo) {
         <app-todo [todo]="todo"></app-todo>
@@ -44,11 +48,10 @@
           ToDo item </p>
         <button mat-flat-button color="primary" (click)="openAddTodoDialog()">Add ToDo</button>
       </div>
-    </mat-tab>
+    <!-- </mat-tab>
     <mat-tab label="Explore">
       <br/>
 
-<!--  -->
 
       <div *ngIf="!attractions">
         <p>No attractions to show. Check that the city entered is correct.</p>
@@ -62,7 +65,7 @@
               <img *ngIf="a.photos[0]?.photo_Reference"
                 [src]=" baseUrl + 'cities/googlephoto/' + a.photos[0].photo_Reference" alt="{{a.name}}"
                 class="carousel-img" />
-              <!-- TODO: placeholder image if none available. -->
+              <!-- TODO: placeholder image if none available. 
               <div class="">
                 <h5>{{a.name}}</h5>
                 <p>⭐ {{ a.rating }}</p>
@@ -92,7 +95,7 @@
         </div>
       </div>
     </mat-tab>
-  </mat-tab-group>
+  </mat-tab-group> -->
 </div>
 
 <div *ngIf="travel" class="travel-item">

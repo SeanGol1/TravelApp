@@ -1,0 +1,57 @@
+.city-details-container{
+    margin:2%;
+}
+
+
+
+.carousel{
+  margin: 10px;
+}
+
+.getyourguide-widget{
+    margin: 20px;
+}
+
+
+.carousel-img {
+  height: 400px;
+  margin: 0 auto;       /* centers the image */
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); 
+  border-radius: 8px; 
+  object-fit: cover;
+}
+
+/* Keep carousel centered */
+.carousel-inner {
+  text-align: center;
+}
+
+/* Caption styling */
+.carousel-caption {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 80%;
+}
+
+/* Ensure controls are visible over images */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1); /* makes arrows white */
+  /* background-color: rgba(255, 255, 255, 0.2);  */
+
+    background-color: rgba(33, 33, 33, 0.7); /* dark semi-transparent */
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+   background-color: rgba(25, 130, 196, 0.85); /* accent color on hover */
+  color: #fff;
+}

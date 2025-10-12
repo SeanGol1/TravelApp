@@ -1,4 +1,56 @@
-<div *ngIf="city">
+<div *ngIf="city" class="city-details-container lbr">
     <h1>Explore {{city.name}}</h1>
-    <app-expedia-widget></app-expedia-widget>
+
+    <br />
+    <h4>Top Tours in the Area:</h4>
+    <!-- <div data-gyg-href="https://widget.getyourguide.com/default/city.frame" data-gyg-location-id="32408" data-gyg-locale-code="en-US" data-gyg-widget="city" data-gyg-partner-id="N3MCX1J"></div> -->
+    <div class="getyourguide-widget">
+        <div data-gyg-widget="auto" data-gyg-partner-id="N3MCX1J"></div>
+        <!-- <div data-gyg-href="https://widget.getyourguide.com/default/city.frame"  data-gyg-location-id="2"  data-gyg-locale-code="en-US" data-gyg-widget="city" data-gyg-partner-id="N3MCX1J"></div> -->
+    </div>
+
+    <br />
+
+    <h4>Top Attractions in the Area:</h4>
+    <div id="attractionsCarousel-{{city.id}}" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let a of attractions; let i = index" [ngClass]="{ 'active': i === 0 }">
+                <img *ngIf="a.photos[0]?.photo_Reference"
+                    [src]=" baseUrl + 'cities/googlephoto/' + a.photos[0].photo_Reference" alt="{{a.name}}"
+                    class="carousel-img" />
+                <!-- TODO: placeholder image if none available. -->
+                <div class="">
+                    <h5>{{a.name}}</h5>
+                    <p>⭐ {{ a.rating }}</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <a *ngIf="a.website" mat-flat-button color="primary" href="{{a.website}}" target="_blank">
+                                Visit Website
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <button *ngIf="(data.isAdmin$| async)" mat-flat-button color="primary"
+                                (click)="addAttraction(a.name)">Add to My List</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#attractionsCarousel-' + city.id"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#attractionsCarousel-' + city.id"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <!-- <app-expedia-widget></app-expedia-widget> -->
+    <div class="eg-widget" data-widget="search" data-program="ca-expedia" data-lobs="stays,flights" data-network="pz"
+        data-camref="1110ljAeV" data-pubref=""></div>
+
 </div>

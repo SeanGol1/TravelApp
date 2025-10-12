@@ -19,6 +19,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-city',
@@ -36,7 +37,7 @@ export class CityComponent implements AfterViewInit {
   baseUrl = environment.apiUrl;
 
 
-  constructor(public dialog: MatDialog, public data: DataService,private toastr: ToastrService) {
+  constructor(public dialog: MatDialog, public data: DataService,private toastr: ToastrService,private router:Router) {
   }
 
   ngAfterViewInit(): void {
@@ -48,6 +49,10 @@ export class CityComponent implements AfterViewInit {
     this.data.plan$.subscribe(p=>{
       this.plan = p;
     })
+  }
+
+  exploreRedirect(cityName:string){
+    this.router.navigate(['/explore-city/'+cityName]);
   }
 
 

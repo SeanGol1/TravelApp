@@ -142,7 +142,7 @@ export class DataService {
 
     // City
     getCityByName(name:string) {
-        return this.http.get<City>(this.baseUrl + 'cities/getcitybyname/' + name, { 'headers': this.headers });
+        return this.http.get<any>(this.baseUrl + 'cities/getcitybyname/' + name, { 'headers': this.headers });
     }
 
 

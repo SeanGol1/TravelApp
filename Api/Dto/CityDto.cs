@@ -1,4 +1,6 @@
-﻿namespace TravelPlannerApp.Dto
+﻿using TravelPlannerApp.Models;
+
+namespace TravelPlannerApp.Dto
 {
     public class CreateCityDto
     {
@@ -23,5 +25,12 @@
     {
         public Stream Stream { get; set; }
         public string ContentType { get; set; }
+    }
+
+    public class CityDetailsDto
+    {
+        public RefCity RefCity { get; set; }
+        public IEnumerable<RefCityAttractions> RefCityAttractions { get; set; }
+
     }
 }

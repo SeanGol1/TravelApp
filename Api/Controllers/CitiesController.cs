@@ -50,16 +50,24 @@ namespace TravelPlannerApp.Controllers
         }
 
         [HttpGet("getcitybyname/{name}")]
-        public async Task<ActionResult<City>> GetCityByName(string name)
+        public async Task<ActionResult<CityDetailsDto>> GetCityByName(string name)
         {
-            var city = await _context.City.Where(x=>x.Name.ToLower() == name.ToLower()).FirstOrDefaultAsync();
-
-            if (city == null)
-            {
+            //var city = await _context.City.Where(x=>x.Name.ToLower() == name.ToLower()).FirstOrDefaultAsync();
+            var refCity = await _context.RefCity.Where(x=>x.Name.ToLower() == name.ToLower()).FirstOrDefaultAsync();
+            
+            if (refCity == null)
                 return NotFound();
-            }
 
-            return city;
+
+            var refCityAtts = await _repo.GetCityAttractionsAsync(name);
+
+            CityDetailsDto dto = new CityDetailsDto()
+            {
+                RefCity = refCity,
+                RefCityAttractions = refCityAtts
+            };
+
+            return dto;
         }
 
         [HttpGet("cityref/{id}")]

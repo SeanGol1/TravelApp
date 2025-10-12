@@ -11,6 +11,10 @@
     border-radius: 10px;
 }
 
+.lbr{
+    background-color: rgba(227, 242, 253, 0.8);
+}
+
 .welcome-content {
     max-height: 100%;
     background-color: rgba(227, 242, 253, 0.8);
