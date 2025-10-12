@@ -17,4 +17,5 @@ Api/appsettings.json
 website/.firebase
 website/firebase.json
 website/.firebaserc
+website/reports
 

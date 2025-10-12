@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { City } from 'src/app/models/city';
@@ -16,7 +17,7 @@ export class CityDetailsComponent implements OnInit {
   baseUrl = environment.apiUrl;
   attractions: any[];
 
-  constructor(private activatedRoute:ActivatedRoute,public data: DataService,private toastr:ToastService,private router:Router){
+  constructor(private activatedRoute:ActivatedRoute,public data: DataService,private toastr:ToastService,private router:Router,private title: Title, private meta: Meta){
 
   }
 
@@ -30,6 +31,10 @@ export class CityDetailsComponent implements OnInit {
         }
         this.city=data.refCity;
         this.attractions = data.refCityAttractions;
+          this.title.setTitle('Travel To '+this.city.name+' - Backpackerer');
+          this.meta.updateTag({ name: 'description', content: 'Explore '+this.city.name+' with our AI-generated travel plans.' });
+           this.meta.updateTag({ name: 'keywords', content: 'travel, '+this.city.name+', itinerary, backpacker, plan' });
+
       },
       error: e=>{
         this.toastr.error('Could not load city details');
