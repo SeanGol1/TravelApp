@@ -10,19 +10,20 @@ Backpackerer is a full-stack travel itinerary planner designed for backpackers a
 
 **Frontend**  
 - Angular 15+  
-- Angular Material (optional)  
+- Angular Material 
 - RxJS / HttpClient
 
 **Backend**  
-- ASP.NET Core Web API (.NET 6 or later)  
+- ASP.NET Core Web API (.NET 9) 
 - Entity Framework Core  
-- SQLite (local) or SQL Server (optional)  
+- SQL Server  
 - JWT Authentication
 
 **Other**  
 - RESTful API Architecture  
 - Environment-based config handling  
-- Third-party APIs (e.g., GeoDB via RapidAPI)
+- Third-party APIs (e.g., Google Places)
+- Third-party Affiliate Widgets (e.g., GetYourGuide)
 
 ---
 
@@ -58,8 +59,6 @@ Set environment variables via `launchSettings.json`, PowerShell, or `.env` loade
 "environmentVariables": {
   "TRAVEL_PLANNER_CONNECTION": "Data Source=travelplanner.db",
   "TOKEN_KEY": "your-jwt-secret",
-  "RAPIDAPI_KEY": "your-rapidapi-key",
-  "RAPIDAPI_HOST": "wft-geo-db.p.rapidapi.com"
 }
 ```
 
@@ -128,7 +127,6 @@ backpackerer/
 ## 🧪 Future Features
 
 - ✈️ Flight and accommodation tracking
-- 🧾 Budget tracking and expenses
 - 🌐 PWA mode for offline use
 - 📱 Mobile app wrapper (Capacitor/Ionic)
 
