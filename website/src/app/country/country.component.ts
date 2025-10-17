@@ -123,7 +123,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
     })
 
     const index = this.plan.countries.findIndex(c => c.id == this.country.id);
-
+try{
     if (this.plan.countries[index + 1].startDate != null) {
       const start: Date = new Date(this.country.startDate);
       const end: Date = new Date(this.plan.countries[index + 1].startDate);
@@ -134,6 +134,9 @@ export class CountryComponent implements OnInit, AfterViewInit {
     else {
       return '';
     }
+  }catch{
+    return '';
+  }
   }
 
   openInfoDialog(): void {
@@ -172,6 +175,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
         this.data.createCity(data).subscribe({
           next: city => {
             this.toastr.success('City added successfully');
+            city.toDos = [];
             this.country?.cities.push(city);
           },
           error: e => {

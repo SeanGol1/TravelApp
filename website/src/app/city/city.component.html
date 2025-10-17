@@ -43,7 +43,7 @@
         <app-todo [todo]="todo"></app-todo>
         }
       </div>
-      <div *ngIf="city.toDos.length == 0 && data.isAdmin$| async">
+      <div *ngIf="!city.toDos.length && data.isAdmin$| async">
         <p>Click the <b>Expore</b> tab above to view popular attractions <br /><b>OR</b><br /> Click below to add your first
           ToDo item </p>
         <button mat-flat-button color="primary" (click)="openAddTodoDialog()">Add ToDo</button>

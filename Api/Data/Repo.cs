@@ -704,7 +704,7 @@ namespace TravelPlannerApp.Data
         {
             List<City> cities = context.City.Where(c => c.Country.Id == id).ToList();
             if (cities.Count() > 0)
-                return context.City.Where(c => c.Country.Id == id).OrderByDescending(c => c.SortOrder).First().SortOrder;
+                return context.City.Where(c => c.Country.Id == id).OrderByDescending(c => c.SortOrder).First().SortOrder + 1;
             else
             {
                 return 0;
