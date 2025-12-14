@@ -13,5 +13,6 @@ namespace TravelPlannerApp.Models
         public DateOnly? EndDate { get; set; }
         [DefaultValue(0)]
         public int SortOrder { get; set; } = 0;
+        //public string? CountryCode { get; set; }
     }
 }

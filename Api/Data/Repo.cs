@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using TravelPlannerApp.Dto;
-using TravelPlannerApp.Migrations;
+//using TravelPlannerApp.Migrations;
 using TravelPlannerApp.Models;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -508,10 +508,11 @@ namespace TravelPlannerApp.Data
             try
             {
                 plan = await context.Plan
+                    .Where(p => p.Id == id)
                     .Include(p => p.Countries)
                         .ThenInclude(c => c.Cities)
                             .ThenInclude(city => city.ToDos)
-                    .FirstOrDefaultAsync(p => p.Id == id);
+                    .FirstOrDefaultAsync();
             }
             catch(Exception e)
             {

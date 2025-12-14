@@ -101,6 +101,7 @@ getCountryinfoFromList(name:string){
       this.data.createCountry(data).subscribe({
         next: country => {
           this.toastr.success('Country added successfully');
+          country.cities = [];
           this.plan?.countries.push(country);
         },
         error: e => {

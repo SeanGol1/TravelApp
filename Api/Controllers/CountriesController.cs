@@ -32,16 +32,19 @@ namespace TravelPlannerApp.Controllers
 
         // GET: api/Countries/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Country>> GetCountry(int id)
+        public async Task<ActionResult<GetCountryDto>> GetCountry(int id)
         {
             var country = await _repo.GetCountrybyIdAsync(id);
+            
 
             if (country == null)
             {
                 return NotFound();
             }
-
-            return country;
+            
+            GetCountryDto returnDto = new GetCountryDto(country, await _repo.GetRefCountryByNameAsync(country.Name));
+            
+            return returnDto;
         }
 
         [HttpGet("refcountries")]
@@ -102,7 +105,7 @@ namespace TravelPlannerApp.Controllers
         // POST: api/Countries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Country>> PostCountry(CreateCountryDto dto)
+        public async Task<ActionResult<GetCountryDto>> PostCountry(CreateCountryDto dto)
         {
             Country country = new Country();
             country.Name = dto.Name;
@@ -111,7 +114,8 @@ namespace TravelPlannerApp.Controllers
             country.Plan = await _repo.GetPlanbyIdAsync(dto.PlanId);
             await _repo.PostCountryAsync(country);
 
-            return CreatedAtAction("GetCountry", new { id = country.Id }, country);
+            GetCountryDto returnDto = new GetCountryDto(country, await _repo.GetRefCountryByNameAsync(country.Name));
+            return CreatedAtAction("GetCountry", new { id = country.Id }, returnDto);
         }
 
 

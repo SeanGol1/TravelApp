@@ -10,7 +10,8 @@ builder.Services.AddDbContext<TravelPlannerAppContext>(options =>
 {
     //var connectionString = Environment.GetEnvironmentVariable("TRAVEL_PLANNER_AZ_CONNECTION");
     var connectionString = builder.Configuration.GetConnectionString("TravelPlannerAppContext");
-    options.UseSqlServer(connectionString ?? throw new InvalidOperationException("Connection string not found."));
+    //options.UseSqlServer(connectionString ?? throw new InvalidOperationException("Connection string not found."));
+    options.UseSqlite(builder.Configuration.GetConnectionString("TravelPlannerAppContext") ?? throw new InvalidOperationException("Connection string 'TravelPlannerAppContext' not found."));
 
 });
 

@@ -39,19 +39,29 @@ namespace TravelPlannerApp.Controllers
         {
             if (!await _context.Database.CanConnectAsync())
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database unavailable");
+                if (!await _context.Database.CanConnectAsync())
+                {
+                    return StatusCode(StatusCodes.Status503ServiceUnavailable, "Database unavailable");
+                }
             }
             Plan p = await _repo.GetPlanbyIdAsync(id);
-
+            
             if (p == null)
             {
                 return NotFound();
             }
 
+            List<GetCountryDto> fullCountryList = new List<GetCountryDto>();
+            foreach (var country in p.Countries)
+            {
+                fullCountryList.Add(new GetCountryDto(country, await _repo.GetRefCountryByNameAsync(country.Name)));
+            }
+
             var obj = new 
             {
                 plan = p,
-                userlist = await _repo.GetUserbyPlanAsync(p.Id)
+                userlist = await _repo.GetUserbyPlanAsync(p.Id),
+                countries = fullCountryList
             };
             return obj;
         }
