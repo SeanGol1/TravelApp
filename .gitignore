@@ -26,3 +26,4 @@ website/reports
 Api/.vs/TravelPlannerApp/DesignTimeBuild/.dtbcache.v2
 /Api/Migrations
 /Api/Migrations
+/Api/.vs

@@ -2,9 +2,12 @@
 
 [🌐 Live Website](https://backpackererapp.web.app/)
 
-Backpackerer is a full-stack travel itinerary planner designed for backpackers and long-term travelers. This app allows users to organize trips, manage destinations, and create day-by-day activity schedules — all from a clean, responsive interface.
+Backpackerer is a full-stack travel itinerary planner designed for backpackers and long-term travelers. This app allows users to organize trips, manage destinations, and create day-by-day activity schedules... all from a clean, responsive interface.
 
 ---
+
+![Build your backpacking route by entering all the countries you plan on visiting](/other/Backpackerer.png)
+
 
 ## 🔧 Tech Stack
 
@@ -136,7 +139,7 @@ backpackerer/
 
 - Use `launchSettings.json` to configure local environment variables for .NET.
 - Use Postman or Swagger UI to test endpoints before integrating with Angular.
-- Keep `config.json` and other secrets **out of version control** — use `.gitignore`.
+- Keep `config.json` and other secrets **out of version control** use `.gitignore`.
 
 ---
 
