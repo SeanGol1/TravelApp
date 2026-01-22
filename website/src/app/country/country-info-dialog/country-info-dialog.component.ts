@@ -10,6 +10,7 @@ import { LOCALE_ID } from '@angular/core';
 @Component({
   selector: 'app-country-info-dialog',
   templateUrl: './country-info-dialog.component.html',
+  standalone: false,
   styleUrls: ['./country-info-dialog.component.css'],
   providers:  [{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
 ]

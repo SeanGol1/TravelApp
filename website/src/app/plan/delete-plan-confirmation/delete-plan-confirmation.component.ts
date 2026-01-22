@@ -6,6 +6,7 @@ import { Plan } from 'src/app/models/plan';
 @Component({
   selector: 'app-delete-plan-confirmation',
   templateUrl: './delete-plan-confirmation.component.html',
+  standalone: false,
   styleUrl: './delete-plan-confirmation.component.css'
 })
 export class DeletePlanConfirmationComponent {

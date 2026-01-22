@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-plan-list-item',
   templateUrl: './plan-list-item.component.html',
+  standalone: false,
   styleUrl: './plan-list-item.component.css'
 })
 

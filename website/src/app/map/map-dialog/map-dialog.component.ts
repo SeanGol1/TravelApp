@@ -6,6 +6,7 @@ import { Plan } from 'src/app/models/plan';
 @Component({
   selector: 'app-map-dialog',
   templateUrl: './map-dialog.component.html',
+  standalone: false,
   styleUrl: './map-dialog.component.css'
 })
 export class MapDialogComponent {

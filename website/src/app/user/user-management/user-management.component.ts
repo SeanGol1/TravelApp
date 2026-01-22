@@ -8,6 +8,7 @@ import { PlanComponent } from 'src/app/plan/plan.component';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
+  standalone: false,
   styleUrl: './user-management.component.css'
 })
 export class UserManagementComponent {

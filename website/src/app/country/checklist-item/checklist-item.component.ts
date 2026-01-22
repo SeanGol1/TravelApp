@@ -5,6 +5,7 @@ import { ChecklistItem } from 'src/app/models/checklistitem';
 @Component({
   selector: 'app-checklist-item',
   templateUrl: './checklist-item.component.html',
+  standalone: false,
   styleUrl: './checklist-item.component.css'
 })
 export class ChecklistItemComponent {

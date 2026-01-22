@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
+  standalone: false,
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {

@@ -7,6 +7,7 @@ import { Country } from 'src/app/models/country';
 @Component({
   selector: 'app-checklist-dialog',
   templateUrl: './checklist-dialog.component.html',
+  standalone: false,
   styleUrl: './checklist-dialog.component.css'
 })
 

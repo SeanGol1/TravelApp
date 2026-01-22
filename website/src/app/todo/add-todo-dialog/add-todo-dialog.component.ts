@@ -7,6 +7,7 @@ import { Plan } from 'src/app/models/plan';
 @Component({
   selector: 'app-add-todo-dialog',
   templateUrl: './add-todo-dialog.component.html',
+  standalone: false,
   styleUrl: './add-todo-dialog.component.css'
 })
 export class AddTodoDialogComponent implements OnInit{

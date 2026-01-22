@@ -7,6 +7,7 @@ import { CountryDialogData } from 'src/app/models/country';
 @Component({
   selector: 'app-add-country-dialog',
   templateUrl: './add-country-dialog.component.html',
+  standalone: false,
   styleUrls: ['./add-country-dialog.component.css']
 })
 

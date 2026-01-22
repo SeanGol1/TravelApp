@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
+  standalone: false,
   styleUrls: ['./map.component.css']
 })
 

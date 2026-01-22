@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
+  standalone: false,
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {

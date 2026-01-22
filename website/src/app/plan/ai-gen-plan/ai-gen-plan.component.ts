@@ -9,6 +9,7 @@ import { AccountService } from 'src/app/account.service';
 @Component({
   selector: 'app-ai-gen-plan',
   templateUrl: './ai-gen-plan.component.html',
+  standalone: false,
   styleUrls: ['./ai-gen-plan.component.css'],
 })
 export class AiGenPlanComponent {

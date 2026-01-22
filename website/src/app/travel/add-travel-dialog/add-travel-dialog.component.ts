@@ -8,6 +8,7 @@ import { TravelType } from 'src/app/models/travel';
 @Component({
   selector: 'app-add-travel-dialog',
   templateUrl: './add-travel-dialog.component.html',
+  standalone: false,
   styleUrls: ['./add-travel-dialog.component.css']
 })
 export class AddTravelDialogComponent implements OnInit {

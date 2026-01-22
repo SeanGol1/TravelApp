@@ -12,6 +12,7 @@ import { DataService } from 'src/app/data.service';
 @Component({
   selector: 'app-add-city-dialog',
   templateUrl: './add-city-dialog.component.html',
+  standalone: false,
   styleUrls: ['./add-city-dialog.component.css']
 })
 

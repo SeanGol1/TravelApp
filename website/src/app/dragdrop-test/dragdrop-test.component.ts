@@ -12,6 +12,7 @@ import {
 @Component({
   selector: 'app-dragdrop-test',
   templateUrl: './dragdrop-test.component.html',
+  standalone: false,
   styleUrls: ['./dragdrop-test.component.css']
 })
 export class DragdropTestComponent {

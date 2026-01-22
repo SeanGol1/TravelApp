@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-google-redirect',
   templateUrl: './google-redirect.component.html',
+  standalone: false,
   styleUrls: ['./google-redirect.component.css']
 })
 

@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-add-user-plan',
   templateUrl: './add-user-plan.component.html',
+  standalone: false,
   styleUrl: './add-user-plan.component.css'
 })
 

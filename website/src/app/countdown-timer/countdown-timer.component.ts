@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, input }
 @Component({
   selector: 'app-countdown-timer',
   templateUrl: './countdown-timer.component.html',
+  standalone: false,
   styleUrl: './countdown-timer.component.css'
 })
 export class CountdownTimerComponent implements AfterViewInit , OnInit{

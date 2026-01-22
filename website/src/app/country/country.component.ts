@@ -23,6 +23,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
+  standalone: false,
   styleUrls: ['./country.component.css']
 })
 export class CountryComponent implements OnInit, AfterViewInit {

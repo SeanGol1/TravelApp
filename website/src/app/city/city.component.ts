@@ -24,6 +24,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-city',
   templateUrl: './city.component.html',
+  standalone: false,
   styleUrls: ['./city.component.css']
 })
 export class CityComponent implements AfterViewInit {

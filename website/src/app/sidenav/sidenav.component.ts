@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
+  standalone: false,
   styleUrl: './sidenav.component.css'
 })
 export class SidenavComponent implements AfterContentInit{

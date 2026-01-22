@@ -29,6 +29,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
+  standalone: false,
   styleUrls: ['./plan.component.css']
 })
 export class PlanComponent implements OnInit{

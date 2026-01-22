@@ -9,6 +9,7 @@ import { Plan } from 'src/app/models/plan';
 @Component({
   selector: 'app-city-info-dialog',
   templateUrl: './city-info-dialog.component.html',
+  standalone: false,
   styleUrl: './city-info-dialog.component.css',
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })

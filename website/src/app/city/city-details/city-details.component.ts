@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-city-details',
   templateUrl: './city-details.component.html',
+  standalone: false,
   styleUrls: ['./city-details.component.css']
 })
 export class CityDetailsComponent implements OnInit {
