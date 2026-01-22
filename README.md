@@ -6,11 +6,6 @@ Backpackerer is a full-stack travel itinerary planner designed for backpackers a
 
 ---
 
- ![Build your backpacking route by entering all the countries you plan on visiting](/other/Backpackerer.png)
- ![View details about each place your visiting, and add activities/To-Dos to each place](/other/Backpackerer_1.png)
- ![View a Map of the route you are taking](/other/Backpackerer_2.png)
-
-
 <p align="center">
   <img src="/other/Backpackerer.png" width="30%" />
   <img src="/other/Backpackerer_1.png" width="30%" />
