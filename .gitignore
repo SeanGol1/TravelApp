@@ -27,3 +27,7 @@ Api/.vs/TravelPlannerApp/DesignTimeBuild/.dtbcache.v2
 /Api/Migrations
 /Api/Migrations
 /Api/.vs
+Api/docker-compose.yml
+Api/.vs/TravelPlannerApp/DesignTimeBuild/.dtbcache.v2
+Api/.vs/TravelPlannerApp/v17/.futdcache.v2
+Api/.vs/TravelPlannerApp/v17/.suo

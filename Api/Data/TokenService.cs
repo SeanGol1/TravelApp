@@ -11,7 +11,8 @@ namespace TravelPlannerApp.Data
         private readonly SymmetricSecurityKey _key;
         public TokenService(IConfiguration config)
         {
-            var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY");
+            //var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY");
+            var tokenKey = config.GetValue<string>("TOKEN_KEY");
             if (string.IsNullOrEmpty(tokenKey))
             {
                 throw new InvalidOperationException("TOKEN_KEY environment variable is not set.");
